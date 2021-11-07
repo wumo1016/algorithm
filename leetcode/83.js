@@ -1,3 +1,5 @@
+/* 删除排序链表中重复元素 */
+
 function deleteDuplicates(head) {
   let cur = head
   while (cur) {
