@@ -19,7 +19,15 @@
   return head
 } */
 
-
+function reverseList(head) {
+  if (head == null || head.next == null) {
+    return head
+  }
+  const newHead = reverseList(head.next)
+  head.next.next = head
+  head.next = null
+  return newHead
+}
 
 const data1 = {
   val: 1,
@@ -39,7 +47,7 @@ const data1 = {
 
 console.log(JSON.stringify(reverseList(data1)))
 
-/* // 官方题解
+/* // 官方题解 - 迭代
 function reverseList(head) {
   let prev = null
   let cur = head
@@ -50,4 +58,15 @@ function reverseList(head) {
     cur = next
   }
   return prev
+} */
+
+/* // 官方题解 - 递归
+function reverseList(head) {
+  if (head == null || head.next == null) {
+    return head
+  }
+  const newHead = reverseList(head.next)
+  head.next.next = head
+  head.next = null
+  return newHead
 } */
