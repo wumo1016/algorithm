@@ -6,7 +6,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-/* function reverseList(head) {
+function reverseList(head) {
   if (!head) return head
   let cur = head.next
   head.next = null
@@ -17,16 +17,6 @@
     cur = next
   }
   return head
-} */
-
-function reverseList(head) {
-  if (head == null || head.next == null) {
-    return head
-  }
-  const newHead = reverseList(head.next)
-  head.next.next = head
-  head.next = null
-  return newHead
 }
 
 const data1 = {
