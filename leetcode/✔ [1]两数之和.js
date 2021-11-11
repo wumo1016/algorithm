@@ -9,9 +9,12 @@
  * @param {number} target
  * @return {number[]}
  */
+
+// 暴力破解
 function twoSum(nums, target) {
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = 0; j < nums.length; j++) {
+  const len = nums.length
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
       if (nums[i] + nums[j] === target && i !== j) {
         return [i, j]
       }
@@ -20,6 +23,20 @@ function twoSum(nums, target) {
   return res
 }
 
+// 哈希解法
+function twoSum1(nums, target) {
+  const map = new Map()
+  const len = nums.length
+  for (let i = 0; i < len; i++) {
+    const poor = target - nums[i]
+    if (map.has(poor) && map.get(poor) !== i) {
+      return [map.get(poor), i]
+    }
+    map.set(nums[i], i)
+  }
+}
+
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 console.log(twoSum(data, 8))
+console.log(twoSum1(data, 8))
