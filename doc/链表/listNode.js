@@ -54,11 +54,12 @@ class ListNode {
    * @param {*} index
    */
   removeNode(index) {
-    if (index === 1) {
+    if (index === 0) {
       this.head = this.head.next
+    } else if (index > this.size - 1) {
+      throw new Error(`index超过最大索引${this.size - 1}`)
     } else {
       const prev = this.getNode(index - 1)
-      console.log(prev)
       prev.next = prev.next?.next || null
     }
     this.size--
@@ -72,6 +73,6 @@ list.addNode(new Node('1'))
 list.addNode(new Node('2'))
 list.addNode(new Node('3'))
 
-list.removeNode(2)
+list.removeNode(0)
 
-console.log(JSON.stringify(list))
+console.log(JSON.stringify(list.head))
