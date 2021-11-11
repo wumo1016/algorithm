@@ -6,50 +6,72 @@ class Node {
   }
 }
 
-function ListNode() {
-  let head = new Node(1)
-  head.next = new Node(2)
-  head.next.next = new Node(3)
-  console.log(head)
-
-  let p = head,
-    ret = ''
-  while (p) {
-    ret += `${p.val} => `
-    p = p.next
+class ListNode {
+  constructor() {
+    this.head = null
+    this.size = 0
   }
-  ret += 'null'
-  console.log(ret)
+  /**
+   * @Author: wyb
+   * @Descripttion: 通过index获取节点
+   * @param {*} index
+   */
+  getNode(index) {
+    let cur = this.head
+    while (index--) {
+      cur = cur.next
+    }
+    return cur
+  }
+  /**
+   * @Author: wyb
+   * @Descripttion: 添加节点
+   * @param {*} node
+   * @param {*} index
+   */
+  addNode(node, index) {
+    if (index < 0) {
+      throw new Error('index必须为大于0的数字')
+    }
+    if (index > this.size + 1) {
+      throw new Error(`index超过最大长度${this.size + 1}`)
+    }
+    if (typeof index === 'undefined') index = this.size
+    if (index === this.size + 1) index = this.size
+    if (index == 0) {
+      node.next = this.head
+      this.head = node
+    } else {
+      const prev = this.getNode(index - 1)
+      node.next = prev.next
+      prev.next = node
+    }
+    this.size++
+  }
+  /**
+   * @Author: wyb
+   * @Descripttion: 移除节点
+   * @param {*} index
+   */
+  removeNode(index) {
+    if (index === 1) {
+      this.head = this.head.next
+    } else {
+      const prev = this.getNode(index - 1)
+      console.log(prev)
+      prev.next = prev.next?.next || null
+    }
+    this.size--
+  }
 }
-ListNode()
 
-// 双数组
-function DoubleArray() {
-  const data = [] // 数据
-  const next = [] // 指针
+// 创建一个链表实例
+const list = new ListNode()
+// 创建一个节点
+list.addNode(new Node('1'))
+list.addNode(new Node('2'))
+list.addNode(new Node('3'))
 
-  function addNode(index, p, value) {
-    next[p] = next[index]
-    next[index] = p
-    data[p] = value
-  }
+list.removeNode(2)
 
-  let head = 3
-  data[3] = 'a'
-
-  addNode(3, 5, 'b')
-  addNode(5, 7, 'c')
-  addNode(7, 2, 'd')
-  addNode(2, 1, 'e')
-  addNode(7, 4, 'f')
-
-  let p = head,
-    ret = ''
-  while (p) {
-    ret += `${data[p]} => `
-    p = next[p]
-  }
-  ret += null
-  console.log(ret)
-}
-DoubleArray()
+console.log(JSON.stringify(list))
