@@ -10,15 +10,10 @@
  * @return {number[]}
  */
 function twoSum(nums, target) {
-  let stop = false,
-    res = []
   for (let i = 0; i < nums.length; i++) {
-    if (stop) break
     for (let j = 0; j < nums.length; j++) {
       if (nums[i] + nums[j] === target && i !== j) {
-        stop = true
-        res = [i, j]
-        break
+        return [i, j]
       }
     }
   }
