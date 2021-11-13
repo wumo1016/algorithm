@@ -21,6 +21,22 @@ function hasCycle(head) {
   return false
 }
 
+// 快慢指针
+function hasCycle1(head) {
+  let cur = head
+  let next = head
+  let tag = false
+  while (cur) {
+    if (cur === next && tag) {
+      return true
+    }
+    if (!tag) tag = true
+    cur = cur.next
+    next = next?.next?.next
+  }
+  return false
+}
+
 class ListNode {
   constructor(val, next) {
     this.val = val
@@ -38,4 +54,6 @@ b.next = c
 c.next = d
 d.next = b
 
-console.log(hasCycle(a));
+// console.log(hasCycle(a))
+
+console.log(hasCycle1(a))
