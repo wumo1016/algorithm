@@ -12,12 +12,11 @@ function hasCycle(head) {
   let set = new Set()
   let cur = head
   while (cur) {
-    const next = cur.next
-    if (set.has(next)) {
+    if (set.has(cur)) {
       return true
     }
-    set.add(next)
-    cur = next
+    set.add(cur)
+    cur = cur.next
   }
   return false
 }
