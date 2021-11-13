@@ -23,16 +23,14 @@ function hasCycle(head) {
 
 // 快慢指针
 function hasCycle1(head) {
-  let cur = head
-  let next = head
-  let tag = false
-  while (cur) {
-    if (cur === next && tag) {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow === fast) {
       return true
     }
-    if (!tag) tag = true
-    cur = cur.next
-    next = next?.next?.next
   }
   return false
 }
@@ -54,6 +52,29 @@ b.next = c
 c.next = d
 d.next = b
 
-// console.log(hasCycle(a))
-
+console.log(hasCycle(a))
 console.log(hasCycle1(a))
+console.log(hasCycle2(a))
+console.log(hasCycle3(a))
+
+// 利用JSON.stringfy
+function hasCycle2(head) {
+  try {
+    JSON.stringify(head)
+  } catch {
+    return true
+  }
+  return false
+}
+// 标记法
+function hasCycle3(head) {
+  let cur = head
+  while (cur) {
+    if (cur.tag) {
+      return true
+    }
+    cur.tag = true
+    cur = cur.next
+  }
+  return false
+}
