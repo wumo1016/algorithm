@@ -9,14 +9,14 @@
  * @return {boolean}
  */
 function hasCycle(head) {
-  let map = new Set()
+  let set = new Set()
   let cur = head
   while (cur) {
     const next = cur.next
-    if (map.has(next)) {
+    if (set.has(next)) {
       return true
     }
-    map.add(next)
+    set.add(next)
     cur = next
   }
   return false
