@@ -11,33 +11,22 @@ class ListNode {
     this.head = null
     this.size = 0
   }
-  /**
-   * @Author: wyb
-   * @Descripttion: 通过index获取节点
-   * @param {*} index
-   */
+  rangeCheck(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error('索引越界')
+    }
+  }
   getNode(index) {
+    this.rangeCheck(index)
     let cur = this.head
     while (index--) {
       cur = cur.next
     }
     return cur
   }
-  /**
-   * @Author: wyb
-   * @Descripttion: 添加节点
-   * @param {*} node
-   * @param {*} index
-   */
   addNode(node, index) {
-    if (index < 0) {
-      throw new Error('index必须为大于0的数字')
-    }
-    if (index > this.size + 1) {
-      throw new Error(`index超过最大长度${this.size + 1}`)
-    }
+    this.rangeCheck(index)
     if (typeof index === 'undefined') index = this.size
-    if (index === this.size + 1) index = this.size
     if (index == 0) {
       node.next = this.head
       this.head = node
@@ -48,21 +37,25 @@ class ListNode {
     }
     this.size++
   }
-  /**
-   * @Author: wyb
-   * @Descripttion: 移除节点
-   * @param {*} index
-   */
   removeNode(index) {
+    this.rangeCheck(index)
     if (index === 0) {
       this.head = this.head.next
-    } else if (index > this.size - 1) {
-      throw new Error(`index超过最大索引${this.size - 1}`)
     } else {
       const prev = this.getNode(index - 1)
       prev.next = prev.next?.next || null
     }
     this.size--
+  }
+  print() {
+    let cur = this.head,
+      ret = ''
+    while (cur) {
+      ret += cur.val + '=>'
+      cur = cur.next
+    }
+    ret += 'null'
+    return ret
   }
 }
 
@@ -73,6 +66,6 @@ list.addNode(new Node('1'))
 list.addNode(new Node('2'))
 list.addNode(new Node('3'))
 
-list.removeNode(0)
+list.removeNode(2)
 
-console.log(JSON.stringify(list.head))
+console.log(list.print())
