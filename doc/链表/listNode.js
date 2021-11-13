@@ -55,7 +55,8 @@ class ListNode {
       cur = cur.next
     }
     ret += 'null'
-    return ret
+    
+    console.log(ret);
   }
 }
 
@@ -68,4 +69,4 @@ list.addNode(new Node('3'))
 
 list.removeNode(2)
 
-console.log(list.print())
+list.print()

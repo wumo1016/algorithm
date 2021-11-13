@@ -1,61 +1,37 @@
-/*
- * @Description: 
- * @Author: wyb
- * @LastEditors: wyb
- * @LastEditTime: 2021-11-10 21:06:43
- */
-// 节点 + 指针
-class Node {
-  constructor(val, next = null) {
-    this.val = val
-    this.next = next
+class ListNode {
+  constructor(head, value) {
+    this.data = [] // 结点集合
+    this.next = [] // 下一个索引集合
+    this.head = head // 头节点索引
+    this.data[head] = value
+  }
+  /**
+   * @Author: wyb
+   * @Descripttion:
+   * @param {*} index 节点所对应的索引
+   * @param {*} nextIndex 添加的节点值对应的索引
+   * @param {*} value 添加的节点对应的值
+   */
+  add(index, nextIndex, value) {
+    this.next[index] = nextIndex
+    this.data[nextIndex] = value
+  }
+  print() {
+    let cur = this.head,
+      ret = ''
+    while (cur) {
+      ret += this.data[cur] + '=>'
+      cur = this.next[cur]
+    }
+    ret += 'null'
+
+    console.log(ret)
   }
 }
 
-function ListNode() {
-  let head = new Node(1)
-  head.next = new Node(2)
-  head.next.next = new Node(3)
-  console.log(head)
+let list = new ListNode(1, 'A')
 
-  let p = head,
-    ret = ''
-  while (p) {
-    ret += `${p.val} => `
-    p = p.next
-  }
-  ret += 'null'
-  console.log(ret)
-}
-ListNode()
+list.add(1, 4, 'B')
+list.add(4, 6, 'C')
 
-// 双数组
-function DoubleArray() {
-  const data = [] // 数据
-  const next = [] // 指针
-
-  function addNode(index, p, value) {
-    next[p] = next[index]
-    next[index] = p
-    data[p] = value
-  }
-
-  let head = 3
-  data[3] = 'a'
-
-  addNode(3, 5, 'b')
-  addNode(5, 7, 'c')
-  addNode(7, 2, 'd')
-  addNode(2, 1, 'e')
-  addNode(7, 4, 'f')
-
-  let p = head,
-    ret = ''
-  while (p) {
-    ret += `${data[p]} => `
-    p = next[p]
-  }
-  ret += null
-  console.log(ret)
-}
-DoubleArray()
+list.print()
