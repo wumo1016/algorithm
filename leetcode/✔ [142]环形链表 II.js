@@ -42,3 +42,28 @@ b.next = a
 // d.next = b
 
 console.log(detectCycle(a))
+
+// 快慢指针
+function detectCycle1(head) {
+  if (head === null) return head
+  let slow = head
+  let fast = head
+  let isCycle = false
+  while (fast.next && fast.next.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow === fast) {
+      isCycle = true
+      break
+    }
+  }
+  if (!isCycle) {
+    return null
+  }
+  fast = head
+  while (slow !== fast) {
+    slow = slow.next
+    fast = fast.next
+  }
+  return slow
+}
