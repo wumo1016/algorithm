@@ -33,15 +33,16 @@ const b = new ListNode('b')
 const c = new ListNode('c')
 const d = new ListNode('d')
 
-a.next = b
-b.next = a
-
 // a.next = b
-// b.next = c
-// c.next = d
-// d.next = b
+// b.next = a
+
+a.next = b
+b.next = c
+c.next = d
+d.next = b
 
 console.log(detectCycle(a))
+console.log(detectCycle1(a))
 
 // 快慢指针
 function detectCycle1(head) {
