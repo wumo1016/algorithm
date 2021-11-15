@@ -23,6 +23,11 @@ function twoSum(nums, target) {
   return res
 }
 
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+console.log(twoSum(data, 8))
+console.log(twoSum1(data, 8))
+
 // 哈希解法
 function twoSum1(nums, target) {
   const map = new Map()
@@ -35,8 +40,3 @@ function twoSum1(nums, target) {
     map.set(nums[i], i)
   }
 }
-
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-console.log(twoSum(data, 8))
-console.log(twoSum1(data, 8))
