@@ -53,8 +53,9 @@ const data = {
   }
 }
 
-// console.log(JSON.stringify(removeNthFromEnd(data, 2)))
-console.log(JSON.stringify(removeNthFromEnd1(data, 1)))
+// console.log(JSON.stringify(removeNthFromEnd(data, 1)))
+// console.log(JSON.stringify(removeNthFromEnd1(data, 1)))
+console.log(JSON.stringify(removeNthFromEnd2(data, 1)))
 
 // 利用数组索引删除
 function removeNthFromEnd1(head, n) {
@@ -66,5 +67,21 @@ function removeNthFromEnd1(head, n) {
   }
   if (n === arr.length) return head.next
   arr[n].next = arr[n - 2] || null
+  return head
+}
+// 双指针
+function removeNthFromEnd2(head, n) {
+  let fast = head,
+    slow = head
+  for (let i = 0; i < n; i++) {
+    fast = fast.next
+  }
+  if (!fast) return head.next
+  while (fast.next) {
+    fast = fast.next
+    slow = slow.next
+  }
+  slow.next = slow.next.next
+
   return head
 }
