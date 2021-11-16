@@ -46,7 +46,7 @@ console.log(detectCycle1(a))
 
 // 快慢指针
 function detectCycle1(head) {
-  if (head === null) return head
+  if (!head) return head
   let slow = head
   let fast = head
   let isCycle = false
