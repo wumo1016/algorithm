@@ -14,13 +14,9 @@ function swapPairs(head) {
   while (cur && cur.next) {
     const next = cur.next
     const nextNext = next.next
-    next.next = cur
-    cur.next = nextNext
-    if (prev) {
-      prev.next = next
-    }
-    prev = cur
-    cur = nextNext
+    ;[next.next, cur.next] = [cur, nextNext]
+    if (prev) prev.next = next
+    ;[prev, cur] = [cur, nextNext]
   }
   return head
 }
