@@ -8,7 +8,7 @@
  */
 // 迭代
 function swapPairs(head) {
-  if (head == null || head.next == null) return head
+  if (!head || !head.next) return head
   let cur = head
   head = cur.next
   let prev = null
@@ -46,7 +46,7 @@ console.log(JSON.stringify(swapPairs1(data)))
 
 // 递归
 function swapPairs1(head) {
-  if (head == null || head.next == null) return head
+  if (!head || !head.next) return head
   const newHead = head.next
   head.next = swapPairs1(newHead.next)
   newHead.next = head
