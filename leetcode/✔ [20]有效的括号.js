@@ -16,7 +16,7 @@ function isValid(s) {
       '}': '{',
       ']': '['
     }
-
+  if (len % 2 === 1) return false
   for (let i = 0; i < len; i++) {
     const v = s[i]
     if (!map[v]) {
