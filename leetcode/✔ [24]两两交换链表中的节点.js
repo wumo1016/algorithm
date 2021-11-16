@@ -6,6 +6,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+// 迭代
 function swapPairs(head) {
   if (head == null || head.next == null) return head
   let cur = head
@@ -40,4 +41,14 @@ const data = {
   }
 }
 
-console.log(JSON.stringify(swapPairs(data)))
+// console.log(JSON.stringify(swapPairs(data)))
+console.log(JSON.stringify(swapPairs1(data)))
+
+// 递归
+function swapPairs1(head) {
+  if (head == null || head.next == null) return head
+  const newHead = head.next
+  head.next = swapPairs1(newHead.next)
+  newHead.next = head
+  return newHead
+}
