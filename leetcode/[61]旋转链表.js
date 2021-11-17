@@ -1,6 +1,7 @@
 /* 旋转链表
 - 给你一个链表的头节点 head 
 - 旋转链表，将链表每个节点向右移动 k 个位置
+- 0 <= k <= 2 * 10
 */
 
 /**
@@ -9,7 +10,7 @@
  * @return {ListNode}
  */
 function rotateRight(head, k) {
-  if (head == null || head.next == null) return head
+  if (k === 0 || !head || !head.next) return head
 
   let nodeNum = 0
   let cur = head
@@ -58,3 +59,32 @@ const data = {
 }
 
 console.log(JSON.stringify(rotateRight(data, 7)))
+
+function rotateRight1() {}
+
+var rotateRight = function (head, k) {
+  if (k === 0 || !head || !head.next) {
+    return head
+  }
+  let n = 1
+  let cur = head
+  while (cur.next) {
+    cur = cur.next
+    n++
+  }
+
+  let add = n - (k % n)
+  if (add === n) {
+    return head
+  }
+
+  cur.next = head
+  while (add) {
+    cur = cur.next
+    add--
+  }
+
+  const ret = cur.next
+  cur.next = null
+  return ret
+}
