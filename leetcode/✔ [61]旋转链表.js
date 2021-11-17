@@ -9,6 +9,7 @@
  * @param {number} k
  * @return {ListNode}
  */
+// 每次移动1个位置 移动k次
 function rotateRight(head, k) {
   if (k === 0 || !head || !head.next) return head
 
@@ -51,40 +52,41 @@ const data = {
       next: {
         val: 4,
         next: {
-          val: 5
+          val: 5,
+          next: {
+            val: 6
+          }
         }
       }
     }
   }
 }
 
-console.log(JSON.stringify(rotateRight(data, 7)))
+// console.log(JSON.stringify(rotateRight(data, 7)))
+console.log(JSON.stringify(rotateRight1(data, 7)))
 
-function rotateRight1() {}
-
-var rotateRight = function (head, k) {
-  if (k === 0 || !head || !head.next) {
-    return head
+// 利用环形链表
+function rotateRight1(head, k) {
+  if (!head || !head.next || k === 0) return head
+  // 获取最后一个节点
+  let last = head,
+    l = 1
+  while (last.next) {
+    last = last.next
+    l++
   }
-  let n = 1
-  let cur = head
-  while (cur.next) {
-    cur = cur.next
-    n++
+  // 向右滑移动n位 就得找到倒数第n-1位节点
+  // 1 2 3 4 5 6 比如向右移动1位 就是拿到5 head = 5.next  5.next = null
+  k = l - (k % l)
+  if (k === l) return head
+  // 连接成环
+  last.next = head
+  // 找到n-1位节点
+  let prev = head
+  while (--k) {
+    prev = prev.next
   }
-
-  let add = n - (k % n)
-  if (add === n) {
-    return head
-  }
-
-  cur.next = head
-  while (add) {
-    cur = cur.next
-    add--
-  }
-
-  const ret = cur.next
-  cur.next = null
-  return ret
+  const newHead = prev.next
+  prev.next = null
+  return newHead
 }
