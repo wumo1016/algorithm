@@ -7,20 +7,21 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+// 迭代
 function reverseList(head) {
-  if (!head) return head
-  let cur = head.next
-  head.next = null
+  if (!head || !head.next) return head
+  let cur = head
+  let prev = null
   while (cur) {
     const next = cur.next
-    cur.next = head
-    head = cur
+    cur.next = prev
+    prev = cur
     cur = next
   }
-  return head
+  return prev
 }
 
-const data1 = {
+const data = {
   val: 1,
   next: {
     val: 2,
@@ -29,30 +30,21 @@ const data1 = {
       next: {
         val: 4,
         next: {
-          val: 5
+          val: 5,
+          next: {
+            val: 6
+          }
         }
       }
     }
   }
 }
 
-console.log(JSON.stringify(reverseList(data1)))
+// console.log(JSON.stringify(reverseList(data)))
+console.log(JSON.stringify(reverseList1(data)))
 
-/* // 官方题解 - 迭代
-function reverseList(head) {
-  let prev = null
-  let cur = head
-  while (cur) {
-    const next = cur.next
-    cur.next = prev
-    prev = cur
-    cur = next
-  }
-  return prev
-} */
-
-/* // 官方题解 - 递归
-function reverseList(head) {
+// 递归
+function reverseList1(head) {
   if (head == null || head.next == null) {
     return head
   }
@@ -60,4 +52,4 @@ function reverseList(head) {
   head.next.next = head
   head.next = null
   return newHead
-} */
+}
