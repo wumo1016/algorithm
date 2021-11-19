@@ -3,7 +3,7 @@
 - 其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点
 - 返回反转后的链表
 */
-const data1 = {
+const data = {
   val: 1,
   next: {
     val: 2,
@@ -12,7 +12,10 @@ const data1 = {
       next: {
         val: 4,
         next: {
-          val: 5
+          val: 5,
+          next: {
+            val: 6
+          }
         }
       }
     }
@@ -25,6 +28,7 @@ const data1 = {
  * @param {number} right
  * @return {ListNode}
  */
+// 暴力拼接 先拿到不需要反转的前段的末尾和后端的开头 再拿到需要的反转的链表进行反转 最后再拼接 前段+反转后链表+后段
 function reverseBetween(head, left, right) {
   if (!head) return head
   if (left === right) return head
@@ -92,7 +96,51 @@ function reverseBetween(head, left, right) {
   return newHead
 }
 
-console.log(str(reverseBetween(data1, 4, 5)))
+// console.log(str(reverseBetween(data, 4, 5)))
+// console.log(str(reverseBetween1(data, 1, 2)))
+// console.log(str(reverseBetween1(data, 2, 5)))
+// console.log(str(reverseBetween1(data, 5, 6)))
+console.log(str(reverseBetween1(data, 1, 6)))
+
+// 只进行一次循环 动态反转拼接
+function reverseBetween1(head, left, right) {
+  if (!head || !head.next) return head
+  if (left === right) return head
+  let prev = null,
+    cur = head,
+    index = 1,
+    fEnd, // 记录不需要反转的第一段 末尾节点
+    rStart, // 记录反转后的 头节点
+    rEnd, // 记录反转后的 尾节点
+    newHead = head
+  while (cur) {
+    const next = cur.next
+    if (index === left) {
+      fEnd = prev
+      rEnd = cur
+      prev && (prev.next = null)
+      cur.next = null
+    } else if (index > left && index <= right) {
+      cur.next = prev
+      if (index === right) {
+        rStart = cur
+        if (next) {
+          rEnd.next = next
+        }
+      }
+    }
+    if (index > right || !next) {
+      fEnd && (fEnd.next = rStart)
+      if (left === 1) {
+        newHead = rStart
+      }
+    }
+    prev = cur
+    cur = next
+    index++
+  }
+  return newHead
+}
 
 function str(s) {
   return JSON.stringify(s)
