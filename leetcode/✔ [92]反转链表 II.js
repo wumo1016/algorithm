@@ -22,6 +22,13 @@ const data = {
   }
 }
 
+class ListNode {
+  constructor(val, next = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
 /**
  * @param {ListNode} head
  * @param {number} left
@@ -100,7 +107,9 @@ function reverseBetween(head, left, right) {
 // console.log(str(reverseBetween1(data, 1, 2)))
 // console.log(str(reverseBetween1(data, 2, 5)))
 // console.log(str(reverseBetween1(data, 5, 6)))
-console.log(str(reverseBetween1(data, 1, 6)))
+// console.log(str(reverseBetween1(data, 1, 6)))
+// console.log(str(reverseBetween2(data, 1, 6)))
+console.log(str(reverseBetween3(data, 2, 5)))
 
 // 只进行一次循环 动态反转拼接
 function reverseBetween1(head, left, right) {
@@ -133,12 +142,84 @@ function reverseBetween1(head, left, right) {
       } else {
         fEnd.next = rStart
       }
+      break
     }
     prev = cur
     cur = next
     index++
   }
   return newHead
+}
+
+// 穿针引线
+function reverseBetween2(head, left, right) {
+  if (!head || !head.next) return head
+  if (left === right) return head
+  const reverseLinkedList = head => {
+    let pre = null
+    let cur = head
+
+    while (cur) {
+      const next = cur.next
+      cur.next = pre
+      pre = cur
+      cur = next
+    }
+  }
+
+  let dummyHead = new ListNode(-1)
+  dummyHead.next = head
+
+  // 获取不需要反转前一段的尾部节点
+  let fEnd = dummyHead
+  for (let i = 0; i < left - 1; i++) {
+    fEnd = fEnd.next
+  }
+
+  // 获取需要反转的链表 创建一个子链表
+  let sStart = fEnd.next // 子链表的头节点
+  let sEnd = fEnd // 子链表的尾节点
+  for (let i = 0; i < right - left + 1; i++) {
+    sEnd = sEnd.next
+  }
+
+  // 获取不需要反转后一段的开始节点
+  let lStart = sEnd.next
+
+  // 切断前后链接
+  fEnd.next = null
+  sEnd.next = null
+
+  // 反转子链表
+  reverseLinkedList(sStart)
+
+  // 拼接
+  fEnd.next = sEnd
+  sStart.next = lStart
+
+  return dummyHead.next
+}
+
+// 头插法
+function reverseBetween3(head, left, right) {
+  if (!head || !head.next) return head
+  if (left === right) return head
+  const dummy_node = new ListNode(-1)
+  dummy_node.next = head
+
+  let pre = dummy_node
+  for (let i = 0; i < left - 1; i++) {
+    pre = pre.next
+  }
+
+  let cur = pre.next
+  for (let i = 0; i < right - left; i++) {
+    const next = cur.next
+    cur.next = next.next
+    next.next = pre.next
+    pre.next = next
+  }
+  return dummy_node.next
 }
 
 function str(s) {
