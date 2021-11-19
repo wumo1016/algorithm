@@ -20,7 +20,7 @@ class ListNode {
 function addTwoNumbers(l1, l2) {
   let [c1, c2, back, head, cur] = [l1, l2, 0]
   while (c1 || c2) {
-    let total = (c1?.val || 0) + (c2?.val || 0)
+    let total = (c1 ? c1.val : 0) + (c2 ? c2.val : 0)
     if (back) total++
     let next
     if (total >= 10) {
@@ -36,8 +36,8 @@ function addTwoNumbers(l1, l2) {
       head = next
     }
     cur = next
-    c1 = c1?.next
-    c2 = c2?.next
+    c1 = c1 ? c1.next : c1
+    c2 = c2 ? c2.next : c2
   }
   if (back) {
     cur.next = new ListNode(1)
