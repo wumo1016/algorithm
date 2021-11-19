@@ -118,21 +118,20 @@ function reverseBetween1(head, left, right) {
     if (index === left) {
       fEnd = prev
       rEnd = cur
-      prev && (prev.next = null)
+      prev && (prev.next = null) // 处理 left = 1
       cur.next = null
     } else if (index > left && index <= right) {
       cur.next = prev
       if (index === right) {
         rStart = cur
-        if (next) {
-          rEnd.next = next
-        }
+        next && (rEnd.next = next) // 处理 right = size
       }
     }
     if (index > right || !next) {
-      fEnd && (fEnd.next = rStart)
       if (left === 1) {
         newHead = rStart
+      } else {
+        fEnd.next = rStart
       }
     }
     prev = cur
