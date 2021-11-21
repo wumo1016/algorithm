@@ -22,9 +22,7 @@ var MyCircularQueue = function (k) {
  * @return {boolean}
  */
 MyCircularQueue.prototype.enQueue = function (value) {
-  if (this.list.length >= this.limit) {
-    return false
-  }
+  if (this.isFull()) return false
   this.list.unshift(value)
   return true
 }
@@ -33,35 +31,35 @@ MyCircularQueue.prototype.enQueue = function (value) {
  * @return {boolean}
  */
 MyCircularQueue.prototype.deQueue = function () {
-  return this.list.length > 0 ? !!this.list.pop() || true : false
+  return this.isEmpty() ? false : !!this.list.pop() || true
 }
 
 /**
  * @return {number}
  */
 MyCircularQueue.prototype.Front = function () {
-  return this.list.length > 0 ? this.list[this.list.length - 1] : -1
+  return this.isEmpty() ? -1 : this.list[this.list.length - 1]
 }
 
 /**
  * @return {number}
  */
 MyCircularQueue.prototype.Rear = function () {
-  return this.list.length > 0 ? this.list[0] : -1
+  return this.isEmpty() ? -1 : this.list[0]
 }
 
 /**
  * @return {boolean}
  */
 MyCircularQueue.prototype.isEmpty = function () {
-  return this.list.length === 0
+  return this.list.length <= 0
 }
 
 /**
  * @return {boolean}
  */
 MyCircularQueue.prototype.isFull = function () {
-  return this.list.length === this.limit
+  return this.list.length >= this.limit
 }
 
 const circularQueue = new MyCircularQueue(3) // 设置长度为 3
