@@ -1,7 +1,7 @@
 /* 分隔链表
 - 给你一个链表的头节点 head 和一个特定值 x
 - 使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前
-- 你应当 保留 两个分区中每个节点的初始相对位置
+- 保留两个分区中每个节点的初始相对位置
 - 200 <= x <= 200
 */
 
@@ -22,7 +22,6 @@ function partition(head, x) {
   while (cur) {
     const next = cur.next,
       val = cur.val
-    cur.next = null
     if (val < x) {
       left.next = cur
       left = cur
@@ -32,6 +31,7 @@ function partition(head, x) {
     }
     cur = next
   }
+  right.next = null
   left.next = righthead.next
   return dummyHead.next
 }
