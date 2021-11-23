@@ -15,20 +15,18 @@ function ListNode(val, next) {
  * @return {ListNode}
  */
 function mergeTwoLists(l1, l2) {
-  let [cur1, cur2, head] = [l1, l2, new ListNode(0)]
-  let cur = head,
-    dealNumber = node => (node && typeof node.val === 'number' ? node.val : 101)
-  while (cur1 || cur2) {
-    const [val1, val2] = [dealNumber(cur1), dealNumber(cur2)]
-    if (val1 <= val2) {
-      cur.next = cur1
-      cur1 = cur1.next
-    } else if (val2 < val1) {
-      cur.next = cur2
-      cur2 = cur2.next
+  let cur = (head = new ListNode(0))
+  while (l1 && l2) {
+    if (l1.val <= l2.val) {
+      cur.next = l1
+      l1 = l1.next
+    } else {
+      cur.next = l2
+      l2 = l2.next
     }
     cur = cur.next
   }
+  cur.next = l1 || l2
   return head.next
 }
 
