@@ -23,12 +23,11 @@ function mergeTwoLists(l1, l2) {
     if (val1 <= val2) {
       cur.next = cur1
       cur1 = cur1.next
-      cur = cur.next
     } else if (val2 < val1) {
       cur.next = cur2
       cur2 = cur2.next
-      cur = cur.next
     }
+    cur = cur.next
   }
   return head.next
 }
