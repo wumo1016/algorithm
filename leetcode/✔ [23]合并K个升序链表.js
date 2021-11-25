@@ -53,7 +53,10 @@ const data2 = {
     next: {
       val: 4,
       next: {
-        val: 5
+        val: 5,
+        next: {
+          val: 6
+        }
       }
     }
   }
@@ -64,15 +67,23 @@ const data3 = {
   next: {
     val: 3,
     next: {
-      val: 5,
-      next: {
-        val: 5,
-        next: {
-          val: 7
-        }
-      }
+      val: 5
     }
   }
 }
 
-console.log(JSON.stringify(mergeKLists([data1, data2, data3])))
+// console.log(JSON.stringify(mergeKLists([data1, data2, data3])))
+console.log(JSON.stringify(mergeKLists1([data1, data2, data3])))
+
+// 将所有链表节点都放在一个数组里 然后排好序 最后拼接新链表返回
+function mergeKLists1(lists) {
+  return lists
+    .reduce((p, n) => {
+      while (n) {
+        p.push(n), (n = n.next)
+      }
+      return p
+    }, [])
+    .sort((a, b) => a.val - b.val)
+    .reduceRight((p, n) => ((n.next = p), (p = n), p), null)
+}
