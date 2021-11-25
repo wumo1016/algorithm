@@ -17,17 +17,17 @@ function ListNode(val, next) {
  * @return {ListNode}
  */
 function getIntersectionNode(headA, headB) {
-  let [cur1, cur2, map] = [headA, headB, new WeakMap()]
+  let [cur1, cur2, map] = [headA, headB, new Set()]
   while (cur1 || cur2) {
     if (cur1 === cur2) return cur1
     if (cur1) {
-      if (map.has(cur1)) return map.get(cur1)
-      map.set(cur1, cur1)
+      if (map.has(cur1)) return cur1
+      map.add(cur1)
       cur1 = cur1.next
     }
     if (cur2) {
-      if (map.has(cur2)) return map.get(cur2)
-      map.set(cur2, cur2)
+      if (map.has(cur2)) return cur2
+      map.add(cur2)
       cur2 = cur2.next
     }
   }
