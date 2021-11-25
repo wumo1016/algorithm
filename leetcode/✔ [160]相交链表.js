@@ -59,4 +59,39 @@ const data2 = {
   }
 }
 
-console.log(JSON.stringify(getIntersectionNode(data1, data2)))
+// console.log(JSON.stringify(getIntersectionNode(data1, data2)))
+console.log(JSON.stringify(getIntersectionNode1(data1, data2)))
+
+// 先遍历一个链表 都存起来 然后遍历另一个链表 寻找重复项
+function getIntersectionNode1(headA, headB) {
+  const visited = new Set()
+  let temp = headA
+  while (temp !== null) {
+    visited.add(temp)
+    temp = temp.next
+  }
+  temp = headB
+  while (temp !== null) {
+    if (visited.has(temp)) {
+      return temp
+    }
+    temp = temp.next
+  }
+  return null
+}
+
+// A的长度为m B的长度为n
+// 相交的部分有c个节点 如果 m-c = n-c 即同时到达
+// 否则 m+n===n+m 两者一定同时到达离终点c处
+function getIntersectionNode2(headA, headB) {
+  if (headA === null || headB === null) {
+    return null
+  }
+  let pA = headA,
+    pB = headB
+  while (pA !== pB) {
+    pA = pA === null ? headB : pA.next
+    pB = pB === null ? headA : pB.next
+  }
+  return pA
+}
