@@ -42,9 +42,7 @@ function isPalindrome(head) {
   }
   if (fast) stack.push(slow.val)
   while (slow) {
-    if (stack.pop() !== slow.val) {
-      return false
-    }
+    if (stack.pop() !== slow.val) return false
     slow = slow.next
   }
   return true
