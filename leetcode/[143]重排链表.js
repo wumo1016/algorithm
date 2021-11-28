@@ -16,7 +16,7 @@ function ListNode(val, next) {
 // 快慢指针 + 反转
 function reorderList(head) {
   if (!head || !head.next) return head
-  let [fast, slow, cur] = [head, head, head]
+  let [fast, slow] = [head, head]
   while (fast && fast.next) {
     fast = fast.next.next
     slow = slow.next
@@ -28,16 +28,16 @@ function reorderList(head) {
     head.next = null
     return newHead
   }
-  slow = reverse(slow)
-  while (slow && cur.next) {
-    const next = cur.next
+  ;[fast, slow] = [head, reverse(slow)]
+  while (slow && fast.next) {
+    const next = fast.next
     const slowNext = slow.next
     slow.next = next
-    cur.next = slow
-    cur = next
+    fast.next = slow
+    fast = next
     slow = slowNext
   }
-  cur.next = null
+  fast.next = null
   return head
 }
 
