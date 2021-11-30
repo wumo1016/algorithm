@@ -38,14 +38,30 @@ const data = {
       next: {
         val: 4,
         next: {
-          val: 5,
-          next: {
-            val: 6
-          }
+          val: 5
         }
       }
     }
   }
 }
 
-console.log(JSON.stringify(oddEvenList(data)))
+// console.log(JSON.stringify(oddEvenList(data)))
+console.log(JSON.stringify(oddEvenList1(data)))
+
+function oddEvenList1(head) {
+  if (!head || !head.next || !head.next.next) return head
+  let [odd, acc, fast] = [head, head.next, head.next.next]
+  while (fast) {
+    const next = fast.next
+
+    fast.next = odd.next // 3 => 2
+    odd.next = fast // 1 => 3
+    acc.next = next // 2 => 4
+
+    odd = odd.next
+    acc = next
+
+    fast = next && next.next
+  }
+  return head
+}
