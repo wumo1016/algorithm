@@ -48,20 +48,17 @@ function decodeString1(s) {
       continue
     }
     // 拼接[]中的字符串
-    let str = ''
-    let last
+    let [str, last] = ['']
     while ((last = stack.pop()) !== '[') {
       str = last + str
     }
     // 拼接数字
-    let num = 0,
-      index = 0
+    let [num, index] = [0, 0]
     while (!isNaN(stack[stack.length - 1])) {
       num = Number(stack.pop()) * Math.pow(10, index++) + num
     }
     // 将从需要重复的数据 替换成真实的数据
-    str = str.repeat(num)
-    stack.push(str)
+    stack.push(str.repeat(num))
   }
   return stack.join('')
 }
