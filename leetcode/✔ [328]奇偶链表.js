@@ -66,34 +66,3 @@ function oddEvenList1(head) {
   }
   return head
 }
-
-/* 
-奇数指针head从链头向尾每次移动两格。p暂存两格后的第3格
-head.next的next指向p.next。head的next指向p。head = p移动两格
-迭代后，head指向奇数位最后节点，已不是最初head
-需n把偶数位第一节点，最初head.next暂存。与head相连
-需m把奇数位第一节点，最初head暂存。返回
-*/
-var oddEvenList = function (head, m = head) {
-  if (head) {
-    var n = head.next
-    while (head.next && head.next.next) {
-      var p = head.next.next
-      head.next.next = p.next
-      head = head.next = p
-    }
-    head.next = n
-  }
-  return m
-}
-
-
-var oddEvenList = function (head, n = head ? head.next : null, p) {
-  return (
-    head &&
-      (head.next && (p = head.next.next)
-        ? ((head.next.next = p.next), oddEvenList((head.next = p), n))
-        : (head.next = n)),
-    head
-  )
-}
