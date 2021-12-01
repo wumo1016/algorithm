@@ -11,90 +11,30 @@
  * @param {string} s
  * @return {string}
  */
-function decodeString1(s) {
-  const genStr = ({ val, number }) => Array(number).fill(val).join('')
-  let [res, stack, len, has, isNumber, loading, total] = [
-    '',
-    [],
-    s.length,
-    false,
-    false,
-    false,
-    ''
-  ]
+function decodeString(s) {
+  let [num, res, numStack, strStack, len] = [0, '', [], [], s.length]
   for (let i = 0; i < len; i++) {
     const val = s[i]
     if (!isNaN(val)) {
-      if (isNumber) {
-        stack[stack.length - 1].number = Number(
-          stack[stack.length - 1].number + val
-        )
-      } else {
-        stack.push({
-          number: Number(val),
-          val: ''
-        })
-      }
-      isNumber = true
+      num = num * 10 + Number(val)
+    } else if (val === '[') {
+      strStack.push(res)
+      res = ''
+      numStack.push(num)
+      num = 0
+    } else if (val === ']') {
+      res = strStack.pop() + res.repeat(numStack.pop())
     } else {
-      isNumber = false
-      if (val === ']') {
-        const last = stack.pop()
-        if (has) {
-          last.val += res
-        } else {
-          total += res
-        }
-        res = genStr(last)
-        has = stack.length > 0
-        loading = false
-      } else if (val === '[') {
-        loading = true
-      } else {
-        if (stack.length > 0) {
-          stack[stack.length - 1].val += val
-        } else {
-          res += val
-        }
-      }
+      res += val
     }
   }
-  total += res
-  return total
+  return res
 }
 
-function decodeString(s) {
-  const genStr = ({ val, number }) => Array(number).fill(val).join('')
-  function loop(s) {
-    let str = '',
-      len = s.length,
-      number = 0,
-      isNumber = false
-    for (let i = 0; i < len; i++) {
-      const val = s[i]
-      if (!isNaN(val)) {
-        number = isNumber ? Number(number + val) : Number(val)
-        isNumber = true
-      } else {
-        isNumber = false
-        if (val === ']') {
-          return genStr({ val: str, number })
-        } else if (val === '[') {
-          str += loop(s.slice(i + 1))
-        } else {
-          str += val
-        }
-      }
-    }
-    return str
-  }
-  return loop(s)
-}
-
-console.log(decodeString('3[a]2[b]'))
+// console.log(decodeString('a2[b]2[c]d'))
 // console.log(decodeString('3[a2[c]]'))
 // console.log(decodeString('abc3[cd]xyz'))
 // console.log(decodeString('10[leetcode]'))
 // console.log(decodeString('3[z]2[d2[a3[c]]]er'))
-// console.log(decodeString('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
-// console.log('zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef')
+console.log(decodeString('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
+console.log('zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef')
