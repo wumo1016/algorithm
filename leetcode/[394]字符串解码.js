@@ -31,10 +31,37 @@ function decodeString(s) {
   return res
 }
 
-// console.log(decodeString('a2[b]2[c]d'))
+// console.log(decodeString1('a2[bc]2[de]f'))
 // console.log(decodeString('3[a2[c]]'))
 // console.log(decodeString('abc3[cd]xyz'))
 // console.log(decodeString('10[leetcode]'))
 // console.log(decodeString('3[z]2[d2[a3[c]]]er'))
 console.log(decodeString('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
 console.log('zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef')
+
+function decodeString1(s) {
+  let [stack, len] = [[], s.length]
+  for (let i = 0; i < len; i++) {
+    const val = s[i]
+    if (val !== ']') {
+      stack.push(val)
+      continue
+    }
+    // 拼接[]中的字符串
+    let str = ''
+    let last
+    while ((last = stack.pop()) !== '[') {
+      str = last + str
+    }
+    // 拼接数字
+    let num = 0,
+      index = 0
+    while (!isNaN(stack[stack.length - 1])) {
+      num = Number(stack.pop()) * Math.pow(10, index++) + num
+    }
+    // 将从需要重复的数据 替换成真实的数据
+    str = str.repeat(num)
+    stack.push(str)
+  }
+  return stack.join('')
+}
