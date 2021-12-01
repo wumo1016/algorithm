@@ -36,9 +36,9 @@ function decodeString(s) {
 // console.log(decodeString('abc3[cd]xyz'))
 // console.log(decodeString('10[leetcode]'))
 // console.log(decodeString('3[z]2[d2[a3[c]]]er'))
-console.log(decodeString('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
+console.log(decodeString2('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
 console.log('zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef')
-
+// 将所有字符添加进栈 遇到 ] 处理一次重复 然后替换成真实字符串
 function decodeString1(s) {
   let [stack, len] = [[], s.length]
   for (let i = 0; i < len; i++) {
@@ -53,12 +53,26 @@ function decodeString1(s) {
       str = last + str
     }
     // 拼接数字
-    let [num, index] = [0, 0]
+    let num = ''
     while (!isNaN(stack[stack.length - 1])) {
-      num = Number(stack.pop()) * Math.pow(10, index++) + num
+      num = stack.pop() + num
     }
     // 将从需要重复的数据 替换成真实的数据
     stack.push(str.repeat(num))
   }
   return stack.join('')
+}
+// 正则
+function decodeString2(s) {
+  let reg = /(\d+)\[([a-zA-Z]+)\]/g
+  while (s.indexOf('[') > 0) {
+    s = s.replace(reg, (_, ...[num, str]) => {
+      let result = ''
+      for (let i = 0; i < num - 0; i++) {
+        result += str
+      }
+      return result
+    })
+  }
+  return s
 }
