@@ -32,11 +32,11 @@ function decodeString(s) {
 }
 
 // console.log(decodeString1('a2[bc]2[de]f'))
-// console.log(decodeString('3[a2[c]]'))
+// console.log(decodeString3('3[a2[c]]'))
 // console.log(decodeString('abc3[cd]xyz'))
 // console.log(decodeString('10[leetcode]'))
 // console.log(decodeString('3[z]2[d2[a3[c]]]er'))
-console.log(decodeString2('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
+console.log(decodeString3('3[z]2[2[y]pq4[2[jk]e1[f]]]ef'))
 console.log('zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef')
 // 将所有字符添加进栈 遇到 ] 处理一次重复 然后替换成真实字符串
 function decodeString1(s) {
@@ -62,17 +62,10 @@ function decodeString1(s) {
   }
   return stack.join('')
 }
-// 正则
-function decodeString2(s) {
-  let reg = /(\d+)\[([a-zA-Z]+)\]/g
-  while (s.indexOf('[') > 0) {
-    s = s.replace(reg, (_, ...[num, str]) => {
-      let result = ''
-      for (let i = 0; i < num - 0; i++) {
-        result += str
-      }
-      return result
-    })
+// 正则 从最里面开始替换
+function decodeString3(s) {
+  while (s.includes('[')) {
+    s = s.replace(/(\d+)\[([a-zA-Z]+)\]/g, (_, num, str) => str.repeat(num))
   }
   return s
 }
