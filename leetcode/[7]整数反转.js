@@ -11,9 +11,29 @@
 function reverse(x, pos = x < 0 ? '-' : '') {
   x = Number(pos + String(Math.abs(x)).split('').reverse().join(''))
   const max = Math.pow(2, 31)
-  if (x < -max || x > max) return 0
-  return x
+  return x < -max || x > max ? 0 : x
 }
 
 console.log(reverse(123))
 console.log(reverse(-123))
+console.log(reverse1(-123))
+
+// ~ 按位非
+function reverse1(x) {
+  let [res, max] = [0, Math.pow(2, 31)]
+  while (x) {
+    res = res * 10 + (x % 10)
+    if (res > max - 1 || res < max) return 0
+    x = ~~(x / 10) // 一次取反 去除小数位 两次取反返回整数位
+  }
+  return res
+}
+// 位运算 如果超过32位 位运算后不等于自己(会去除多余的位)
+function reverse2(x) {
+  let result = 0
+  while (x !== 0) {
+    result = result * 10 + (x % 10)
+    x = (x / 10) | 0
+  }
+  return (result | 0) === result ? result : 0
+}
