@@ -26,8 +26,23 @@ function isPalindrome(x) {
   )
 }
 
-console.log(isPalindrome(11))
-console.log(isPalindrome(101))
-console.log(isPalindrome(-101))
-console.log(isPalindrome(20211202))
-console.log(isPalindrome(20211201))
+console.log(isPalindrome(1000030001)) // false
+console.log(isPalindrome(10)) // false
+console.log(isPalindrome(11)) // true
+console.log(isPalindrome(101)) // true
+console.log(isPalindrome(-101)) // false
+console.log(isPalindrome(20211202)) // true
+console.log(isPalindrome(20211201)) // false
+// 双指针对比
+function isPalindrome(x) {
+  if (x < 0) return false
+  if (x < 10) return true
+  x = String(x)
+  let [start, end] = [0, x.length - 1]
+  while (end - start > 0) {
+    if (x[start] !== x[end]) return false
+    start++
+    end--
+  }
+  return true
+}
