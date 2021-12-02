@@ -33,6 +33,7 @@ console.log(isPalindrome(101)) // true
 console.log(isPalindrome(-101)) // false
 console.log(isPalindrome(20211202)) // true
 console.log(isPalindrome(20211201)) // false
+
 // 双指针对比
 function isPalindrome(x) {
   if (x < 0) return false
@@ -46,3 +47,6 @@ function isPalindrome(x) {
   }
   return true
 }
+
+// 迭代 每次将数字除10取余 然后作为新数字的最高位 最后进行比对
+// 迭代 每次取出(并删除)字符串的首位和末位进行对比
