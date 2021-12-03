@@ -18,7 +18,7 @@ function ListNode(val, next) {
  * @param {number} k
  * @return {ListNode[]}
  */
-function splitListToParts(head, k) {
+function splitListToParts1(head, k) {
   let [fast, len, res] = [head, 0, []]
   while (fast && fast.next) {
     fast = fast.next.next
@@ -35,7 +35,7 @@ function splitListToParts(head, k) {
     }
     return res
   }
-  // 包含小数点
+
   let num = len / k
   if (String(num).includes('.')) {
     let m = Math.ceil(num)
@@ -155,4 +155,51 @@ const data = {
   }
 }
 
-console.log(JSON.stringify(splitListToParts(data2, 4)))
+// console.log(JSON.stringify(splitListToParts(data1, 11)))
+// console.log(splitListToParts(data, 2))
+// console.log(splitListToParts(data1, 4))
+console.log(splitListToParts(data2, 3))
+
+// 利用数组先将所有节点储存起来
+function splitListToParts(head, k) {
+  let [queue, cur] = [[], head]
+  // 利用队列将节点储存起来
+  while (cur) {
+    queue.push(new ListNode(cur.val))
+    cur = cur.next
+  }
+  // 计算链表长度
+  const len = queue.length
+  // k大于链表长度
+  const diff = k - len
+  if (diff >= 0) {
+    return queue.concat(Array(diff).fill(null))
+  }
+  // m(添加几次) n(每次添加几个)
+  const pushQueue = (m, n) => {
+    let i = 0
+    while (i++ < m) {
+      const dummyHead = queue[0]
+      queue.splice(0, n).reduce((res, cur) => (res.next = cur))
+      res.push(dummyHead)
+    }
+  }
+  // 计算每个部分的长度
+  const [l, res] = [len / k, []]
+  if (String(l).includes('.')) {
+    // 计算最大长度和最小长度
+    const [max, min] = [Math.ceil(l), Math.floor(l)]
+    // 计算最大长度可出现的最大次数
+    let [maxLen, minLen] = [Math.ceil(len / max), 0]
+    while (maxLen-- > 0) {
+      minLen = (len - maxLen * max) / min
+      if (maxLen + minLen === k) {
+        pushQueue(maxLen, max)
+        pushQueue(minLen, min)
+      }
+    }
+  } else {
+    pushQueue(k, l)
+  }
+  return res
+}
