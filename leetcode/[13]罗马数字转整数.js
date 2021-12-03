@@ -22,8 +22,40 @@
  * @param {string} s
  * @return {number}
  */
-function romanToInt(s) {}
+function romanToInt(s) {
+  const base = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  }
+  const spec = {
+    IV: 4,
+    IX: 9,
+    XL: 40,
+    XC: 90,
+    CD: 400,
+    CM: 900
+  }
+  let total = 0
+  Reflect.ownKeys(spec).map(key => {
+    s = s.replace(new RegExp(`(${key})`), (m, p1) => {
+      if (p1) total += spec[m]
+      return ''
+    })
+  })
+  const len = s.length
+  for (let i = 0; i < len; i++) {
+    total += base[s[i]] || 0
+  }
+  return total
+}
 
 console.log(romanToInt('III')) // 3
 console.log(romanToInt('LVIII')) // 58
 console.log(romanToInt('MCMXCIV')) // 1994
+console.log(romanToInt('DCXXI')) // 661
+console.log(romanToInt('MMMXLV')) // 3045
