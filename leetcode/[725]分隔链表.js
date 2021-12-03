@@ -8,14 +8,97 @@
 - 1 <= k <= 50
 */
 
+function ListNode(val, next) {
+  this.val = val
+  this.next = next || null
+}
+
 /**
  * @param {ListNode} head
  * @param {number} k
  * @return {ListNode[]}
  */
-function splitListToParts(head, k) {}
+function splitListToParts(head, k) {
+  let [fast, len, res] = [head, 0, []]
+  while (fast && fast.next) {
+    fast = fast.next.next
+    len += 2
+  }
+  if (fast) len++
+  // k大于链表长度
+  if (k > len) {
+    let i = 0,
+      cur = head
+    while (i++ < k) {
+      res.push(cur ? new ListNode(cur.val) : null)
+      cur = cur && cur.next
+    }
+    return res
+  }
+  // 包含小数点
+  let num = len / k
+  if (String(num).includes('.')) {
+    let m = Math.ceil(num)
+    let n = Math.floor(num)
 
-const data = {
+    // 计算最大m数 可能会出现多个匹配结果 以m最多的为准
+    num = Math.ceil(len / m)
+
+    let i = num
+    while (i-- > 0) {
+      j = (len - m * i) / n
+      if (!String(j).includes('.') && i + j === k) {
+        let x = 0,
+          cur = head
+        while (x++ < i) {
+          let y = 0
+          let dummyHead = new ListNode(0)
+          let prev = dummyHead
+          while (y++ < m) {
+            prev.next = cur
+            prev = cur
+            cur = cur.next
+          }
+          prev.next = null
+          res.push(dummyHead.next)
+        }
+        x = 0
+        while (x++ < j) {
+          let y = 0
+          let dummyHead = new ListNode(0)
+          let prev = dummyHead
+          while (y++ < n) {
+            prev.next = cur
+            prev = cur
+            cur = cur.next
+          }
+          prev.next = null
+          res.push(dummyHead.next)
+        }
+        return res
+      }
+    }
+    return res
+  } else {
+    let i = 0,
+      cur = head
+    while (i++ < k) {
+      j = 0
+      let dummyHead = new ListNode(0)
+      let prev = dummyHead
+      while (j++ < num) {
+        prev.next = cur
+        prev = cur
+        cur = cur.next
+      }
+      prev.next = null
+      res.push(dummyHead.next)
+    }
+    return res
+  }
+}
+
+const data1 = {
   val: 1,
   next: {
     val: 2,
@@ -46,4 +129,30 @@ const data = {
   }
 }
 
-console.log(JSON.stringify(splitListToParts(data, 3)))
+const data2 = {
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: {
+        val: 4,
+        next: {
+          val: 5
+        }
+      }
+    }
+  }
+}
+
+const data = {
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3
+    }
+  }
+}
+
+console.log(JSON.stringify(splitListToParts(data2, 4)))
