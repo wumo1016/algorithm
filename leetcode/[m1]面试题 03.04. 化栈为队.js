@@ -5,37 +5,47 @@
 /**
  * Initialize your data structure here.
  */
-var MyQueue = function () {}
+var MyQueue = function () {
+  this.list = []
+}
 
 /**
  * Push element x to the back of queue.
  * @param {number} x
  * @return {void}
  */
-MyQueue.prototype.push = function (x) {}
+MyQueue.prototype.push = function (x) {
+  this.list.push(x)
+}
 
 /**
  * Removes the element from in front of queue and returns that element.
  * @return {number}
  */
-MyQueue.prototype.pop = function () {}
+MyQueue.prototype.pop = function () {
+  return this.list.shift()
+}
 
 /**
  * Get the front element.
  * @return {number}
  */
-MyQueue.prototype.peek = function () {}
+MyQueue.prototype.peek = function () {
+  return this.empty() ? false : this.list[0]
+}
 
 /**
  * Returns whether the queue is empty.
  * @return {boolean}
  */
-MyQueue.prototype.empty = function () {}
+MyQueue.prototype.empty = function () {
+  return this.list.length <= 0
+}
 
 const queue = new MyQueue()
 
 queue.push(1)
 queue.push(2)
-queue.peek() // 返回 1
-queue.pop() // 返回 1
-queue.empty() // 返回 false
+console.log(queue.peek()) // 返回 1
+console.log(queue.pop()) // 返回 1
+console.log(queue.empty()) // 返回 false
