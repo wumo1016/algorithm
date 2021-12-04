@@ -11,7 +11,7 @@
  * @param {string[]} ops
  * @return {number}
  */
-function calPoints(ops) {
+function calPoints1(ops) {
   let [i, total] = [0, 0]
   while (i < ops.length) {
     let val = ops[i]
@@ -33,3 +33,21 @@ function calPoints(ops) {
 }
 
 console.log(calPoints(['5', '2', 'C', 'D', '+'])) // 30
+
+// 用栈解决
+function calPoints(ops) {
+  const [stack, len] = [[], ops.length]
+  for (let i = 0; i < len; i++) {
+    let val = ops[i],
+      l = stack.length
+    if (val === '+') {
+      val = stack[l - 1] + stack[l - 2]
+    } else if (val === 'D') {
+      val = stack[l - 1] * 2
+    } else if (val === 'C') {
+      stack.pop()
+    }
+    if (stack.length === l) stack.push(Number(val))
+  }
+  return stack.reduce((a, b) => a + b)
+}
