@@ -61,7 +61,7 @@ console.log(romanToInt('DCXXI')) // 621
 console.log(romanToInt('MMMXLV')) // 3045
 
 // 优化版
-function romanToInt(s) {
+function romanToInt2(s) {
   const base = {
     I: 1,
     V: 5,
@@ -92,4 +92,26 @@ function romanToInt(s) {
     }
   })
   return total
+}
+
+function romanToInt(s) {
+  const obj = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  }
+  let [t, len] = [0, s.length]
+  for (let i = 0; i < len; i++) {
+    const val = obj[s[i]]
+    if (obj[s[i + 1]] > val) {
+      t -= val
+    } else {
+      t += val
+    }
+  }
+  return t
 }
