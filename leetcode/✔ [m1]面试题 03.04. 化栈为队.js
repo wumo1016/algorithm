@@ -6,7 +6,8 @@
  * Initialize your data structure here.
  */
 var MyQueue = function () {
-  this.list = []
+  this.queue1 = []
+  this.queue2 = []
 }
 
 /**
@@ -15,7 +16,7 @@ var MyQueue = function () {
  * @return {void}
  */
 MyQueue.prototype.push = function (x) {
-  this.list.push(x)
+  this.queue1.push(x)
 }
 
 /**
@@ -23,7 +24,16 @@ MyQueue.prototype.push = function (x) {
  * @return {number}
  */
 MyQueue.prototype.pop = function () {
-  return this.list.shift()
+  // 先将第一个后面的所有元素都放到list2中
+  while (this.queue1.length > 1) {
+    this.queue2.push(this.queue1.pop())
+  }
+  // 取出最后一个
+  const res = this.queue1.pop() || false
+  while (this.queue2.length) {
+    this.queue1.push(this.queue2.pop())
+  }
+  return res
 }
 
 /**
@@ -31,7 +41,16 @@ MyQueue.prototype.pop = function () {
  * @return {number}
  */
 MyQueue.prototype.peek = function () {
-  return this.empty() ? false : this.list[0]
+  // 先将第一个后面的所有元素都放到list2中
+  while (this.queue1.length > 1) {
+    this.queue2.push(this.queue1.pop())
+  }
+  // 取出最后一个
+  const res = this.queue1[0] || false
+  while (this.queue2.length) {
+    this.queue1.push(this.queue2.pop())
+  }
+  return res
 }
 
 /**
@@ -39,13 +58,16 @@ MyQueue.prototype.peek = function () {
  * @return {boolean}
  */
 MyQueue.prototype.empty = function () {
-  return this.list.length <= 0
+  return this.queue1.length <= 0
 }
 
 const queue = new MyQueue()
 
 queue.push(1)
 queue.push(2)
+queue.push(3)
 console.log(queue.peek()) // 返回 1
 console.log(queue.pop()) // 返回 1
+console.log(queue.pop()) // 返回 2
+console.log(queue.pop()) // 返回 3
 console.log(queue.empty()) // 返回 false
