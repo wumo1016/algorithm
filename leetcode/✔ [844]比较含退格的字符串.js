@@ -10,15 +10,10 @@
  * @return {boolean}
  */
 function backspaceCompare(s, t) {
-  const deal = str => {
-    const [stack, len] = [[], str.length]
+  const deal = (str, stack = [], len = str.length) => {
     for (let i = 0; i < len; i++) {
       const val = str[i]
-      if (val === '#') {
-        stack.pop()
-      } else {
-        stack.push(val)
-      }
+      val === '#' ? stack.pop() : stack.push(val)
     }
     return stack.toString()
   }
