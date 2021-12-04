@@ -157,11 +157,11 @@ const data = {
 
 // console.log(JSON.stringify(splitListToParts(data1, 11)))
 // console.log(splitListToParts(data, 2))
-// console.log(splitListToParts(data1, 4))
-console.log(splitListToParts(data2, 3))
+console.log(splitListToParts(data1, 4))
+// console.log(splitListToParts(data1, 3))
 
 // 利用数组先将所有节点储存起来
-function splitListToParts(head, k) {
+function splitListToParts2(head, k) {
   let [queue, cur] = [[], head]
   // 利用队列将节点储存起来
   while (cur) {
@@ -202,4 +202,31 @@ function splitListToParts(head, k) {
     pushQueue(k, l)
   }
   return res
+}
+
+// 利用数学思路
+/* l(除数) k(被除数) q(商) r(余数) 11 = 4 * 2 + 3 => 11 = 3 * (2 + 1) + (4 - 2) * 2
+l = k * q + r = kq + r
+l = r * (q + 1) + (k - r) * q = rq + r + kq - rq = kq + r ---- 前r个(每个q+1个) 后k-r(每个q个)
+*/
+
+function splitListToParts(head, k) {
+  let [fast, l] = [head, 0]
+  while (fast && fast.next) {
+    fast = fast.next.next
+    l += 2
+  }
+  if (fast) l++
+  const [q, r, list] = [Math.floor(l / k), l % k, Array(k).fill(null)]
+  let [cur, prev] = [head, head]
+  for (let i = 0; i < k && cur; i++) {
+    list[i] = cur
+    const num = i < r ? q + 1 : q
+    for (let j = 0; j < num; j++) {
+      prev = cur
+      cur = cur.next
+    }
+    prev.next = null
+  }
+  return list
 }
