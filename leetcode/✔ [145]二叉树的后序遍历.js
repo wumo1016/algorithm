@@ -15,7 +15,7 @@ function TreeNode(val, left, right) {
  * @return {number[]}
  */
 // 递归
-function postorderTraversal(root, res = []) {
+function postorderTraversal1(root, res = []) {
   if (root) {
     postorderTraversal(root.left, res)
     postorderTraversal(root.right, res)
@@ -25,13 +25,42 @@ function postorderTraversal(root, res = []) {
 }
 
 const data = {
-  val: 1,
-  right: {
-    val: 2,
+  val: 5,
+  left: {
+    val: 4,
     left: {
-      val: 3
+      val: 1
+    },
+    right: {
+      val: 2
+    }
+  },
+  right: {
+    val: 6,
+    left: {
+      val: 7
+    },
+    right: {
+      val: 8
     }
   }
 }
 
 console.log(postorderTraversal(data))
+/*
+入栈顺序 => 根左右
+出栈顺序 => 右左根
+然后将节点的值 根右左 的方式入栈即可
+*/
+function postorderTraversal(root, res = []) {
+  const stack = []
+  if (root) stack.push(root)
+  while (stack.length) {
+    const node = stack.pop()
+    res.unshift(node.val)
+    const { left, right } = node
+    if (left) stack.push(left)
+    if (right) stack.push(right)
+  }
+  return res
+}
