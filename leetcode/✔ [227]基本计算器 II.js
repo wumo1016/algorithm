@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {number}
  */
-function calculate(s) {
+function calculate1(s) {
   s = s.replace(/\s/g, '')
   while (s.includes('/') || s.includes('*')) {
     s = s.replace(/(\d+)(\/|\*)(\d+)/, (_, p1, p2, p3) => {
@@ -24,3 +24,15 @@ console.log(calculate(' 3/2 ')) // 1
 console.log(calculate(' 3+5 / 2 ')) // 5
 console.log(calculate('100000000/1/2/3/4/5/6/7/8/9/10')) // 27
 console.log(calculate('1+2*5/3+6/4*2')) // 6
+
+function calculate(s) {
+  s = s.replace(/\s/g, '')
+  while (/(\d+)(\/|\*)(\d+)/.test(s)) {
+    const [p1, p3] = [RegExp.$1, RegExp.$3]
+    s = s.replace(
+      RegExp['$&'],
+      RegExp.$2 === '*' ? p1 * p3 : Math.floor(p1 / p3)
+    )
+  }
+  return eval(s)
+}
