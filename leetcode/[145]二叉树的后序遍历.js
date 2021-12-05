@@ -1,6 +1,7 @@
 /* 二叉树的后序遍历(https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
 - 给定一个二叉树，返回它的后序遍历
 - 从底层开始遍历 然后先左边
+- 返回值的数组
 */
 
 function TreeNode(val, left, right) {
@@ -13,18 +14,14 @@ function TreeNode(val, left, right) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-function postorderTraversal(root) {
-  let res = []
-  const loop = node => {
-    if (node) {
-      const { val, left, right } = node
-      loop(left)
-      loop(right)
-      res.push(val)
-    }
-    return res
+// 递归
+function postorderTraversal(root, res = []) {
+  if (root) {
+    postorderTraversal(root.left, res)
+    postorderTraversal(root.right, res)
+    res.push(root.val)
   }
-  return loop(root)
+  return res
 }
 
 const data = {
