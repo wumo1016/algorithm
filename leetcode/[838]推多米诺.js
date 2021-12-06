@@ -12,13 +12,15 @@
  */
 function pushDominoes(str) {
   str = str
-    .replace(/(^\.+L)/g, (_, p1) => 'L'.repeat(p1.length))
-    .replace(/(R\.+$)/g, (_, p1) => 'R'.repeat(p1.length))
+    .replace(/(^\.+L)/g, (_, p1) => 'L'.repeat(p1.length)) // 替换 .L
+    .replace(/(R\.+$)/g, (_, p1) => 'R'.repeat(p1.length)) // 替换 R.
     .replace(/(R\.{2,}L)/g, (_, p1) => {
+      // 替换 R.L
       const len = p1.length,
         q = Math.floor(len / 2)
       return `${'R'.repeat(q)}${len % 2 === 1 ? '.' : ''}${'L'.repeat(q)}`
     })
+  // 替换 L.L R.R
   const rrReg = /(L\.+L)|(R\.+R)/g
   while (rrReg.test(str)) {
     str = str.replace(rrReg, (_, p1, p2) =>
