@@ -12,9 +12,9 @@
  */
 function pushDominoes(str) {
   str = str
-    .replace(/(^\.+L)/g, (_, p1) => 'L'.repeat(p1.length)) // 替换 .L
-    .replace(/(R\.+$)/g, (_, p1) => 'R'.repeat(p1.length)) // 替换 R.
-    .replace(/(R\.{2,}L)/g, (_, p1) => {
+    .replace(/(^\.+L)/, (_, p1) => 'L'.repeat(p1.length)) // 替换 .L
+    .replace(/(R\.+$)/, (_, p1) => 'R'.repeat(p1.length)) // 替换 R.
+    .replace(/(R\.{2,}L)/, (_, p1) => {
       // 替换 R.L
       const len = p1.length,
         q = Math.floor(len / 2)
