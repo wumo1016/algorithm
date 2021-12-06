@@ -11,8 +11,14 @@
  * @return {string}
  */
 function pushDominoes(str) {
-  str = str.replace(/(^\.+L)/g, (_, p1) => 'L'.repeat(p1.length))
-  str = str.replace(/(R\.+$)/g, (_, p1) => 'R'.repeat(p1.length))
+  str = str
+    .replace(/(^\.+L)/g, (_, p1) => 'L'.repeat(p1.length))
+    .replace(/(R\.+$)/g, (_, p1) => 'R'.repeat(p1.length))
+    .replace(/(R\.{2,}L)/g, (_, p1) => {
+      const len = p1.length,
+        q = Math.floor(len / 2)
+      return `${'R'.repeat(q)}${len % 2 === 1 ? '.' : ''}${'L'.repeat(q)}`
+    })
   const rrReg = /(R\.+R)/g
   while (rrReg.test(str)) {
     str = str.replace(rrReg, (_, p1) => 'R'.repeat(p1.length))
@@ -21,11 +27,6 @@ function pushDominoes(str) {
   while (llReg.test(str)) {
     str = str.replace(llReg, (_, p1) => 'L'.repeat(p1.length))
   }
-  str = str.replace(/(R\.{2,}L)/g, (_, p1) => {
-    const len = p1.length,
-      q = Math.floor(len / 2)
-    return `${'R'.repeat(q)}${len % 2 === 1 ? '.' : ''}${'L'.repeat(q)}`
-  })
   return str
 }
 
