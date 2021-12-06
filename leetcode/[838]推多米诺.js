@@ -19,13 +19,11 @@ function pushDominoes(str) {
         q = Math.floor(len / 2)
       return `${'R'.repeat(q)}${len % 2 === 1 ? '.' : ''}${'L'.repeat(q)}`
     })
-  const rrReg = /(R\.+R)/g
+  const rrReg = /(L\.+L)|(R\.+R)/g
   while (rrReg.test(str)) {
-    str = str.replace(rrReg, (_, p1) => 'R'.repeat(p1.length))
-  }
-  const llReg = /(L\.+L)/g
-  while (llReg.test(str)) {
-    str = str.replace(llReg, (_, p1) => 'L'.repeat(p1.length))
+    str = str.replace(rrReg, (_, p1, p2) =>
+      `${p1 ? 'L' : 'R'}`.repeat(p1 ? p1.length : p2.length)
+    )
   }
   return str
 }
@@ -40,4 +38,5 @@ console.log(
   )
 )
 // ...RL....R.L.L........RR......L....R.L.....R.L..RL....R....R......R.......................LR.R..L.R.
+// ...RL....R.LLL........RRRRRLLLL....R.L.....R.L..RL....RRRRRRRRRRRRRRRRRRRRRRRR.LLLLLLLLLLLLRRRRLL.RR
 // ...RL....R.LLL........RRRRRLLLL....R.L.....R.L..RL....RRRRRRRRRRRRRRRRRRRRRRRR.LLLLLLLLLLLLRRRRLL.RR
