@@ -6,9 +6,32 @@
  * @param {string} s
  * @return {number}
  */
-function lengthOfLongestSubstring(s) {}
+function lengthOfLongestSubstring(s) {
+  let start = 0,
+    res = [],
+    len = s.length,
+    cache = []
+  for (let i = 0; i < len; i++) {
+    const cur = s.slice(start, i)
+    const index = cur.indexOf(s[i])
+    if (index > -1) {
+      cache = [start, i]
+      start = index + 1
+    } else {
+      res = [start, i + 1]
+    }
+  }
+  console.log(res)
+}
 
 console.log(lengthOfLongestSubstring('abcabcbb')) // 3
 console.log(lengthOfLongestSubstring('bbbbb')) // 1
 console.log(lengthOfLongestSubstring('pwwkew')) // 3
-console.log(lengthOfLongestSubstring('')) // 0
+// console.log(lengthOfLongestSubstring('')) // 0
+
+/* 
+i 
+
+
+
+*/
