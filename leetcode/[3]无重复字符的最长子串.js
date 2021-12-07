@@ -39,6 +39,7 @@ console.log(lengthOfLongestSubstring(' ')) // 1
 console.log(lengthOfLongestSubstring('aab')) // 2
 console.log(lengthOfLongestSubstring('dvdf')) // 3
 
+// 优化版
 function lengthOfLongestSubstring(s) {
   let [len, start, max] = [s.length, 0, [0, 0]]
   for (let i = 0; i < len; i++) {
