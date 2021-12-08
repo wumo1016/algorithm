@@ -10,7 +10,13 @@
  * @param {number} val
  * @return {number}
  */
-function removeElement(nums, val) {}
+function removeElement(nums, val) {
+  let i = 0
+  while (i < nums.length) {
+    nums[i] === val ? nums.splice(i, 1) : i++
+  }
+  return nums.length
+}
 
 console.log(removeElement([3, 2, 2, 3], 3)) // 2
 console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2)) // 5
