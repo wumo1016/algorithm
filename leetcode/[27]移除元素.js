@@ -10,7 +10,7 @@
  * @param {number} val
  * @return {number}
  */
-function removeElement(nums, val) {
+function removeElement1(nums, val) {
   let i = 0
   while (i < nums.length) {
     nums[i] === val ? nums.splice(i, 1) : i++
@@ -20,3 +20,16 @@ function removeElement(nums, val) {
 
 console.log(removeElement([3, 2, 2, 3], 3)) // 2
 console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2)) // 5
+
+// 双指针
+function removeElement(nums, val) {
+  let [len, left] = [nums.length, 0]
+  for (let i = 0; i < len; i++) {
+    const right = nums[i]
+    if (right !== val) {
+      nums[left] = right
+      left++
+    }
+  }
+  return left
+}
