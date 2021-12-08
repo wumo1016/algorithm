@@ -7,8 +7,39 @@
  * @param {string} s
  * @return {string}
  */
-function longestPalindrome(s) {}
+function longestPalindrome(s) {
+  let [len, res] = [s.length, '']
+  for (let i = 0; i < len; i++) {
+    if (len - i > res.length) {
+      for (let j = len; j >= i; j--) {
+        if (isPalindrome(s.slice(i, j)) && j - i > res.length) {
+          res = s.slice(i, j)
+          break
+        }
+      }
+    } else {
+      break
+    }
+  }
+  return res
+}
 
-console.log(longestPalindrome('cbbd')) // bb
+function isPalindrome(s) {
+  if (s.length < 2) return true
+  let [start, end] = [0, s.length - 1]
+  while (end - start > 0) {
+    if (s[start] !== s[end]) return false
+    start++
+    end--
+  }
+  return true
+}
+
+console.log(longestPalindrome('bddbaa')) // bb
 console.log(longestPalindrome('a')) // a
 console.log(longestPalindrome('ac')) // a
+console.log(
+  longestPalindrome(
+    'cyyoacmjwjubfkzrrbvquqkwhsxvmytmjvbborrtoiyotobzjmohpadfrvmxuagbdczsjuekjrmcwyaovpiogspbslcppxojgbfxhtsxmecgqjfuvahzpgprscjwwutwoiksegfreortttdotgxbfkisyakejihfjnrdngkwjxeituomuhmeiesctywhryqtjimwjadhhymydlsmcpycfdzrjhstxddvoqprrjufvihjcsoseltpyuaywgiocfodtylluuikkqkbrdxgjhrqiselmwnpdzdmpsvbfimnoulayqgdiavdgeiilayrafxlgxxtoqskmtixhbyjikfmsmxwribfzeffccczwdwukubopsoxliagenzwkbiveiajfirzvngverrbcwqmryvckvhpiioccmaqoxgmbwenyeyhzhliusupmrgmrcvwmdnniipvztmtklihobbekkgeopgwipihadswbqhzyxqsdgekazdtnamwzbitwfwezhhqznipalmomanbyezapgpxtjhudlcsfqondoiojkqadacnhcgwkhaxmttfebqelkjfigglxjfqegxpcawhpihrxydprdgavxjygfhgpcylpvsfcizkfbqzdnmxdgsjcekvrhesykldgptbeasktkasyuevtxrcrxmiylrlclocldmiwhuizhuaiophykxskufgjbmcmzpogpmyerzovzhqusxzrjcwgsdpcienkizutedcwrmowwolekockvyukyvmeidhjvbkoortjbemevrsquwnjoaikhbkycvvcscyamffbjyvkqkyeavtlkxyrrnsmqohyyqxzgtjdavgwpsgpjhqzttukynonbnnkuqfxgaatpilrrxhcqhfyyextrvqzktcrtrsbimuokxqtsbfkrgoiznhiysfhzspkpvrhtewthpbafmzgchqpgfsuiddjkhnwchpleibavgmuivfiorpteflholmnxdwewj'
+  )
+)
