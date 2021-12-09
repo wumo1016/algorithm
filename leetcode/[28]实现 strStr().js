@@ -9,7 +9,14 @@
  * @param {string} needle
  * @return {number}
  */
-function strStr(haystack, needle) {}
+function strStr(haystack, needle) {
+  if (haystack === needle) return 0
+  const [hLen, nLen] = [haystack.length, needle.length]
+  for (let i = 0; i < hLen && hLen - i >= nLen; i++) {
+    if (haystack.slice(i, i + nLen) === needle) return i
+  }
+  return -1
+}
 
 console.log(strStr('hello', 'll')) // 2
 console.log(strStr('aaaaa', 'bba')) // -1
