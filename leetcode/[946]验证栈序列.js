@@ -11,13 +11,10 @@
  * @return {boolean}
  */
 function validateStackSequences(pushed, popped) {
-  let [m, cache, first, last] = [pushed.length, [], null, null]
+  let [m, cache] = [pushed.length, []]
   for (let i = 0; i < m; i++) {
     cache.push(pushed[i])
-    while (
-      (last = cache[cache.length - 1]) === (first = popped[0]) &&
-      popped.length > 0
-    ) {
+    while (cache[cache.length - 1] === popped[0] && popped.length > 0) {
       cache.pop()
       popped.shift()
     }
