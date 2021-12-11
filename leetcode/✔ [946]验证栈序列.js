@@ -11,15 +11,15 @@
  * @return {boolean}
  */
 function validateStackSequences(pushed, popped) {
-  let [m, cache] = [pushed.length, []]
+  let [m, stack, j] = [pushed.length, [], 0]
   for (let i = 0; i < m; i++) {
-    cache.push(pushed[i])
-    while (cache[cache.length - 1] === popped[0] && popped.length > 0) {
-      cache.pop()
-      popped.shift()
+    stack.push(pushed[i])
+    while (stack[stack.length - 1] === popped[j] && j < m) {
+      stack.pop()
+      j++
     }
   }
-  return popped.length === 0
+  return j === m
 }
 
 console.log(validateStackSequences([1, 2, 3, 4, 5], [4, 5, 3, 2, 1])) // true
