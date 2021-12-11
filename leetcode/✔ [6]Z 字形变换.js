@@ -13,7 +13,7 @@ P     I
  * @param {number} numRows
  * @return {string}
  */
-function convert(s, numRows) {
+function convert1(s, numRows) {
   if (numRows === 1) return s
   let len = s.length,
     i = 0,
@@ -44,3 +44,14 @@ function convert(s, numRows) {
 console.log(convert('PAYPALISHIRING', 3)) // PAHNAPLSIIGYIR
 console.log(convert('PAYPALISHIRING', 4)) // PINALSIGYAHRPI
 console.log(convert('A', 1)) // A
+
+// 先向下递增添加进数组对应索引的字符串 当达到最大索引时 向右索引递减
+function convert(s, numRows) {
+  if (numRows === 1) return s
+  let [res, len, down, p] = [Array(numRows).fill(''), s.length, true, 0]
+  for (let i = 0; i < len; i++) {
+    res[down ? p++ : p--] += s[i]
+    if (p === numRows - 1 || p === 0) down = !down
+  }
+  return res.join('')
+}
