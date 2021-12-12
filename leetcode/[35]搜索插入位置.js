@@ -10,30 +10,24 @@
  * @return {number}
  */
 function searchInsert(nums, target) {
-  let len = nums.length
-  let m = 0,
-    n = len - 1
-  while (m + 1 < n) {
-    const c = Math.ceil((n - m) / 2)
-    if (target > nums[c]) {
-      m = c
-    } else if (target < nums[c]) {
-      n = c
+  const len = nums.length
+  let [left, right, res] = [0, len - 1, len]
+  while (left <= right) {
+    const mid = Math.floor((right - left) / 2) + left // ((right - left) >> 1) + left
+    if (target <= nums[mid]) {
+      res = mid
+      right = mid - 1
     } else {
-      n = c
-      break
+      left = mid + 1
     }
-    console.log(m, n, c);
   }
-  if (target >= nums[m] && target <= nums[n]) return n
-  if (m === 0 && target <= nums[0]) return 0
-  if (n === len - 1 && target >= nums[len - 1]) return len
+  return res
 }
 
-// console.log(searchInsert([1, 3, 5, 6], 2)) // 1
-// console.log(searchInsert([1, 3, 5, 7], 6)) // 3
-// console.log(searchInsert([1, 3, 5, 6], 7)) // 4
-// console.log(searchInsert([1, 3, 5, 6], 5)) // 2
-// console.log(searchInsert([1, 3, 5, 6], 0)) // 0
-// console.log(searchInsert([1], 0)) // 0
+console.log(searchInsert([1, 3, 5, 6], 2)) // 1
+console.log(searchInsert([1, 3, 5, 7], 6)) // 3
+console.log(searchInsert([1, 3, 5, 6], 7)) // 4
+console.log(searchInsert([1, 3, 5, 6], 5)) // 2
+console.log(searchInsert([1, 3, 5, 6], 0)) // 0
+console.log(searchInsert([1], 0)) // 0
 console.log(searchInsert([1, 3], 1)) // 0
