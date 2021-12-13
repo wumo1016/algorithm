@@ -6,9 +6,12 @@
  * @param {number[]} height
  * @return {number}
  */
-// 先从头开始遍历元素
-// 然后将当前元素与后面的每一个元素对比 求最大值
-// 可以从后开始对比 因为一旦当前值作为最小值时 那再往前的值一定比这个小
+//
+/* 双层for
+- 先从头开始遍历元素
+- 然后将当前元素与后面的每一个元素对比 求最大值
+- 可以从后开始对比 因为一旦当前值作为最小值时 那再往前的值一定比这个小
+*/
 function maxArea1(height) {
   let [len, max] = [height.length, 0]
   for (let i = 0; i < len; i++) {
@@ -27,8 +30,10 @@ console.log(maxArea([1, 1])) // 1
 console.log(maxArea([4, 3, 2, 1, 4])) // 16
 console.log(maxArea([1, 2, 1])) // 2
 
-// 双指针
-// 假设 左边小于右边的值 那么无论右边的值如何向左移动 都无法超过开始的值 所以只有将小的向右移动
+/* 双指针
+- 假设 左边小于右边的值 那么无论右边的值如何向左移动 都无法超过开始的值 
+- 所以只有将小的向里面移动 才有可能获取更大的值
+*/
 function maxArea(height) {
   let [left, right, max] = [0, height.length - 1, 0]
   while (left < right) {
