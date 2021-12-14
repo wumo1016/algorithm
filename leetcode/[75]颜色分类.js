@@ -8,9 +8,12 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-function sortColors(nums) {}
+function sortColors(nums) {
+  nums.sort()
+  console.log(nums)
+}
 
-console.log(sortColors([2, 0, 2, 1, 1, 0])) // [0,0,1,1,2,2]
-console.log(sortColors([2, 0, 1])) // [0,1,2]
-console.log(sortColors([0])) // [0]
-console.log(sortColors([1])) //
+sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
+sortColors([2, 0, 1]) // [0,1,2]
+sortColors([0]) // [0]
+sortColors([1]) //
