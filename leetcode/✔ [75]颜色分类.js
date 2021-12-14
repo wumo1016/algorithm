@@ -22,7 +22,7 @@ function sortColors1(nums) {
 sortColors([1, 2, 0, 0]) // [0,0,2,2]
 
 // 移动元素
-function sortColors(nums) {
+function sortColors2(nums) {
   let [x, y, len] = [0, 0, nums.length]
   for (let i = 0; i < len; i++) {
     const value = nums[i]
