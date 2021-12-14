@@ -14,12 +14,14 @@ function sortColors1(nums) {
   console.log(nums)
 }
 
-sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
 // sortColors([2, 0, 2, 1, 1, 0]) // [0,0,1,1,2,2]
 // sortColors([2, 0, 1]) // [0,1,2]
 // sortColors([0]) // [0]
-// sortColors([1]) //
+// sortColors([1]) // [1]
+// sortColors([0, 2, 1]) // [0,1,2]
+sortColors([1, 2, 0, 0]) // [0,0,2,2]
 
+// 移动元素
 function sortColors(nums) {
   let [x, y, len] = [0, 0, nums.length]
   for (let i = 0; i < len; i++) {
@@ -30,15 +32,30 @@ function sortColors(nums) {
         nums[x++] = value
       } else {
         nums[i] = nums[i - 1]
-        nums[y] = nums[x]
-        nums[x] = value
+        nums[y++] = nums[x]
+        nums[x++] = value
       }
+    } else if (value === 1) {
+      if (y === 0) y = x
+      nums[i] = nums[y]
+      nums[y] = value
+      y++
+    }
+  }
+}
+// 移动元素简化版
+function sortColors(nums) {
+  let [x, y, len] = [0, 0, nums.length]
+  for (let i = 0; i < len; i++) {
+    const value = nums[i]
+    if (value === 0) {
+      nums[i] = nums[i - 1]
+      if (y !== 0) nums[y++] = nums[x]
+      nums[x++] = value
     } else if (value === 1) {
       if (y === 0) y = x
       nums[i] = nums[y]
       nums[y++] = value
     }
   }
-  console.log(x, y)
-  console.log(nums)
 }
