@@ -8,9 +8,8 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-function threeSum(nums) {
-  let len = nums.length
-  let res = []
+function threeSum1(nums) {
+  const [len, res] = [nums.length, []]
   const isclude = list => {
     let rlen = res.length
     for (let i = 0; i < rlen; i++) {
@@ -26,7 +25,7 @@ function threeSum(nums) {
     let map = new Map()
     for (let y = x + 1; y < len; y++) {
       if (map.has(nums[y])) {
-        const list = [...map.get(nums[y]), nums[y]].sort()
+        const list = [...map.get(nums[y]), nums[y]].sort((a, b) => a - b)
         if (isclude(list)) res.push(list)
         map.delete(nums[y])
       } else {
@@ -38,8 +37,14 @@ function threeSum(nums) {
 }
 
 console.log(threeSum([-1, 0, 1, 2, -1, -4])) // [[-1,-1,2],[-1,0,1]]
-console.log(threeSum([])) // []
-console.log(threeSum([0])) // []
-console.log(threeSum([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4])) // [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
-console.log(threeSum([0, 0, 0, 0])) // [0,0,0,0]
-console.log(threeSum([1, 2, -2, -1])) // []
+// console.log(threeSum([])) // []
+// console.log(threeSum([0])) // []
+// console.log(threeSum([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4])) // [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
+// console.log(threeSum([0, 0, 0, 0])) // [0,0,0,0]
+// console.log(threeSum([1, 2, -2, -1])) // []
+
+// 排序
+function threeSum(nums) {
+  nums = nums.sort((a, b) => a - b)
+  console.log(nums)
+}
