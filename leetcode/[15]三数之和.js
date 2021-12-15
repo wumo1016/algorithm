@@ -16,19 +16,21 @@ function threeSum(nums) {
     for (let i = 0; i < rlen; i++) {
       let e = 0
       for (let j = 0; j < 3; j++) {
-        if (list.includes(res[i][j])) e++
+        if (list[j] === res[i][j]) e++
       }
       if (e > 1) return false
     }
     return true
   }
   for (let x = 0; x < len; x++) {
+    let map = new Map()
     for (let y = x + 1; y < len; y++) {
-      for (let z = y + 1; z < len; z++) {
-        const list = [nums[x], nums[y], nums[z]]
-        if (list.reduce((a, b) => a + b) === 0 && isclude(list)) {
-          res.push(list)
-        }
+      if (map.has(nums[y])) {
+        const list = [...map.get(nums[y]), nums[y]].sort()
+        if (isclude(list)) res.push(list)
+        map.delete(nums[y])
+      } else {
+        map.set(0 - (nums[x] + nums[y]), [nums[x], nums[y]])
       }
     }
   }
@@ -39,3 +41,5 @@ console.log(threeSum([-1, 0, 1, 2, -1, -4])) // [[-1,-1,2],[-1,0,1]]
 console.log(threeSum([])) // []
 console.log(threeSum([0])) // []
 console.log(threeSum([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4])) // [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
+console.log(threeSum([0, 0, 0, 0])) // [0,0,0,0]
+console.log(threeSum([1, 2, -2, -1])) // []
