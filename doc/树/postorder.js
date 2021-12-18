@@ -42,4 +42,18 @@ function postorderTraversal(root, res = []) {
   return res
 }
 
-console.log(postorderTraversal(tree))
+// console.log(postorderTraversal(tree))
+console.log(postorderTraversal1(tree))
+
+// 非递归版
+function postorderTraversal1(root, res = []) {
+  if (!root) return res
+  let stack = [root]
+  while (stack.length) {
+    const p = stack.pop()
+    res.unshift(p.val)
+    if (p.left) stack.push(p.left)
+    if (p.right) stack.push(p.right)
+  }
+  return res
+}
