@@ -43,8 +43,21 @@ function inorderTraversal(root, res = []) {
   return res
 }
 
-console.log(inorderTraversal(tree))
+// console.log(inorderTraversal(tree))
+console.log(inorderTraversal1(tree))
 
 function inorderTraversal1(root, res = []) {
   if (!root) return res
+  const stack = []
+  let l = root
+  while (stack.length || l) {
+    while (l) {
+      stack.push(l)
+      l = l.left
+    }
+    const last = stack.pop()
+    res.push(last.val)
+    l = last.right
+  }
+  return res
 }
