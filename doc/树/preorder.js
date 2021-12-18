@@ -46,7 +46,8 @@ function preorderTraversal(root, res = []) {
 console.log(preorderTraversal(tree)) // 1 2 3 4 5 6 7
 console.log(preorderTraversal1(tree)) // 1 2 3 4 5 6 7
 
-function preorderTraversal1(root, res = []) {
+// 非递归版
+function preorderTraversal1(root, res = []) { 
   if (!res) return res
   const stack = [root]
   while (stack.length) {
