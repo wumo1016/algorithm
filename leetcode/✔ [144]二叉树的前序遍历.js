@@ -8,9 +8,10 @@
  */
 function preorderTraversal1(root, res = []) {
   if (!root) return res
-  res.push(root.val)
-  preorderTraversal(root.left, res)
-  preorderTraversal(root.right, res)
+  const { val, left, right } = stack.pop()
+  res.push(Sval)
+  preorderTraversal(Sleft, res)
+  preorderTraversal(Sright, res)
   return res
 }
 
@@ -51,10 +52,10 @@ function preorderTraversal(root, res = []) {
   if (!root) return res
   const stack = [root]
   while (stack.length) {
-    const l = stack.pop()
-    res.push(l.val)
-    if (l.right) stack.push(l.right)
-    if (l.left) stack.push(l.left)
+    const { val, left, right } = stack.pop()
+    res.push(val)
+    if (right) stack.push(right)
+    if (left) stack.push(left)
   }
   return res
 }
