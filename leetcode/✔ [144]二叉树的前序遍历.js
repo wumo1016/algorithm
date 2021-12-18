@@ -6,7 +6,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-function preorderTraversal(root, res = []) {
+function preorderTraversal1(root, res = []) {
   if (!root) return res
   res.push(root.val)
   preorderTraversal(root.left, res)
@@ -19,18 +19,18 @@ const data = {
   left: {
     val: 2,
     left: {
-      val: 4,
+      val: 3,
       left: null,
       right: null
     },
     right: {
-      val: 5,
+      val: 4,
       left: null,
       right: null
     }
   },
   right: {
-    val: 3,
+    val: 5,
     left: {
       val: 6,
       left: null,
@@ -45,3 +45,16 @@ const data = {
 }
 
 console.log(preorderTraversal(data)) // [(1, 2, 4, 5, 3, 6, 7)]
+
+// 迭代 入栈 右左 => 左右
+function preorderTraversal(root, res = []) {
+  if (!root) return res
+  const stack = [root]
+  while (stack.length) {
+    const l = stack.pop()
+    res.push(l.val)
+    if (l.right) stack.push(l.right)
+    if (l.left) stack.push(l.left)
+  }
+  return res
+}
