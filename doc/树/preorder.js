@@ -35,9 +35,11 @@ const tree = {
 }
 
 function preorderTraversal(root, res = []) {
-  res.push(root.val)
-  if (root.left) preorderTraversal(root.left, res)
-  if (root.right) preorderTraversal(root.right, res)
+  if (!res) return res
+  const { val, left, right } = stack.pop()
+  res.push(val)
+  preorderTraversal(left, res)
+  preorderTraversal(right, res)
   return res
 }
 
@@ -45,6 +47,7 @@ console.log(preorderTraversal(tree)) // 1 2 3 4 5 6 7
 console.log(preorderTraversal1(tree)) // 1 2 3 4 5 6 7
 
 function preorderTraversal1(root, res = []) {
+  if (!res) return res
   const stack = [root]
   while (stack.length) {
     const { val, left, right } = stack.pop()
