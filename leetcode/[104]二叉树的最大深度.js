@@ -7,7 +7,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-function maxDepth(root) {
+function maxDepth1(root) {
   let res = 0
   function loop(root, max = 1) {
     if (!root) return res
@@ -35,12 +35,11 @@ const data = {
   }
 }
 
-const data1 = {
-  val: 1,
-  right: {
-    val: 2
-  }
+console.log(maxDepth(data)) // 3
+
+// dfs
+function maxDepth(root) {
+  return root ? Math.max(maxDepth(root.left) + 1, maxDepth(root.right) + 1) : 0
 }
 
-// console.log(maxDepth(data)) // 3
-console.log(maxDepth(data1)) // 2
+// bfs
