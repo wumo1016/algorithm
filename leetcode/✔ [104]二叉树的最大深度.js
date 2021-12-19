@@ -41,3 +41,17 @@ console.log(maxDepth(data)) // 3
 function maxDepth(root) {
   return root ? Math.max(maxDepth(root.left) + 1, maxDepth(root.right) + 1) : 0
 }
+
+// bfs
+function maxDepth(root, max = 0) {
+  if (!root) return 0
+  const queue = [[root, 1]]
+  while (queue.length) {
+    const f = queue.pop()
+    const [{ left, right }, dep] = f
+    if (dep > max) max = dep
+    if (left) queue.unshift([left, dep + 1])
+    if (right) queue.unshift([right, dep + 1])
+  }
+  return max
+}
