@@ -41,5 +41,3 @@ console.log(maxDepth(data)) // 3
 function maxDepth(root) {
   return root ? Math.max(maxDepth(root.left) + 1, maxDepth(root.right) + 1) : 0
 }
-
-// bfs
