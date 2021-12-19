@@ -6,7 +6,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-function levelOrder(root) {
+function levelOrder1(root) {
   if (!root) return []
   const [queue, res] = [[[root, 0]], []]
   while (queue.length) {
@@ -37,3 +37,20 @@ const data = {
 
 console.log(levelOrder(data))
 
+// 每次将同一层的数据都弹出
+function levelOrder(root) {
+  if (!root) return []
+  let [queue, res, index] = [[root], [], 0]
+  while (queue.length) {
+    let len = queue.length
+    res[index] = []
+    while (len--) {
+      const { left, right, val } = queue.pop()
+      res[index].push(val)
+      left && queue.unshift(left)
+      right && queue.unshift(right)
+    }
+    index++
+  }
+  return res
+}
