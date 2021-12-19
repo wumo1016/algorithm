@@ -8,7 +8,7 @@
  * @return {number}
  */
 // dfs
-function minDepth1(root, res = 0) {
+function minDepth1(root) {
   if (!root) return 0
   root.dep = 1
   const queue = [root]
@@ -39,7 +39,7 @@ const data = {
 console.log(minDepth(data)) // 2
 
 // bfs
-function minDepth(root) {
+function minDepth(root, res = 0) {
   const dfs = (root, max = 1) => {
     if (!root || (res && max > res)) return res
     if (!root.left && !root.right) {
