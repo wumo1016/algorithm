@@ -16,3 +16,5 @@ function preorder(root) {
   }
   return dfs(root, [])
 }
+
+// 非递归版
