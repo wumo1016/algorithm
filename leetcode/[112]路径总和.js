@@ -11,4 +11,14 @@
  * @param {number} targetSum
  * @return {boolean}
  */
-function hasPathSum(root, targetSum) {}
+function hasPathSum(root, targetSum) {
+  if (!root) return false
+  const queue = [[root, root.val]]
+  while (queue.length) {
+    const [{ left, right, val }, sum] = queue.pop()
+    if (!left && !right && sum === targetSum) return true
+    if (left) queue.unshift([left, sum + left.val])
+    if (right) queue.unshift([right, sum + right.val])
+  }
+  return false
+}
