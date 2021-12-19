@@ -7,17 +7,17 @@
  * @param {TreeNode} root
  * @return {number}
  */
-function minDepth(root, res = 0) {
-  const dfs = (root, max = 1) => {
-    if (!root) return res
-    if (!root.left && !root.right) {
-      res = res ? Math.min(max, res) : max
-    }
-    dfs(root.left, max + 1)
-    dfs(root.right, max + 1)
-    return res
+// dfs
+function minDepth1(root, res = 0) {
+  if (!root) return 0
+  root.dep = 1
+  const queue = [root]
+  while (queue.length) {
+    const { left, right, dep } = queue.pop()
+    if (!left && !right) return dep
+    if (left) queue.unshift({ ...left, dep: dep + 1 })
+    if (right) queue.unshift({ ...right, dep: dep + 1 })
   }
-  return dfs(root)
 }
 
 const data = {
@@ -37,3 +37,17 @@ const data = {
 }
 
 console.log(minDepth(data)) // 2
+
+// bfs
+function minDepth(root) {
+  const dfs = (root, max = 1) => {
+    if (!root || (res && max > res)) return res
+    if (!root.left && !root.right) {
+      res = res ? Math.min(max, res) : max
+    }
+    dfs(root.left, max + 1)
+    dfs(root.right, max + 1)
+    return res
+  }
+  return dfs(root)
+}
