@@ -26,4 +26,18 @@ const data = {
   }
 }
 
-console.log(invertTree(data))
+// console.log(invertTree(data))
+console.log(invertTree1(data))
+
+// bfs
+function invertTree1(root) {
+  if (!root) return root
+  const queue = [root]
+  while (queue.length) {
+    const l = queue.pop()
+    ;[l.left, l.right] = [l.right, l.left]
+    if (l.left) queue.unshift(l.left)
+    if (l.right) queue.unshift(l.right)
+  }
+  return root
+}
