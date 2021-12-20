@@ -13,7 +13,6 @@ function levelOrder(root) {
   if (!root) return []
   let [stack, res, index] = [[root], [], 0]
   while (stack.length) {
-    console.log(stack);
     let len = stack.length
     res[index] = []
     while (len--) {
