@@ -18,3 +18,15 @@ function preorder(root) {
 }
 
 // 非递归版
+function preorder(root) {
+  if (!root) return []
+  const [stack, res] = [[root], []]
+  while (stack.length) {
+    const { val, children } = stack.pop()
+    res.push(val)
+    for (let i = children?.length - 1 || 0; i >= 0; i--) {
+      stack.push(children[i])
+    }
+  }
+  return res
+}
