@@ -7,14 +7,13 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
+
+// 递归
 function invertTree(root) {
-  const invert = root => {
-    if (root) {
-      ;[root.left, root.right] = [invert(root.right), invert(root.left)]
-    }
-    return root
+  if (root) {
+    ;[root.left, root.right] = [invertTree(root.right), invertTree(root.left)]
   }
-  return invert(root)
+  return root
 }
 
 const data = {
