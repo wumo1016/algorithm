@@ -7,4 +7,43 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-function zigzagLevelOrder(root) {}
+function zigzagLevelOrder(root) {
+  if (!root) return []
+  let [stack, res, index] = [[root], [], 0]
+  while (stack.length) {
+    let len = stack.length
+    res[index] = []
+    while (len--) {
+      const { val, left, right } = stack.shift()
+      index % 2 === 0 ? res[index].push(val) : res[index].unshift(val)
+      left && stack.push(left)
+      right && stack.push(right)
+    }
+    index++
+  }
+  return res
+}
+
+const data = {
+  val: 1,
+  left: {
+    val: 3,
+    left: {
+      val: 4
+    },
+    right: {
+      val: 5
+    }
+  },
+  right: {
+    val: 2,
+    left: {
+      val: 6
+    },
+    right: {
+      val: 7
+    }
+  }
+}
+
+console.log(zigzagLevelOrder(data))
