@@ -7,7 +7,7 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function isBalanced(root) {
+function isBalanced1(root) {
   if (!root) return true
   const stack = [root]
   const getDep = root =>
@@ -44,3 +44,13 @@ const data = {
 }
 
 console.log(isBalanced(data))
+
+function isBalanced(root) {
+  const getDepth = function (node) {
+    if (!node) return 0
+    const [left, right] = [getDepth(node.left), getDepth(node.right)]
+    if (left === -1 || right === -1 || Math.abs(left - right) > 1) return -1
+    return Math.max(left, right) + 1
+  }
+  return getDepth(root) === -1 ? false : true
+}
