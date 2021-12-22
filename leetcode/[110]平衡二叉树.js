@@ -9,4 +9,38 @@
  */
 function isBalanced(root) {
   if (!root) return true
+  const stack = [root]
+  const getDep = root =>
+    root ? Math.max(getDep(root.left) + 1, getDep(root.right) + 1) : 0
+  while (stack.length) {
+    const { left, right } = stack.pop()
+    if (Math.abs(getDep(left) - getDep(right)) > 1) return false
+    left && stack.push(left)
+    right && stack.push(right)
+  }
+  return true
 }
+
+const data = {
+  val: 1,
+  left: {
+    val: 2,
+    left: {
+      val: 3,
+      left: {
+        val: 4
+      },
+      right: {
+        val: 4
+      }
+    },
+    right: {
+      val: 3
+    }
+  },
+  right: {
+    val: 2
+  }
+}
+
+console.log(isBalanced(data))
