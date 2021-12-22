@@ -9,8 +9,8 @@
 function postorderTraversal(root, res = []) {
   if (!root) return res
   postorderTraversal(root.left, res)
-  postorderTraversal(root.right, res)
   res.push(root.val)
+  postorderTraversal(root.right, res)
   return res
 }
 
