@@ -8,7 +8,7 @@
  * @return {number[]}
  */
 function intersection(nums1, nums2) {
-  return [...new Set(nums1)].filter(v => new Set(nums2).has(v))
+  return [...new Set(nums1)].filter(v => nums2.includes(v))
 }
 
 console.log(intersection([1, 2, 2, 1], [2, 2])) // [2]
