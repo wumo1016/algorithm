@@ -9,8 +9,37 @@
  * @param {string} t
  * @return {string}
  */
-function minWindow(s, t) {}
+function minWindow(s, t) {
+  let [len1, len2, l, r, map] = [s.length, t.length, 0, 0, new Map()]
+  for (let i = 0; i < len2; i++) {
+    const val = t[i]
+    map.set(val, (map.get(val) || 0) + 1)
+  }
+  let [res, min, needNum] = [[0, 0], Infinity, map.size]
+  while (r < len1) {
+    const v = s[r]
+    if (map.has(v)) {
+      map.set(v, map.get(v) - 1)
+      if (map.get(v) === 0) needNum--
+    }
+    while (needNum === 0) {
+      if (r - l < min) {
+        min = r - l
+        res = [l, r + 1]
+      }
+      const v = s[l]
+      if (map.has(v)) {
+        map.set(v, map.get(v) + 1)
+        if (map.get(v) === 1) needNum++
+      }
+      l++
+    }
+    r++
+  }
+  return s.slice(res[0], res[1])
+}
 
 console.log(minWindow('ADOBECODEBANC', 'ABC')) // "BANC"
 console.log(minWindow('a', 'a')) // "a"
 console.log(minWindow('a', 'aa')) // ""
+console.log(minWindow('cabwefgewcwaefgcf', 'cae')) // "cwae"
