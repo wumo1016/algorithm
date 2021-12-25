@@ -68,7 +68,7 @@ function lengthOfLongestSubstring3(s) {
 }
 
 // 移动右指针
-function lengthOfLongestSubstring(s) {
+function lengthOfLongestSubstring4(s) {
   let [len, l, max, set] = [s.length, 0, 0, new Set()]
   for (let r = 0; r < len; r++) {
     const val = s[r]
@@ -76,6 +76,19 @@ function lengthOfLongestSubstring(s) {
       set.delete(s[l++])
     }
     set.add(val)
+    max = Math.max(max, r - l + 1)
+  }
+  return max
+}
+
+// 利用map储存指针
+function lengthOfLongestSubstring(s) {
+  let [len, l, max, map] = [s.length, 0, 0, new Map()]
+  for (let r = 0; r < len; r++) {
+    const val = s[r],
+      target = map.get(val)
+    if (map.has(val) && target >= l) l = target + 1
+    map.set(val, r)
     max = Math.max(max, r - l + 1)
   }
   return max
