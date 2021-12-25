@@ -54,7 +54,7 @@ function lengthOfLongestSubstring2(s) {
 
 // 利用滑动窗口
 // 定义一个右指针 如果没有重复元素 右指针后移 如果出现重复的 就从重复元素的后面继续后移
-function lengthOfLongestSubstring(s) {
+function lengthOfLongestSubstring3(s) {
   let [len, rk, max, set, cur] = [s.length, 0, 0, new Set()]
   for (let i = 0; i < len; ++i) {
     if (i > 0) set.delete(s.charAt(i - 1))
@@ -63,6 +63,20 @@ function lengthOfLongestSubstring(s) {
       rk++
     }
     max = Math.max(max, rk - i)
+  }
+  return max
+}
+
+// 移动右指针
+function lengthOfLongestSubstring(s) {
+  let [len, l, max, set] = [s.length, 0, 0, new Set()]
+  for (let r = 0; r < len; r++) {
+    const val = s[r]
+    while (set.has(val)) {
+      set.delete(s[l++])
+    }
+    set.add(val)
+    max = Math.max(max, r - l + 1)
   }
   return max
 }
