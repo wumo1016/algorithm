@@ -43,13 +43,10 @@ function twoSum1(nums, target) {
 }
 // 哈希解法2
 function twoSum2(nums, target) {
-  const map = new Map()
-  const len = nums.length
+  const [map, len] = [new Map(), nums.length]
   for (let i = 0; i < len; i++) {
-    const poor = target - nums[i]
-    if (map.has(nums[i]) && map.get(nums[i]) !== i) {
-      return [map.get(nums[i]), i]
-    }
-    map.set(poor, i)
+    const val = nums[i]
+    if (map.has(val) && map.get(val) !== i) return [map.get(val), i]
+    map.set(target - val, i)
   }
 }
