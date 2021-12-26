@@ -14,13 +14,27 @@
  * @param {string} s
  * @return {boolean}
  */
-function isNumber1(s) {
-  return (
-    /^(\+|\-)?\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s) ||
-    /^(\+|\-)?\d+\.$/.test(s) ||
-    /^(\+|\-)?\d+\.\d*((e|E)(\+|\-)?)?\d+$/.test(s) ||
-    /^(\+|\-)?\.\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s)
+function isNumber(s) {
+  // 正则1
+  // return (
+  //   /^(\+|\-)?\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s) ||
+  //   /^(\+|\-)?\d+\.$/.test(s) ||
+  //   /^(\+|\-)?\d+\.\d*((e|E)(\+|\-)?)?\d+$/.test(s) ||
+  //   /^(\+|\-)?\.\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s)
+  // )
+
+  // 正则2
+  // return /^(\+|\-)?(\d+(((e|E)(\+|\-)?)?\d+)?|\d+\.|\d+\.\d*((e|E)(\+|\-)?)?\d+|\.\d+(((e|E)(\+|\-)?)?\d+)?)$/.test(
+  //   s
+  // )
+
+  // 正则3
+  return /^[+-]?(\d+(([Ee][+-]?)?\d+)?|\d+\.|\d+\.\d*([Ee][+-]?)?\d+|\.\d+(([Ee][+-]?)?\d+)?)$/.test(
+    s
   )
+
+  // 正则4
+  // return /^[\+\-]?((\d+(\.\d*)?)|\.\d+)([eE][-+]?\d+)?$/.test(s)
 }
 
 const data1 = [
@@ -47,15 +61,8 @@ console.log(data1.map(v => isNumber(v)))
 console.log(data2.map(v => isNumber(v)))
 console.log(isNumber('.'))
 
-// 简化版正则
-function isNumber2(s) {
-  return /^(\+|\-)?(\d+(((e|E)(\+|\-)?)?\d+)?|\d+\.|\d+\.\d*((e|E)(\+|\-)?)?\d+|\.\d+(((e|E)(\+|\-)?)?\d+)?)$/.test(
-    s
-  )
-}
-
 // 利用图
-function isNumber(s) {
+function isNumber1(s) {
   // blank=>表示空白字符 sign=>表示+- digit=>表示数字
   const map = {
     0: {
@@ -106,4 +113,9 @@ function isNumber(s) {
     if (state === undefined) return false
   }
   return [3, 5, 6].includes(state)
+}
+// 偷鸡
+function isNumber2(s) {
+  s = s.trim()
+  return /[+-]?Infinity/.test(s) ? false : !isNaN(s)
 }
