@@ -48,8 +48,62 @@ console.log(data2.map(v => isNumber(v)))
 console.log(isNumber('.'))
 
 // 简化版正则
-function isNumber(s) {
+function isNumber2(s) {
   return /^(\+|\-)?(\d+(((e|E)(\+|\-)?)?\d+)?|\d+\.|\d+\.\d*((e|E)(\+|\-)?)?\d+|\.\d+(((e|E)(\+|\-)?)?\d+)?)$/.test(
     s
   )
+}
+
+// 利用图
+function isNumber(s) {
+  // blank=>表示空白字符 sign=>表示+- digit=>表示数字
+  const map = {
+    0: {
+      blank: 0,
+      sign: 1,
+      '.': 2,
+      digit: 6
+    },
+    1: {
+      '.': 2,
+      digit: 6
+    },
+    2: {
+      digit: 3
+    },
+    3: {
+      digit: 3,
+      e: 4,
+      E: 4
+    },
+    4: {
+      digit: 5,
+      sign: 7
+    },
+    5: {
+      digit: 5
+    },
+    6: {
+      '.': 3,
+      e: 4,
+      E: 4,
+      digit: 6
+    },
+    7: {
+      digit: 5
+    }
+  }
+  let state = 0
+  for (let c of s.trim()) {
+    if (/\d/.test(c)) {
+      c = 'digit'
+    } else if (c === ' ') {
+      c = 'blank'
+    } else if (/\+|\-/.test(c)) {
+      c = 'sign'
+    }
+    state = map[state][c]
+    if (state === undefined) return false
+  }
+  return [3, 5, 6].includes(state)
 }
