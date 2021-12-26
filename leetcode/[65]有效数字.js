@@ -14,10 +14,11 @@
  * @param {string} s
  * @return {boolean}
  */
-function isNumber(s) {
+function isNumber1(s) {
   return (
-    /^(\+|\-)?\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s) || /^(\+|\-)?\d+\.$/.test(s) || 
-    /^(\+|\-)?\d+\.\d*((e|E)(\+|\-)?)?\d+$/.test(s) || 
+    /^(\+|\-)?\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s) ||
+    /^(\+|\-)?\d+\.$/.test(s) ||
+    /^(\+|\-)?\d+\.\d*((e|E)(\+|\-)?)?\d+$/.test(s) ||
     /^(\+|\-)?\.\d+(((e|E)(\+|\-)?)?\d+)?$/.test(s)
   )
 }
@@ -45,3 +46,10 @@ const data2 = ['abc', '1a', '1e', 'e3', '99e2.5', '--6', '-+3', '95a54e53']
 console.log(data1.map(v => isNumber(v)))
 console.log(data2.map(v => isNumber(v)))
 console.log(isNumber('.'))
+
+// 简化版正则
+function isNumber(s) {
+  return /^(\+|\-)?(\d+(((e|E)(\+|\-)?)?\d+)?|\d+\.|\d+\.\d*((e|E)(\+|\-)?)?\d+|\.\d+(((e|E)(\+|\-)?)?\d+)?)$/.test(
+    s
+  )
+}
