@@ -40,6 +40,35 @@ function minWindow(s, t) {
 }
 
 console.log(minWindow('ADOBECODEBANC', 'ABC')) // "BANC"
-console.log(minWindow('a', 'a')) // "a"
-console.log(minWindow('a', 'aa')) // ""
-console.log(minWindow('cabwefgewcwaefgcf', 'cae')) // "cwae"
+// console.log(minWindow('a', 'a')) // "a"
+// console.log(minWindow('a', 'aa')) // ""
+// console.log(minWindow('cabwefgewcwaefgcf', 'cae')) // "cwae"
+
+function minWindow(s, t) {
+  const [len, map] = [s.length, new Map()]
+  for (const v of t) {
+    map.set(v, map.has(v) ? map.get(v) + 1 : 1)
+  }
+  let [left, right, size, res, min] = [0, 0, map.size, [0, 0], Infinity]
+  for (let i = 0; i < len; i++) {
+    const v = s[right]
+    if (map.has(v)) {
+      map.set(v, map.get(v) - 1)
+      if (map.get(v) === 0) size--
+    }
+    while (size === 0) {
+      const v = s[left]
+      if (right - left < min) {
+        min = right - left
+        res = [left, right + 1]
+      }
+      if (map.has(v)) {
+        map.set(v, map.get(v) + 1)
+        if (map.get(v) === 1) size++
+      }
+      left++
+    }
+    right++
+  }
+  return s.slice(res[0], res[1])
+}
