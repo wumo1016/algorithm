@@ -8,3 +8,10 @@
  * @return {Node}
  */
 function cloneGraph(node) {}
+
+/* 
+{
+  val: 1,
+  neighbors: [ { val: 2, neighbors: [Array] }, { val: 4, neighbors: [Array] } ]
+}
+*/
