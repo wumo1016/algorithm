@@ -16,9 +16,9 @@ function cloneGraph(node) {
   if (!node) return node
   const map = new Map()
   const dfs = node => {
-    const newNode = new Node(node.val, node.neighbors)
+    const newNode = new Node(node.val)
     map.set(node, newNode)
-    newNode.neighbors = newNode.neighbors.map(child => {
+    newNode.neighbors = node.neighbors.map(child => {
       return map.get(child) || dfs(child)
     })
     return newNode
