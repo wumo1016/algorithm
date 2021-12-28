@@ -10,7 +10,15 @@
  * @param {number[]} arr
  * @return {number[]}
  */
-function arrayRankTransform(arr) {}
+function arrayRankTransform(arr) {
+  const [res, map] = [[...arr], new Map()]
+  res.sort((a, b) => a - b)
+  let index = 1
+  res.forEach(v => {
+    if (!map.has(v)) map.set(v, index++)
+  })
+  return arr.map(v => map.get(v))
+}
 
 console.log(arrayRankTransform([40, 10, 20, 30])) // [4,1,2,3]
 console.log(arrayRankTransform([100, 100, 100])) // [1,1,1]
