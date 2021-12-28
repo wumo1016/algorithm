@@ -3,15 +3,31 @@
 - 图中的每个节点都包含它的值 val（int） 和其邻居的列表
 */
 
+function Node(val, neighbors) {
+  this.val = val === undefined ? 0 : val
+  this.neighbors = neighbors === undefined ? [] : neighbors
+}
+
 /**
  * @param {Node} node
  * @return {Node}
  */
-function cloneGraph(node) {}
-
-/* 
-{
-  val: 1,
-  neighbors: [ { val: 2, neighbors: [Array] }, { val: 4, neighbors: [Array] } ]
+function cloneGraph(node) {
+  if (!node) return node
+  const map = new Map()
+  const dfs = node => {
+    const newNode = new Node(node.val, node.neighbors)
+    map.set(node, newNode)
+    newNode.neighbors = newNode.neighbors.map(child => {
+      return map.get(child) || dfs(child)
+    })
+    return newNode
+  }
+  return dfs(node)
 }
-*/
+
+const node1 = new Node(1)
+const node2 = new Node(2)
+const node3 = new Node(3)
+const node4 = new Node(4)
+node1.neighbors = [node2, node4]
