@@ -11,12 +11,8 @@
  * @return {number[]}
  */
 function arrayRankTransform(arr) {
-  const [res, map] = [[...arr], new Map()]
-  res.sort((a, b) => a - b)
-  let index = 1
-  res.forEach(v => {
-    if (!map.has(v)) map.set(v, index++)
-  })
+  const [res, map] = [[...new Set(arr)].sort((a, b) => a - b), new Map()]
+  res.forEach((v, i) => map.set(v, i + 1))
   return arr.map(v => map.get(v))
 }
 
