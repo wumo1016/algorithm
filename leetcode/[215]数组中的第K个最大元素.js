@@ -9,7 +9,13 @@
  * @param {number} k
  * @return {number}
  */
-function findKthLargest(nums, k) {}
+function findKthLargest(nums, k) {
+  return nums.sort((a, b) => b - a)[k - 1]
+}
 
 console.log(findKthLargest([3, 2, 1, 5, 6, 4], 2)) // 5
 console.log(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 4], 4)) // 4
+
+function findKthLargest(nums, k) {
+  return nums.sort((a, b) => b - a)[k - 1]
+}
