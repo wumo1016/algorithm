@@ -7,7 +7,9 @@
  * @param {string} s
  * @return {number}
  */
-function lengthOfLastWord(s) {}
+function lengthOfLastWord(s) {
+  return s.match(/(\S*)\s*$/)[1].length
+}
 
 console.log(lengthOfLastWord('Hello World')) // 5
 console.log(lengthOfLastWord('   fly me   to   the moon  ')) // 4
