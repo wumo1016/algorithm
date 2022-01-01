@@ -23,7 +23,7 @@ class MinHeap {
     // 直接将堆顶设置为堆的最后一个节点
     this.heap[0] = this.heap.pop()
     // 然后执行下移操作 直到当前元素小于父元素
-    this.down()
+    this.down(0)
   }
   /**
    * @Author: wyb
