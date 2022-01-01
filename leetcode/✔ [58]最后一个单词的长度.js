@@ -14,3 +14,20 @@ function lengthOfLastWord(s) {
 console.log(lengthOfLastWord('Hello World')) // 5
 console.log(lengthOfLastWord('   fly me   to   the moon  ')) // 4
 console.log(lengthOfLastWord('luffy is still joyboy')) // 6
+
+function lengthOfLastWord(s) {
+  return s.trim().split(' ').pop().length
+}
+
+function lengthOfLastWord(s) {
+  s = s.trim()
+  let [len, max] = [s.length, 0]
+  for (let i = len - 1; i >= 0; i--) {
+    if (s[i] !== ' ') {
+      max++
+    } else {
+      break
+    }
+  }
+  return max
+}
