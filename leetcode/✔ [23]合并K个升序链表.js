@@ -1,4 +1,4 @@
-/* 合并K个升序链表
+/* 合并K个升序链表(https://leetcode-cn.com/problems/merge-k-sorted-lists/)
 - 给你一个链表数组，每个链表都已经按升序排列
 - 请你将所有链表合并到一个升序链表中，返回合并后的链表。
 */
@@ -6,6 +6,67 @@
 function ListNode(val, next) {
   this.val = val
   this.next = next || null
+}
+
+class MinHeap {
+  constructor() {
+    this.heap = []
+  }
+  get size() {
+    return this.heap.length
+  }
+  insert(value) {
+    this.heap.push(value)
+    this.up(this.heap.length - 1)
+  }
+  pop() {
+    if (this.size === 1) return this.heap.pop()
+    const top = this.peek()
+    this.heap[0] = this.heap.pop()
+    this.down(0)
+    return top
+  }
+  peek() {
+    return this.heap[0]
+  }
+  up(index) {
+    if (index === 0) return
+    const parentIndex = this.getParentIndex(index)
+    if (this.heap[parentIndex]['val'] > this.heap[index]['val']) {
+      this.swap(parentIndex, index)
+      this.up(parentIndex)
+    }
+  }
+  down(index) {
+    const leftIndex = this.getLeftChildIndex(index)
+    const rightIndex = this.getRightChildIndex(index)
+    if (
+      this.heap[leftIndex] &&
+      this.heap[leftIndex]['val'] < this.heap[index]['val']
+    ) {
+      this.swap(leftIndex, index)
+      this.down(leftIndex)
+    }
+    if (
+      this.heap[rightIndex] &&
+      this.heap[rightIndex]['val'] < this.heap[index]['val']
+    ) {
+      this.swap(rightIndex, index)
+      this.down(rightIndex)
+    }
+  }
+  getParentIndex(index) {
+    return (index - 1) >> 1
+  }
+  getLeftChildIndex(index) {
+    return index * 2 + 1
+  }
+  getRightChildIndex(index) {
+    return index * 2 + 2
+  }
+  swap(i1, i2) {
+    ;[this.heap[i1], this.heap[i2]] = [this.heap[i2], this.heap[i1]]
+  }
 }
 
 /**
@@ -86,4 +147,21 @@ function mergeKLists1(lists) {
     }, [])
     .sort((a, b) => a.val - b.val)
     .reduceRight((p, n) => ((n.next = p), (p = n), p), null)
+}
+
+// 利用堆
+function mergeKLists1(lists) {
+  const [res, heap] = [new ListNode(0), new MinHeap()]
+  let p = res
+  lists.forEach(n => {
+    if (n) heap.insert(n)
+  })
+  while (heap.size) {
+    const t = heap.pop()
+    const next = t.next
+    p.next = t
+    p = p.next
+    next && heap.insert(next)
+  }
+  return res.next
 }
