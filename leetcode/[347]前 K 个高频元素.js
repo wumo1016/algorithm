@@ -10,15 +10,14 @@
  * @return {number[]}
  */
 function topKFrequent(nums, k) {
-  const maps = {}
+  const map = new Map()
   nums.forEach(v => {
-    if (typeof maps[v] === 'undefined') maps[v] = 0
-    maps[v]++
+    map.set(v, map.has(v) ? map.get(v) + 1 : 1)
   })
-  return Object.entries(maps)
+  return Array.from(map)
     .sort((a, b) => b[1] - a[1])
-    .map(v => Number(v[0]))
     .slice(0, k)
+    .map(v => v[0])
 }
 
 console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2)) // [1,2]
