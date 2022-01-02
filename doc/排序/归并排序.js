@@ -27,21 +27,3 @@ function sort(list) {
 
 const data = [3, 4, 4, 5, 3, 1, 5, 6, 4, 3, 2, 5]
 console.log(sort(data))
-
-function sort1(list) {
-  const len = list.length
-  if (len < 2) return list
-  const [c, left, center, right] = [(len / 2) >> 0, [], [], []]
-  const val = list[c]
-  for (let i = 0; i < len; i++) {
-    const cur = list[i]
-    if (cur > val) {
-      right.push(cur)
-    } else if (cur < val) {
-      left.push(cur)
-    } else {
-      center.push(cur)
-    }
-  }
-  return sort(left).concat(center, sort(right))
-}
