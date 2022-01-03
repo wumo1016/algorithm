@@ -6,17 +6,84 @@
   - int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 k 大的元素
 */
 
+class MinHeap {
+  constructor(heap = []) {
+    this.heap = [...heap]
+  }
+  get size() {
+    return this.heap.length
+  }
+  insert(value) {
+    this.heap.push(value)
+    this.up(this.heap.length - 1)
+  }
+  pop() {
+    if (this.size === 1) return this.heap.pop()
+    const f = this.heap[0]
+    this.heap[0] = this.heap.pop()
+    this.down(0)
+    return f
+  }
+  peek() {
+    return this.heap[0]
+  }
+  up(index) {
+    if (index === 0) return
+    const parentIndex = this.getParentIndex(index)
+    if (this.heap[parentIndex] > this.heap[index]) {
+      this.swap(parentIndex, index)
+      this.up(parentIndex)
+    }
+  }
+  down(index) {
+    const leftIndex = this.getLeftChildIndex(index)
+    const rightIndex = this.getRightChildIndex(index)
+    if (this.heap[leftIndex] < this.heap[index]) {
+      this.swap(leftIndex, index)
+      this.down(leftIndex)
+    }
+    if (this.heap[rightIndex] < this.heap[index]) {
+      this.swap(rightIndex, index)
+      this.down(rightIndex)
+    }
+  }
+  getParentIndex(index) {
+    return (index - 1) >> 1
+  }
+  getLeftChildIndex(index) {
+    return index * 2 + 1
+  }
+  getRightChildIndex(index) {
+    return index * 2 + 2
+  }
+  swap(i1, i2) {
+    ;[this.heap[i1], this.heap[i2]] = [this.heap[i2], this.heap[i1]]
+  }
+}
+
 /**
  * @param {number} k
  * @param {number[]} nums
  */
-var KthLargest = function (k, nums) {}
+var KthLargest = function (k, nums) {
+  this.heap = new MinHeap()
+  this.insert = val => {
+    this.heap.insert(val)
+    if (this.heap.size > k) this.heap.pop()
+  }
+  nums.forEach(v => {
+    this.insert(v)
+  })
+}
 
 /**
  * @param {number} val
  * @return {number}
  */
-KthLargest.prototype.add = function (val) {}
+KthLargest.prototype.add = function (val) {
+  this.insert(val)
+  return this.heap.peek()
+}
 
 const kthLargest = new KthLargest(3, [4, 5, 8, 2])
 kthLargest.add(3) // return 4
