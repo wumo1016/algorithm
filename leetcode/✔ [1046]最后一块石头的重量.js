@@ -74,8 +74,7 @@ function lastStoneWeight(stones) {
   while (heap.size > 1) {
     const max1 = heap.pop()
     const max2 = heap.pop()
-    const v = max1 - max2
-    if (v) heap.insert(v)
+    if (max1 > max2) heap.insert(max1 - max2)
   }
   return heap.size > 0 ? heap.pop() : 0
 }
