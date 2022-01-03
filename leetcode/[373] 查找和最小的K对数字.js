@@ -4,14 +4,91 @@
 - 请找到和最小的 k 个数对 (u1,v1),  (u2,v2)  ...  (uk,vk)
 */
 
+class MaxHeap {
+  constructor() {
+    this.heap = []
+  }
+  get size() {
+    return this.heap.length
+  }
+  insert(value) {
+    this.heap.push(value)
+    this.up(this.heap.length - 1)
+  }
+  pop() {
+    if (this.size === 1) return this.heap.pop()
+    this.heap[0] = this.heap.pop()
+    this.down(0)
+  }
+  peek() {
+    return this.heap[0]
+  }
+  up(index) {
+    if (index === 0) return
+    const parentIndex = this.getParentIndex(index)
+    if (
+      this.heap[parentIndex] &&
+      this.heap[parentIndex]['total'] < this.heap[index]['total']
+    ) {
+      this.swap(parentIndex, index)
+      this.up(parentIndex)
+    }
+  }
+  down(index) {
+    const leftIndex = this.getLeftChildIndex(index)
+    const rightIndex = this.getRightChildIndex(index)
+    if (
+      this.heap[leftIndex] &&
+      this.heap[leftIndex]['total'] > this.heap[index]['total']
+    ) {
+      this.swap(leftIndex, index)
+      this.down(leftIndex)
+    }
+    if (
+      this.heap[rightIndex] &&
+      this.heap[rightIndex]['total'] > this.heap[index]['total']
+    ) {
+      this.swap(rightIndex, index)
+      this.down(rightIndex)
+    }
+  }
+  getParentIndex(index) {
+    return (index - 1) >> 1
+  }
+  getLeftChildIndex(index) {
+    return index * 2 + 1
+  }
+  getRightChildIndex(index) {
+    return index * 2 + 2
+  }
+  swap(i1, i2) {
+    ;[this.heap[i1], this.heap[i2]] = [this.heap[i2], this.heap[i1]]
+  }
+}
 /**
  * @param {number[]} nums1
  * @param {number[]} nums2
  * @param {number} k
  * @return {number[][]}
  */
-function kSmallestPairs(nums1, nums2, k) {}
+function kSmallestPairs(nums1, nums2, k) {
+  const heap = new MaxHeap()
+  const [len1, len2] = [nums1.length, nums2.length]
+  for (let i = 0; i < len1; i++) {
+    for (let j = 0; j < len2; j++) {
+      const data = [nums1[i], nums2[j]]
+      const total = data[0] + data[1]
+      if (heap.size === k && total >= heap.peek().total) break
+      heap.insert({ total, data })
+      if (heap.size > k) heap.pop()
+    }
+    if (heap.size === k && nums1[i] + nums2[0] >= heap.peek().total) break
+  }
+  return heap.heap.map(v => v.data)
+}
 
-console.log(kSmallestPairs([1, 7, 11], [2, 4, 6], 3)) // [1,2],[1,4],[1,6]
-console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 2)) // [1,1],[1,1]
-console.log(kSmallestPairs([1, 2], [3], 3)) // [1,3],[2,3]
+// console.log(kSmallestPairs([1, 7, 11], [2, 4, 6], 3)) // [1,2],[1,4],[1,6]
+// console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 2)) // [1,1],[1,1]
+// console.log(kSmallestPairs([1, 2], [3], 3)) // [1,3],[2,3]
+// console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 2)) // [[1,1],[1,1]]
+console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 10)) // [[1,1],[1,1],[2,1],[1,2],[1,2],[2,2],[1,3],[1,3],[2,3]]
