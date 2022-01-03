@@ -7,7 +7,9 @@
  * @param {number} k
  * @return {number[]}
  */
-function getLeastNumbers(arr, k) {}
+function getLeastNumbers(arr, k) {
+  return arr.sort((a, b) => a - b).slice(0, k)
+}
 
 console.log(getLeastNumbers([3, 2, 1], 2)) // [1,2]
-console.log(getLeastNumbers([0, 1, 2, 1], 2)) // [0]
+console.log(getLeastNumbers([0, 1, 2, 1], 2)) // [1]
