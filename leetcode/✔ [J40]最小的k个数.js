@@ -14,7 +14,7 @@ class MaxHeap {
     this.up(this.heap.length - 1)
   }
   pop() {
-    if (this.size === 1) return this.heap.pop()
+    if (this.size === 1) return this.heap.shift()
     this.heap[0] = this.heap.pop()
     this.down(0)
   }
@@ -64,9 +64,9 @@ function getLeastNumbers(arr, k) {
   return arr.sort((a, b) => a - b).slice(0, k)
 }
 
-// console.log(getLeastNumbers([3, 2, 1], 2)) // [1,2]
-// console.log(getLeastNumbers([0, 1, 2, 1], 1)) // [0]
-console.log(getLeastNumbers([0, 0, 0, 2, 0, 5], 0)) // [0]
+console.log(getLeastNumbers([3, 2, 1], 2)) // [1,2]
+console.log(getLeastNumbers([0, 1, 2, 1], 1)) // [0]
+console.log(getLeastNumbers([0, 0, 0, 2, 0, 5], 0)) // []
 
 // 利用堆
 function getLeastNumbers(arr, k) {
