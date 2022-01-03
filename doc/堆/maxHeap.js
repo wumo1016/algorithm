@@ -10,6 +10,7 @@ class MaxHeap {
     this.up(this.heap.length - 1)
   }
   pop() {
+    if (this.size === 1) return this.heap.pop()
     this.heap[0] = this.heap.pop()
     this.down(0)
   }

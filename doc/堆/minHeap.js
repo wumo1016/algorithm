@@ -20,6 +20,7 @@ class MinHeap {
    * @param {*}
    */
   pop() {
+    if (this.size === 1) return this.heap.pop()
     // 直接将堆顶设置为堆的最后一个节点
     this.heap[0] = this.heap.pop()
     // 然后执行下移操作 直到当前元素小于父元素
@@ -128,6 +129,7 @@ class MinHeap1 {
     this.up(this.heap.length - 1)
   }
   pop() {
+    if (this.size === 1) return this.heap.pop()
     this.heap[0] = this.heap.pop()
     this.down(0)
   }
@@ -181,6 +183,7 @@ class MinHeap2 {
     this.up(this.heap.length - 1)
   }
   pop() {
+    if (this.size === 1) return this.heap.pop()
     this.heap[0] = this.heap.pop()
     this.down(0)
   }
