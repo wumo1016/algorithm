@@ -13,19 +13,17 @@ class MaxHeap {
   }
   insert(value) {
     this.heap.push(value)
-    this.up(this.heap.length - 1)
+    this.up(this.size - 1)
   }
   pop() {
     if (this.size === 1) return this.heap.pop()
     this.heap[0] = this.heap.pop()
     this.down(0)
   }
-  peek() {
-    return this.heap[0]
-  }
+  peek = () => this.heap[0]
   up(index) {
     if (index === 0) return
-    const parentIndex = this.getParentIndex(index)
+    const parentIndex = (index - 1) >> 1
     if (
       this.heap[parentIndex] &&
       this.heap[parentIndex]['total'] < this.heap[index]['total']
@@ -35,8 +33,8 @@ class MaxHeap {
     }
   }
   down(index) {
-    const leftIndex = this.getLeftChildIndex(index)
-    const rightIndex = this.getRightChildIndex(index)
+    const leftIndex = index * 2 + 1
+    const rightIndex = index * 2 + 2
     if (
       this.heap[leftIndex] &&
       this.heap[leftIndex]['total'] > this.heap[index]['total']
@@ -52,15 +50,6 @@ class MaxHeap {
       this.down(rightIndex)
     }
   }
-  getParentIndex(index) {
-    return (index - 1) >> 1
-  }
-  getLeftChildIndex(index) {
-    return index * 2 + 1
-  }
-  getRightChildIndex(index) {
-    return index * 2 + 2
-  }
   swap(i1, i2) {
     ;[this.heap[i1], this.heap[i2]] = [this.heap[i2], this.heap[i1]]
   }
@@ -72,15 +61,14 @@ class MaxHeap {
  * @return {number[][]}
  */
 function kSmallestPairs(nums1, nums2, k) {
-  const heap = new MaxHeap()
-  const [len1, len2] = [nums1.length, nums2.length]
+  const [len1, len2, heap] = [nums1.length, nums2.length, new MaxHeap()]
   for (let i = 0; i < len1; i++) {
     for (let j = 0; j < len2; j++) {
       const data = [nums1[i], nums2[j]]
       const total = data[0] + data[1]
-      if (heap.size === k && total >= heap.peek().total) break
       heap.insert({ total, data })
       if (heap.size > k) heap.pop()
+      if (heap.size === k && total >= heap.peek().total) break
     }
     if (heap.size === k && nums1[i] + nums2[0] >= heap.peek().total) break
   }
