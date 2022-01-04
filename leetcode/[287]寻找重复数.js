@@ -9,12 +9,10 @@
  * @return {number}
  */
 function findDuplicate(nums) {
-  const len = nums.length
-  let i = -1
+  let [len, i] = [nums.length, -1]
   while (++i < len) {
-    const val = nums[i]
     for (let j = i + 1; j < len; j++) {
-      if (nums[j] === val) return val
+      if (nums[j] === nums[i]) return nums[i]
     }
   }
 }
@@ -23,3 +21,4 @@ console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
 console.log(findDuplicate([3, 1, 1, 4, 3])) // 3
 console.log(findDuplicate([1, 1])) // 1
 console.log(findDuplicate([1, 2, 1])) // 1
+console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
