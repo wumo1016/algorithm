@@ -18,7 +18,7 @@ function findDuplicate(nums) {
 }
 
 console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
-console.log(findDuplicate([3, 1, 1, 4, 3])) // 3
-console.log(findDuplicate([1, 1])) // 1
-console.log(findDuplicate([1, 2, 1])) // 1
-console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
+// console.log(findDuplicate([3, 1, 2, 4, 3])) // 3
+// console.log(findDuplicate([1, 1])) // 1
+// console.log(findDuplicate([1, 2, 1])) // 1
+// console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
