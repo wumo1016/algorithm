@@ -8,4 +8,6 @@
  * @param {TreeNode} q
  * @return {boolean}
  */
-function isSameTree(p, q) {}
+function isSameTree(p, q) {
+  return JSON.stringify(p) === JSON.stringify(q)
+}
