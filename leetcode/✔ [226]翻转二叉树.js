@@ -15,6 +15,15 @@ function invertTree(root) {
   }
   return root
 }
+// 递归1
+function invertTree(root) {
+  if (!root) return null
+  return {
+    val: root.val,
+    left: invertTree(root.right),
+    right: invertTree(root.left)
+  }
+}
 
 const data = {
   val: 1,
