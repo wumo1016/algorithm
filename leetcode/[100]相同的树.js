@@ -11,3 +11,18 @@
 function isSameTree(p, q) {
   return JSON.stringify(p) === JSON.stringify(q)
 }
+
+// 递归
+function isSameTree(p, q) {
+  let valid = true
+  function loop(p, q) {
+    if (!valid) return
+    if (p === q) return
+    if (!p || !q) return (valid = false)
+    if (p.val !== q.val) return (valid = false)
+    loop(p.left, q.left)
+    loop(p.right, q.right)
+  }
+  loop(p, q)
+  return valid
+}
