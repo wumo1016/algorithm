@@ -18,7 +18,22 @@ function findDuplicate(nums) {
 }
 
 console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
-// console.log(findDuplicate([3, 1, 2, 4, 3])) // 3
-// console.log(findDuplicate([1, 1])) // 1
-// console.log(findDuplicate([1, 2, 1])) // 1
-// console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
+console.log(findDuplicate([3, 1, 2, 4, 3])) // 3
+console.log(findDuplicate([1, 1])) // 1
+console.log(findDuplicate([1, 2, 1])) // 1
+console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
+
+// 快慢指针
+function findDuplicate(nums) {
+  let [fast, slow] = [0, 0]
+  do {
+    slow = nums[slow]
+    fast = nums[nums[fast]]
+  } while (fast !== slow)
+  slow = 0
+  while (fast !== slow) {
+    slow = nums[slow]
+    fast = nums[fast]
+  }
+  return slow
+}
