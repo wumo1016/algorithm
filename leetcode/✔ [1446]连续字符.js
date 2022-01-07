@@ -23,3 +23,11 @@ console.log(maxPower('triplepillooooow')) // 5
 console.log(maxPower('hooraaaaaaaaaaay')) // 11
 console.log(maxPower('tourist')) // 1
 console.log(maxPower('cc')) // 2
+
+function maxPower(s) {
+  let [max, num, len] = [1, 1, s.length]
+  for (let i = 1; i < len; i++) {
+    s[i] === s[i - 1] ? (max = Math.max(max, ++num)) : (num = 1)
+  }
+  return Math.max(max, num)
+}
