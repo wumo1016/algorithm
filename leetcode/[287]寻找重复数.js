@@ -17,12 +17,13 @@ function findDuplicate(nums) {
   }
 }
 
-console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
-console.log(findDuplicate([3, 1, 2, 4, 3])) // 3
-console.log(findDuplicate([1, 1])) // 1
-console.log(findDuplicate([1, 2, 1])) // 1
-console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
-console.log(findDuplicate([1, 3, 4, 6, 5, 7, 2, 8, 8, 9, 10])) // 8
+// console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
+// console.log(findDuplicate([3, 1, 2, 4, 3])) // 3
+// console.log(findDuplicate([1, 1])) // 1
+// console.log(findDuplicate([1, 2, 1])) // 1
+// console.log(findDuplicate([1, 3, 4, 2, 2])) // 2
+// console.log(findDuplicate([1, 3, 4, 6, 5, 7, 2, 5, 8, 9, 10])) // 5
+console.log(findDuplicate([1, 3, 4, 2, 1])) // 1
 
 // 快慢指针
 function findDuplicate(nums) {
@@ -45,14 +46,29 @@ function findDuplicate(nums) {
   while (l <= r) {
     let [c, cut] = [(l + r) >> 1, 0]
     for (let i = 0; i < len; i++) {
-      if (nums[i] >= c) cut++
+      if (nums[i] <= c) cut++
     }
-    if (l === r) {
+    if (cut > c) {
+      r = c - 1
       res = c
-      break
+    } else {
+      l = c + 1
+    }
+  }
+  return res
+}
+
+function findDuplicate(nums) {
+  const len = nums.length
+  let [l, r, res] = [1, len - 1]
+  while (l <= r) {
+    let [c, cut] = [(l + r) >> 1, 0]
+    for (let i = 0; i < len; i++) {
+      if (nums[i] >= c) cut++
     }
     if (cut > c) {
       l = c + 1
+      res = c
     } else {
       r = c - 1
     }
