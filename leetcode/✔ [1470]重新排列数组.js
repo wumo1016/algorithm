@@ -25,3 +25,11 @@ function shuffle(nums, n) {
     .fill()
     .reduce((res, cur, index) => res.concat(nums[index], nums[index + n]), [])
 }
+
+function shuffle(nums, n) {
+  const res = []
+  for (let i = 0; i < n; i++) {
+    res.push(nums[i], nums[i + n])
+  }
+  return res
+}
