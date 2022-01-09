@@ -27,3 +27,20 @@ function isSymmetric(root) {
   loop2(root.right)
   return leftList.toString() === rightList.toString()
 }
+// 判断左子树的左节点和右子树的右节点 且 左子树的右节点和右子树的左节点
+function isSymmetric(root) {
+  if (!root) return true
+  function loop(left, right) {
+    if (!left && !right) return true
+    if (
+      left &&
+      right &&
+      left.val === right.val &&
+      loop(left.left, right.right) &&
+      loop(left.right, right.left)
+    )
+      return true
+    return false
+  }
+  return loop(root.left, root.right)
+}
