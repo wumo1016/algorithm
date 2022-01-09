@@ -57,21 +57,3 @@ function findDuplicate(nums) {
   }
   return res
 }
-
-function findDuplicate(nums) {
-  const len = nums.length
-  let [l, r, res] = [1, len - 1]
-  while (l <= r) {
-    let [c, cut] = [(l + r) >> 1, 0]
-    for (let i = 0; i < len; i++) {
-      if (nums[i] >= c) cut++
-    }
-    if (cut > c) {
-      l = c + 1
-      res = c
-    } else {
-      r = c - 1
-    }
-  }
-  return res
-}
