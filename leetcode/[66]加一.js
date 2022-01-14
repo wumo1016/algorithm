@@ -16,7 +16,7 @@ function plusOne(digits) {
     const res = digits[i] + 1
     if (res === 10) {
       digits[i] = 0
-    } else {
+    } else {c
       digits[i] = res
       cur = 0
       break
