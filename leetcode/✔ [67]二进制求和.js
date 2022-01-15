@@ -55,8 +55,7 @@ console.log(addBinary('1111', '1111')) // 11110
 
 // 简化版
 function addBinary(a, b) {
-  const [len1, len2] = [a.length, b.length]
-  let [i, j, cur, res] = [len1 - 1, len2 - 1, 0, '']
+  let [i, j, cur, res] = [a.length - 1, b.length - 1, 0, '']
   while (i >= 0 || j >= 0) {
     const t =
       (i >= 0 ? Number(a[i--]) : 0) + (j >= 0 ? Number(b[j--]) : 0) + cur
@@ -64,4 +63,9 @@ function addBinary(a, b) {
     cur = t >> 1
   }
   return (cur ? '1' : '') + res
+}
+
+// 利用 BigInt 0b表格二进制数
+function addBinary(a, b) {
+  return (BigInt('0b' + a) + BigInt('0b' + b)).toString(2)
 }
