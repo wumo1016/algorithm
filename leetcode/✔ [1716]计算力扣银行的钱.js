@@ -14,20 +14,10 @@ function totalMoney(n) {
   for (let i = 1; i <= x; i++) {
     res += ((2 * i + 6) * 7) / 2
   }
-  res += ((x + 1 + x + 1 + y - 1) * y) / 2
+  res += ((2 * x + 1 + y) * y) / 2
   return res
 }
 
 console.log(totalMoney(4)) // 10
 console.log(totalMoney(10)) // 37
 console.log(totalMoney(20)) // 96
-
-// 简化版
-function totalMoney(n) {
-  let [x, y, res] = [(n / 7) >> 0, n % 7, 0]
-  for (let i = 1; i <= x; i++) {
-    res += ((2 * i + 6) * 7) / 2
-  }
-  res += ((2 * x + 1 + y) * y) / 2
-  return res
-}
