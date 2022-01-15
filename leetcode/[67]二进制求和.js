@@ -52,3 +52,16 @@ function addBinary(a, b) {
 console.log(addBinary('11', '1')) // 100
 console.log(addBinary('1010', '1011')) // 10101
 console.log(addBinary('1111', '1111')) // 11110
+
+// 简化版
+function addBinary(a, b) {
+  const [len1, len2] = [a.length, b.length]
+  let [i, j, cur, res] = [len1 - 1, len2 - 1, 0, '']
+  while (i >= 0 || j >= 0) {
+    const t =
+      (i >= 0 ? Number(a[i--]) : 0) + (j >= 0 ? Number(b[j--]) : 0) + cur
+    res = (t > 1 ? (t === 2 ? 0 : 1) : t) + res
+    cur = t >> 1
+  }
+  return (cur ? '1' : '') + res
+}
