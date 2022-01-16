@@ -9,6 +9,7 @@
  * @param {number[]} nums
  * @return {number}
  */
+// 如果sum>0 加后面的数就会更大 但如果是小数 则需要舍弃
 function maxSubArray(nums) {
   let [sum, res] = [0, -Infinity]
   for (const num of nums) {
