@@ -9,16 +9,12 @@
  * @param {number[]} nums
  * @return {number}
  */
-// 如果sum>0 加后面的数就会更大 但如果是小数 则需要舍弃
+// 动态规划 前k个的最大连续子数组和 = 前k-1个加尚当前元素的
 function maxSubArray(nums) {
-  let [sum, res] = [0, -Infinity]
+  let [pre, res] = [0, nums[0]]
   for (const num of nums) {
-    if (sum > 0) {
-      sum += num
-    } else {
-      sum = num
-    }
-    res = Math.max(sum, res)
+    pre = Math.max(pre + num, num)
+    res = Math.max(pre, res)
   }
   return res
 }
