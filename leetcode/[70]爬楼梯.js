@@ -4,11 +4,19 @@
 - 给定 n 是一个正整数
 */
 
+// 爬n阶的时候 需要的结果n-1阶和n-2阶的和
+
 /**
  * @param {number} n
  * @return {number}
  */
 function climbStairs(n) {
+  if (n < 3) return n
+  const res = [1, 2]
+  for (let i = 3; i <= n; i++) {
+    res.push(res[i - 2] + res[i - 3])
+  }
+  return res[n - 1]
 }
 
 console.log(climbStairs(2)) // 2
