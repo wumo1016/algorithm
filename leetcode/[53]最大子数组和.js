@@ -9,8 +9,19 @@
  * @param {number[]} nums
  * @return {number}
  */
-function maxSubArray(nums) {}
+function maxSubArray(nums) {
+  let [sum, res] = [0, -Infinity]
+  for (const num of nums) {
+    if (sum > 0) {
+      sum += num
+    } else {
+      sum = num
+    }
+    res = Math.max(sum, res)
+  }
+  return res
+}
 
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])) // [4,-1,2,1] 6
-// console.log(maxSubArray([5, 4, -1, 7, 8])) // 23
-// console.log(maxSubArray([1])) // 1
+console.log(maxSubArray([5, 4, -1, 7, 8])) // 23
+console.log(maxSubArray([1])) // 1
