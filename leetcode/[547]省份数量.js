@@ -12,6 +12,7 @@
  * @return {number}
  */
 function findCircleNum(isConnected) {
+  // 转化为邻接表
   const map = new Map()
   isConnected.forEach((list, i) => {
     map.set(i, [])
@@ -21,6 +22,7 @@ function findCircleNum(isConnected) {
       }
     })
   })
+  // 寻找互相重复的部分
   const res = []
   map.forEach((list, key) => {
     let cur = [key, ...list]
@@ -37,7 +39,7 @@ function findCircleNum(isConnected) {
   })
   return res.length
 }
-
+// 是否相交
 function isIntersect(m, n) {
   return new Set([...m, ...n]).size < m.length + n.length
 }
