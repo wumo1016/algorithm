@@ -26,16 +26,12 @@ function findCircleNum(isConnected) {
   const res = []
   map.forEach((list, key) => {
     let cur = [key, ...list]
-    if (res.length) {
-      let index
-      while ((index = res.findIndex(v => isIntersect(cur, v))) > -1) {
-        cur = [...new Set([...cur, ...res[index]])]
-        res.splice(index, 1)
-      }
-      res.push(cur)
-    } else {
-      res.push(cur)
+    let index
+    while ((index = res.findIndex(v => isIntersect(cur, v))) > -1) {
+      cur = [...new Set([...cur, ...res[index]])]
+      res.splice(index, 1)
     }
+    res.push(cur)
   })
   return res.length
 }
