@@ -11,7 +11,36 @@
  * @param {number[][]} isConnected
  * @return {number}
  */
-function findCircleNum(isConnected) {}
+function findCircleNum(isConnected) {
+  const map = new Map()
+  isConnected.forEach((list, i) => {
+    map.set(i, [])
+    list.forEach((v, j) => {
+      if (i !== j && v) {
+        map.set(i, map.get(i).concat(j))
+      }
+    })
+  })
+  const res = []
+  map.forEach((list, key) => {
+    let cur = [key, ...list]
+    if (res.length) {
+      let index
+      while ((index = res.findIndex(v => isIntersect(cur, v))) > -1) {
+        cur = [...new Set([...cur, ...res[index]])]
+        res.splice(index, 1)
+      }
+      res.push(cur)
+    } else {
+      res.push(cur)
+    }
+  })
+  return res.length
+}
+
+function isIntersect(m, n) {
+  return new Set([...m, ...n]).size < m.length + n.length
+}
 
 console.log(
   findCircleNum([
@@ -27,3 +56,11 @@ console.log(
     [0, 0, 1]
   ])
 ) // 3
+console.log(
+  findCircleNum([
+    [1, 0, 0, 1],
+    [0, 1, 1, 0],
+    [0, 1, 1, 1],
+    [1, 0, 1, 1]
+  ])
+) // 1
