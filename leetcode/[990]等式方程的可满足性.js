@@ -10,8 +10,10 @@
  */
 function equationsPossible(equations) {}
 
-console.log(equationsPossible(['a==b', 'b!=a'])) // false
-console.log(equationsPossible(['b==a', 'a==b'])) // true
-console.log(equationsPossible(['a==b', 'b==c', 'a==c'])) // true
+// console.log(equationsPossible(['a==b', 'b!=a'])) // false
+// console.log(equationsPossible(['b==a', 'a==b'])) // true
+// console.log(equationsPossible(['a==b', 'b==c', 'a==c'])) // true
 console.log(equationsPossible(['a==b', 'b!=c', 'c==a'])) // false
-console.log(equationsPossible(['c==c', 'b==d', 'x!=z'])) // true
+// console.log(equationsPossible(['c==c', 'b==d', 'x!=z'])) // true
+// console.log(equationsPossible(['c==c', 'f!=a', 'f==b', 'b==c'])) // true
+// console.log(equationsPossible(['f==b', 'c==b', 'c==b', 'e!=f'])) // true
