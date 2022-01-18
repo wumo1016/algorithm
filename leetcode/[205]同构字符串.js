@@ -13,10 +13,9 @@
 function isIsomorphic(s, t) {
   const [len, obj1, obj2] = [s.length, {}, {}]
   for (let i = 0; i < len; i++) {
-    if (obj1[s[i]] && obj1[s[i]] !== t[i]) return false
-    if (obj2[t[i]] && obj2[t[i]] !== s[i]) return false
-    obj1[s[i]] = t[i]
-    obj2[t[i]] = s[i]
+    const [x, y] = [s[i], t[i]]
+    if ((obj1[x] && obj1[x] !== y) || (obj2[y] && obj2[y] !== x)) return false
+    ;[obj1[x], obj2[y]] = [y, x]
   }
   return true
 }
