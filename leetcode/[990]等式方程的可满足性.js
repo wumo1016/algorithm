@@ -44,3 +44,33 @@ console.log(equationsPossible(['a==b', 'b!=c', 'c==a'])) // false
 console.log(equationsPossible(['c==c', 'b==d', 'x!=z'])) // true
 console.log(equationsPossible(['c==c', 'f!=a', 'f==b', 'b==c'])) // true
 console.log(equationsPossible(['f==b', 'c==b', 'c==b', 'e!=f'])) // true
+
+// 优化版
+function equationsPossible(equations) {
+  const [obj, notList] = [{}, []]
+  equations.forEach(value => {
+    ;/(.)(==|!=)(.)/.test(value)
+    const [x, y, z] = [RegExp.$1, RegExp.$2, RegExp.$3]
+    if (!obj[x]) obj[x] = [x]
+    if (!obj[z]) obj[z] = [z]
+    if (y === '==') {
+      const [set, keys] = [new Set(), []]
+      Object.entries(obj).map(([key, value]) => {
+        if (value === obj[x] || value === obj[z]) {
+          keys.push(key)
+          value.forEach(v => set.add(v))
+        }
+      })
+      const target = [...set]
+      keys.forEach(key => (obj[key] = target))
+    } else {
+      notList.push([x, z])
+    }
+  })
+  const len = notList.length
+  for (let i = 0; i < len; i++) {
+    const [x, z] = notList[i]
+    if (obj[x] === obj[z]) return false
+  }
+  return true
+}
