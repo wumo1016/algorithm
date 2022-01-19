@@ -11,3 +11,13 @@
 function containsDuplicate(nums) {
   return new Set(nums).size != nums.length
 }
+
+// 循环
+function containsDuplicate(nums) {
+  const set = new Set()
+  for (const val of nums) {
+    if (set.has(val)) return true
+    set.add(val)
+  }
+  return false
+}
