@@ -9,10 +9,9 @@
  * @return {boolean}
  */
 function equationsPossible(equations) {
-  const obj = {}
-  const notList = []
+  const [obj, notList] = [{}, []]
   equations.forEach(value => {
-    ;/(.)(==|\!=)(.)/.test(value)
+    ;/(.)(==|!=)(.)/.test(value)
     const [x, y, z] = [RegExp.$1, RegExp.$2, RegExp.$3]
     if (!obj[x]) obj[x] = [x]
     if (!obj[z]) obj[z] = [z]
