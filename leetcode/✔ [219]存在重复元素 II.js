@@ -9,6 +9,7 @@
  * @param {number} k
  * @return {boolean}
  */
+// 哈希表
 function containsNearbyDuplicate(nums, k) {
   const [map, len] = [new Map(), nums.length]
   for (let i = 0; i < len; i++) {
@@ -22,3 +23,17 @@ function containsNearbyDuplicate(nums, k) {
 console.log(containsNearbyDuplicate([1, 2, 3, 1], 3)) // true
 console.log(containsNearbyDuplicate([1, 0, 1, 1], 1)) // true
 console.log(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2)) // false
+
+// 滑动窗口 维护一个大小为k的set，如果在这期间出现重复元素 则满足需要
+function containsNearbyDuplicate(nums, k) {
+  const set = new Set()
+  let i = 0
+  for (const val of nums) {
+    if (set.has(val)) return true
+    set.add(val)
+    if (set.size > k) {
+      set.delete(nums[i++])
+    }
+  }
+  return false
+}
