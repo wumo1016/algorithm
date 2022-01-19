@@ -10,7 +10,31 @@
  * @param {number[][]} edges
  * @return {number[]}
  */
-function findRedundantConnection(edges) {}
+// 将联通的看成一个集合 如果两个节点存在同一个几个中 就是多余的
+function findRedundantConnection(edges) {
+  const list = []
+  let res
+  edges.forEach(value => {
+    const [x, y] = value
+    const indexX = list.findIndex(v => v.has(x))
+    const indexY = list.findIndex(v => v.has(y))
+    if (indexX > -1 && indexY > -1) {
+      if (indexX === indexY) {
+        res = value
+      } else {
+        list[indexX] = new Set([...list[indexX], ...list[indexY]])
+        list.splice(indexY, 1)
+      }
+    } else if (indexX > -1) {
+      list[indexX].add(y)
+    } else if (indexY > -1) {
+      list[indexY].add(x)
+    } else {
+      list.push(new Set(value))
+    }
+  })
+  return res
+}
 
 console.log(
   findRedundantConnection([
@@ -28,3 +52,17 @@ console.log(
     [1, 5]
   ])
 ) // [1,4]
+console.log(
+  findRedundantConnection([
+    [9, 10],
+    [5, 8],
+    [2, 6],
+    [1, 5],
+    [3, 8],
+    [4, 9],
+    [8, 10],
+    [4, 10],
+    [6, 8],
+    [7, 9]
+  ])
+) // [4,10]

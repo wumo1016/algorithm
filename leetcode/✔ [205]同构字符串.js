@@ -10,6 +10,7 @@
  * @param {string} t
  * @return {boolean}
  */
+// 双哈希
 function isIsomorphic(s, t) {
   const [len, obj1, obj2] = [s.length, {}, {}]
   for (let i = 0; i < len; i++) {
@@ -24,3 +25,28 @@ console.log(isIsomorphic('egg', 'add')) // true
 console.log(isIsomorphic('foo', 'bar')) // false
 console.log(isIsomorphic('paper', 'title')) // true
 console.log(isIsomorphic('badc', 'baba')) // false
+
+// 索引1
+function isIsomorphic(s, t) {
+  const len = s.length
+  for (let i = 0; i < len; i++) {
+    if (s.indexOf(s[i]) !== t.indexOf(t[i])) return false
+  }
+  return true
+}
+// 索引2
+function isIsomorphic(s, t) {
+  const len = s.length
+  for (let i = 0; i < len; i++) {
+    if (s.lastIndexOf(s[i]) !== t.lastIndexOf(t[i])) return false
+  }
+  return true
+}
+// 元组
+function isIsomorphic(s, t) {
+  const [len, set] = [s.length, new Set()]
+  for (let i = 0; i < len; i++) {
+    set.add(s[i] + t[i])
+  }
+  return set.size === new Set(s).size && set.size === new Set(t).size
+}
