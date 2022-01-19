@@ -10,6 +10,7 @@
  * @param {number[][]} edges
  * @return {number[]}
  */
+// 将联通的看成一个集合 如果两个节点存在同一个几个中 就是多余的
 function findRedundantConnection(edges) {
   const list = []
   let res
