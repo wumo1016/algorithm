@@ -44,7 +44,7 @@ function makeConnected(n, connections) {
   const quickUnion = new QuickUnion(n)
   let num = 0 // 有多少多余的线缆
   for (const value of connections) {
-    if (quickUnion.merge(value[0], value[1])) num++
+    if (quickUnion.merge(...value)) num++
   }
   // 需要联通的线缆数
   const need = quickUnion.fatherNum - 1
