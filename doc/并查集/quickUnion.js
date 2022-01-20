@@ -2,12 +2,13 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-20 10:16:48
+ * @LastEditTime: 2022-01-20 13:28:02
  */
 
 class QuickUnion {
   constructor(n = 100) {
     this.n = n
+    this.size = n
     this.father = Array(n)
     this.init()
   }
@@ -19,8 +20,7 @@ class QuickUnion {
   }
   // 查找
   find(i) {
-    if (this.father[i] === i) return i
-    return this.find(this.father[i])
+    return this.father[i] === i ? i : this.find(this.father[i])
   }
   // 是否是同一集合
   same(x, y) {
@@ -28,14 +28,10 @@ class QuickUnion {
   }
   // 合并
   merge(x, y) {
-    const m = this.find(x)
-    const n = this.find(y)
-    if (m === n) return
+    const [m, n] = [this.find(x), this.find(y)]
+    if (m === n) return false
     this.father[m] = n
-  }
-  // 获取所有父亲的数量
-  get fatherNum() {
-    return [...new Set(Object.keys(this.father).map((_, i) => this.find(i)))]
-      .length
+    this.size--
+    return true
   }
 }
