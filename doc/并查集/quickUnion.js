@@ -2,7 +2,7 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-20 13:29:59
+ * @LastEditTime: 2022-01-20 13:42:36
  */
 
 class QuickUnion {
@@ -27,6 +27,28 @@ class QuickUnion {
     return this.find(x) === this.find(y)
   }
   // 合并
+  merge(x, y) {
+    const [m, n] = [this.find(x), this.find(y)]
+    if (m === n) return false
+    this.father[m] = n
+    this.size--
+    return true
+  }
+}
+
+class UnionSet {
+  constructor(n = 100) {
+    this.size = n
+    this.father = Array(n)
+      .fill()
+      .map((_, i) => i)
+  }
+  find(i) {
+    return this.father[i] === i ? i : this.find(this.father[i])
+  }
+  isSame(x, y) {
+    return this.find(x) === this.find(y)
+  }
   merge(x, y) {
     const [m, n] = [this.find(x), this.find(y)]
     if (m === n) return false
