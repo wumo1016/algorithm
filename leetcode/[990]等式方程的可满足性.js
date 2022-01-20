@@ -4,6 +4,36 @@
 - 只有当可以将整数分配给变量名，以便满足所有给定的方程时才返回 true，否则返回 false。
 */
 
+class QuickUnion {
+  constructor() {
+    this.father = {}
+    this.init()
+  }
+  // 将每个节点的颜色初始化为自身颜色
+  init() {
+    for (var i = 0; i < 26; i++) {
+      const key = String.fromCharCode(97 + i)
+      this.father[key] = key
+    }
+  }
+  // 查找
+  find(i) {
+    if (this.father[i] === i) return i
+    return this.find(this.father[i])
+  }
+  // 是否是同一集合
+  same(x, y) {
+    return this.find(x) === this.find(y)
+  }
+  // 合并
+  merge(x, y) {
+    const m = this.find(x)
+    const n = this.find(y)
+    if (m === n) return
+    this.father[m] = n
+  }
+}
+
 /**
  * @param {string[]} equations
  * @return {boolean}
@@ -71,6 +101,26 @@ function equationsPossible(equations) {
   for (let i = 0; i < len; i++) {
     const [x, z] = notList[i]
     if (obj[x] === obj[z]) return false
+  }
+  return true
+}
+// 并查集
+function equationsPossible(equations) {
+  const quickUoion = new QuickUnion(26)
+  const notList = []
+  equations.forEach(value => {
+    ;/(.)(==|!=)(.)/.test(value)
+    const [x, y, z] = [RegExp.$1, RegExp.$2, RegExp.$3]
+    if (y === '==') {
+      quickUoion.merge(x, z)
+    } else {
+      notList.push([x, z])
+    }
+  })
+  const len = notList.length
+  for (let i = 0; i < len; i++) {
+    const [x, z] = notList[i]
+    if (quickUoion.same(x, z)) return false
   }
   return true
 }
