@@ -7,34 +7,20 @@
 - 3 <= n <= 1000
 */
 
-class QuickUnion {
+class UnionSet {
   constructor(n = 100) {
-    this.n = n
     this.father = Array(n)
-    this.init()
-  }
-  init() {
-    for (let i = 1; i <= this.n; i++) {
-      this.father[i] = i
-    }
+      .fill()
+      .map((_, i) => i)
   }
   find(i) {
-    if (this.father[i] === i) return i
-    return this.find(this.father[i])
-  }
-  same(x, y) {
-    return this.find(x) === this.find(y)
+    return this.father[i] === i ? i : this.find(this.father[i])
   }
   merge(x, y) {
-    const m = this.find(x)
-    const n = this.find(y)
-    if (m === n) return true
+    const [m, n] = [this.find(x - 1), this.find(y - 1)]
+    if (m === n) return false
     this.father[m] = n
-  }
-  get fatherNum() {
-    return [
-      ...new Set(Object.keys(this.father).map((_, i) => this.find(i + 1)))
-    ].length
+    return true
   }
 }
 
@@ -70,10 +56,9 @@ function findRedundantConnection(edges) {
 
 // 并查集
 function findRedundantConnection(edges) {
-  const qickUnion = new QuickUnion(1000)
-  let res
+  let [us, res] = [new UnionSet(1000)]
   for (const value of edges) {
-    if (qickUnion.merge(...value)) res = value
+    if (!us.merge(...value)) res = value
   }
   return res
 }
