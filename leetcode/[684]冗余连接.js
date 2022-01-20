@@ -4,7 +4,39 @@
 - 添加的边的两个顶点包含在 1 到 n 中间，且这条附加的边不属于树中已存在的边。
 - 图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi] 表示图中在 ai 和 bi 之间存在一条边。
 - 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的边。
+- 3 <= n <= 1000
 */
+
+class QuickUnion {
+  constructor(n = 100) {
+    this.n = n
+    this.father = Array(n)
+    this.init()
+  }
+  init() {
+    for (let i = 1; i <= this.n; i++) {
+      this.father[i] = i
+    }
+  }
+  find(i) {
+    if (this.father[i] === i) return i
+    return this.find(this.father[i])
+  }
+  same(x, y) {
+    return this.find(x) === this.find(y)
+  }
+  merge(x, y) {
+    const m = this.find(x)
+    const n = this.find(y)
+    if (m === n) return true
+    this.father[m] = n
+  }
+  get fatherNum() {
+    return [
+      ...new Set(Object.keys(this.father).map((_, i) => this.find(i + 1)))
+    ].length
+  }
+}
 
 /**
  * @param {number[][]} edges
@@ -33,6 +65,16 @@ function findRedundantConnection(edges) {
       list.push(new Set(value))
     }
   })
+  return res
+}
+
+// 并查集
+function findRedundantConnection(edges) {
+  const qickUnion = new QuickUnion(1000)
+  let res
+  for (const value of edges) {
+    if (qickUnion.merge(...value)) res = value
+  }
   return res
 }
 
