@@ -7,6 +7,36 @@
 - 1 <= n <= 200
 */
 
+class QuickUnion {
+  constructor(n = 100) {
+    this.n = n
+    this.father = Array(n)
+    this.init()
+  }
+  init() {
+    for (let i = 0; i < this.n; i++) {
+      this.father[i] = i
+    }
+  }
+  find(i) {
+    if (this.father[i] === i) return i
+    return this.find(this.father[i])
+  }
+  same(x, y) {
+    return this.find(x) === this.find(y)
+  }
+  merge(x, y) {
+    const m = this.find(x)
+    const n = this.find(y)
+    if (m === n) return true
+    this.father[m] = n
+  }
+  get fatherNum() {
+    return [...new Set(Object.keys(this.father).map((_, i) => this.find(i)))]
+      .length
+  }
+}
+
 /**
  * @param {number[][]} isConnected
  * @return {number}
@@ -62,3 +92,16 @@ console.log(
     [1, 0, 1, 1]
   ])
 ) // 1
+
+function findCircleNum(isConnected) {
+  const len = isConnected.length
+  const quickUnion = new QuickUnion(isConnected.length)
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
+      if (isConnected[i][j]) {
+        quickUnion.merge(i, j)
+      }
+    }
+  }
+  return quickUnion.fatherNum
+}
