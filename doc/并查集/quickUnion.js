@@ -2,7 +2,7 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-20 09:38:27
+ * @LastEditTime: 2022-01-20 10:16:48
  */
 
 class QuickUnion {
@@ -32,5 +32,10 @@ class QuickUnion {
     const n = this.find(y)
     if (m === n) return
     this.father[m] = n
+  }
+  // 获取所有父亲的数量
+  get fatherNum() {
+    return [...new Set(Object.keys(this.father).map((_, i) => this.find(i)))]
+      .length
   }
 }
