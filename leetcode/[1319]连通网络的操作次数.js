@@ -5,12 +5,58 @@
 - 请你计算并返回使所有计算机都连通所需的最少操作次数。如果不可能，则返回 -1 。
 */
 
+class QuickUnion {
+  constructor(n = 100) {
+    this.n = n
+    this.father = Array(n)
+    this.init()
+  }
+  // 将每个节点的颜色初始化为自身颜色
+  init() {
+    for (let i = 0; i < this.n; i++) {
+      this.father[i] = i
+    }
+  }
+  // 查找
+  find(i) {
+    if (this.father[i] === i) return i
+    return this.find(this.father[i])
+  }
+  // 是否是同一集合
+  same(x, y) {
+    return this.find(x) === this.find(y)
+  }
+  // 合并
+  merge(x, y) {
+    const m = this.find(x)
+    const n = this.find(y)
+    if (m === n) return true
+    this.father[m] = n
+  }
+}
+
 /**
  * @param {number} n
  * @param {number[][]} connections
  * @return {number}
  */
-function makeConnected(n, connections) {}
+function makeConnected(n, connections) {
+  const quickUnion = new QuickUnion(n)
+  let num = 0 // 有多少多余的线缆
+  for (const value of connections) {
+    if (quickUnion.merge(value[0], value[1])) num++
+  }
+  // 需要联通的线缆数
+  const need =
+    [
+      ...new Set(
+        Array(n)
+          .fill('')
+          .map((_, i) => quickUnion.find(i))
+      )
+    ].length - 1
+  return need <= num ? need : -1
+}
 
 console.log(
   makeConnected(4, [
