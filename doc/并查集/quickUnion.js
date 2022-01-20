@@ -2,13 +2,13 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-19 21:36:21
+ * @LastEditTime: 2022-01-20 09:38:27
  */
 
-class QuickFind {
+class QuickUnion {
   constructor(n = 100) {
     this.n = n
-    this.father = Array(n) 
+    this.father = Array(n)
     this.init()
   }
   // 将每个节点的颜色初始化为自身颜色
@@ -24,7 +24,7 @@ class QuickFind {
   }
   // 是否是同一集合
   same(x, y) {
-    return this.find[x] === this.find[y]
+    return this.find(x) === this.find(y)
   }
   // 合并
   merge(x, y) {

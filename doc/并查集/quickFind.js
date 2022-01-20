@@ -2,7 +2,7 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-19 19:39:26
+ * @LastEditTime: 2022-01-20 09:38:16
  */
 
 class QuickFind {
@@ -23,7 +23,7 @@ class QuickFind {
   }
   // 是否是同一集合
   same(x, y) {
-    return this.find[x] === this.find[y]
+    return this.find(x) === this.find(y)
   }
   // 合并
   merge(x, y) {
