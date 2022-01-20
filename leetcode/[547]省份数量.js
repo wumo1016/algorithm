@@ -7,33 +7,21 @@
 - 1 <= n <= 200
 */
 
-class QuickUnion {
+class UnionSet {
   constructor(n = 100) {
-    this.n = n
+    this.size = n
     this.father = Array(n)
-    this.init()
-  }
-  init() {
-    for (let i = 0; i < this.n; i++) {
-      this.father[i] = i
-    }
+      .fill()
+      .map((_, i) => i)
   }
   find(i) {
-    if (this.father[i] === i) return i
-    return this.find(this.father[i])
-  }
-  same(x, y) {
-    return this.find(x) === this.find(y)
+    return this.father[i] === i ? i : this.find(this.father[i])
   }
   merge(x, y) {
-    const m = this.find(x)
-    const n = this.find(y)
-    if (m === n) return true
+    const [m, n] = [this.find(x), this.find(y)]
+    if (m === n) return
     this.father[m] = n
-  }
-  get fatherNum() {
-    return [...new Set(Object.keys(this.father).map((_, i) => this.find(i)))]
-      .length
+    this.size--
   }
 }
 
@@ -72,16 +60,14 @@ function findCircleNum(isConnected) {
 
 // 并查集
 function findCircleNum(isConnected) {
-  const len = isConnected.length
-  const quickUnion = new QuickUnion(isConnected.length)
+  const len = isConnected.length,
+    us = new UnionSet(len)
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len; j++) {
-      if (isConnected[i][j]) {
-        quickUnion.merge(i, j)
-      }
+      if (isConnected[i][j]) us.merge(i, j)
     }
   }
-  return quickUnion.fatherNum
+  return us.size
 }
 
 console.log(
