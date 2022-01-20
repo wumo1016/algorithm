@@ -2,13 +2,13 @@
  * @Description: 并查集
  * @Author: wyb
  * @LastEditors: wyb
- * @LastEditTime: 2022-01-20 13:28:02
+ * @LastEditTime: 2022-01-20 13:29:59
  */
 
 class QuickUnion {
   constructor(n = 100) {
     this.n = n
-    this.size = n
+    this.size = n // 当前的集合数
     this.father = Array(n)
     this.init()
   }
