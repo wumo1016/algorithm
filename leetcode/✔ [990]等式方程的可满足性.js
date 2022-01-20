@@ -37,44 +37,6 @@ function equationsPossible(equations) {
     if (!obj[x]) obj[x] = [x]
     if (!obj[z]) obj[z] = [z]
     if (y === '==') {
-      const list = Object.entries(obj).filter(
-        ([key, value]) => value === obj[x] || value === obj[z]
-      )
-      const target = [
-        ...new Set(list.reduce((res, cur) => res.concat(cur[1]), []))
-      ]
-      list.forEach(([key]) => {
-        obj[key] = target
-      })
-    } else {
-      notList.push([x, z])
-    }
-  })
-  const len = notList.length
-  for (let i = 0; i < len; i++) {
-    const [x, z] = notList[i]
-    if (obj[x] === obj[z]) return false
-  }
-  return true
-}
-
-console.log(equationsPossible(['a==b', 'b!=a'])) // false
-console.log(equationsPossible(['b==a', 'a==b'])) // true
-console.log(equationsPossible(['a==b', 'b==c', 'a==c'])) // true
-console.log(equationsPossible(['a==b', 'b!=c', 'c==a'])) // false
-console.log(equationsPossible(['c==c', 'b==d', 'x!=z'])) // true
-console.log(equationsPossible(['c==c', 'f!=a', 'f==b', 'b==c'])) // true
-console.log(equationsPossible(['f==b', 'c==b', 'c==b', 'e!=f'])) // true
-
-// 优化版
-function equationsPossible(equations) {
-  const [obj, notList] = [{}, []]
-  equations.forEach(value => {
-    ;/(.)(==|!=)(.)/.test(value)
-    const [x, y, z] = [RegExp.$1, RegExp.$2, RegExp.$3]
-    if (!obj[x]) obj[x] = [x]
-    if (!obj[z]) obj[z] = [z]
-    if (y === '==') {
       const [set, keys] = [new Set(), []]
       Object.entries(obj).map(([key, value]) => {
         if (value === obj[x] || value === obj[z]) {
@@ -95,13 +57,22 @@ function equationsPossible(equations) {
   }
   return true
 }
+
+console.log(equationsPossible(['a==b', 'b!=a'])) // false
+console.log(equationsPossible(['b==a', 'a==b'])) // true
+console.log(equationsPossible(['a==b', 'b==c', 'a==c'])) // true
+console.log(equationsPossible(['a==b', 'b!=c', 'c==a'])) // false
+console.log(equationsPossible(['c==c', 'b==d', 'x!=z'])) // true
+console.log(equationsPossible(['c==c', 'f!=a', 'f==b', 'b==c'])) // true
+console.log(equationsPossible(['f==b', 'c==b', 'c==b', 'e!=f'])) // true
+
 // 并查集
 function equationsPossible(equations) {
   const us = new UnionSet(26)
   const notList = []
   equations.forEach(value => {
     const [x, z] = [value[0], value[3]]
-    value.slice(1, 3) === '==' ? us.merge(x, z) : notList.push([x, z])
+    value[1] === '=' ? us.merge(x, z) : notList.push([x, z])
   })
   const len = notList.length
   for (let i = 0; i < len; i++) {
