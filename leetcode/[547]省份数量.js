@@ -42,6 +42,10 @@ class QuickUnion {
  * @return {number}
  */
 function findCircleNum(isConnected) {
+  // 是否相交
+  function isIntersect(m, n) {
+    return new Set([...m, ...n]).size < m.length + n.length
+  }
   // 转化为邻接表
   const map = new Map()
   isConnected.forEach((list, i) => {
@@ -65,9 +69,19 @@ function findCircleNum(isConnected) {
   })
   return res.length
 }
-// 是否相交
-function isIntersect(m, n) {
-  return new Set([...m, ...n]).size < m.length + n.length
+
+// 并查集
+function findCircleNum(isConnected) {
+  const len = isConnected.length
+  const quickUnion = new QuickUnion(isConnected.length)
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
+      if (isConnected[i][j]) {
+        quickUnion.merge(i, j)
+      }
+    }
+  }
+  return quickUnion.fatherNum
 }
 
 console.log(
@@ -92,16 +106,3 @@ console.log(
     [1, 0, 1, 1]
   ])
 ) // 1
-
-function findCircleNum(isConnected) {
-  const len = isConnected.length
-  const quickUnion = new QuickUnion(isConnected.length)
-  for (let i = 0; i < len; i++) {
-    for (let j = 0; j < len; j++) {
-      if (isConnected[i][j]) {
-        quickUnion.merge(i, j)
-      }
-    }
-  }
-  return quickUnion.fatherNum
-}
