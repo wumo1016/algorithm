@@ -5,33 +5,22 @@
 - 请你计算并返回使所有计算机都连通所需的最少操作次数。如果不可能，则返回 -1 。
 */
 
-class QuickUnion {
+class UnionSet {
   constructor(n = 100) {
-    this.n = n
+    this.size = n
     this.father = Array(n)
-    this.init()
-  }
-  init() {
-    for (let i = 0; i < this.n; i++) {
-      this.father[i] = i
-    }
+      .fill()
+      .map((_, i) => i)
   }
   find(i) {
-    if (this.father[i] === i) return i
-    return this.find(this.father[i])
-  }
-  same(x, y) {
-    return this.find(x) === this.find(y)
+    return this.father[i] === i ? i : this.find(this.father[i])
   }
   merge(x, y) {
-    const m = this.find(x)
-    const n = this.find(y)
-    if (m === n) return true
+    const [m, n] = [this.find(x), this.find(y)]
+    if (m === n) return false
     this.father[m] = n
-  }
-  get fatherNum() {
-    return [...new Set(Object.keys(this.father).map((_, i) => this.find(i)))]
-      .length
+    this.size--
+    return true
   }
 }
 
@@ -41,14 +30,12 @@ class QuickUnion {
  * @return {number}
  */
 function makeConnected(n, connections) {
-  const quickUnion = new QuickUnion(n)
-  let num = 0 // 有多少多余的线缆
+  let [us, remainNum] = [new UnionSet(n), 0] // remainNum 多余线缆
   for (const value of connections) {
-    if (quickUnion.merge(...value)) num++
+    if (!us.merge(...value)) remainNum++
   }
-  // 需要联通的线缆数
-  const need = quickUnion.fatherNum - 1
-  return need <= num ? need : -1
+  const needNum = us.size - 1 // 需要联通的线缆数
+  return needNum <= remainNum ? needNum : -1
 }
 
 console.log(
