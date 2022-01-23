@@ -10,19 +10,14 @@
  * @return {number}
  */
 function maxProfit(prices) {
-  let [len, start, res] = [prices.length, prices[0], 0]
-  for (let index = 1; index < len; index++) {
-    const [prev, cur] = [prices[index - 1], prices[index]]
-    if (cur < prev) {
-      res += prev - start
-      start = cur
-    } else if (index === len - 1) {
-      res += cur - start
-    }
+  let [len, res] = [prices.length, 0]
+  for (let i = 1; i < len; i++) {
+    const [prev, cur] = [prices[i - 1], prices[i]]
+    if (cur > prev) res += cur - prev
   }
   return res
 }
 
-console.log(maxProfit([1, 2, 3, 4, 5, 3, 5])) // 4
+console.log(maxProfit([1, 2, 3, 4, 5, 3, 5])) // 6
 console.log(maxProfit([7, 1, 5, 3, 6, 4])) // 7
 console.log(maxProfit([7, 6, 4, 3, 1])) // 0
