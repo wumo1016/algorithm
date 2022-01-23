@@ -92,3 +92,20 @@ console.log(
     [1, 0, 1, 1]
   ])
 ) // 1
+
+// 染色法
+function findCircleNum(isConnected) {
+  const len = isConnected.length
+  let colors = Array(len)
+    .fill()
+    .map((_, i) => i)
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
+      if (i !== j && isConnected[i][j]) {
+        const target = colors[i]
+        colors = colors.map(val => (val === colors[j] ? target : val))
+      }
+    }
+  }
+  return new Set(colors).size
+}
