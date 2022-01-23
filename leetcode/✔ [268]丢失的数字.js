@@ -30,3 +30,10 @@ function missingNumber(nums) {
     if (list[i] === undefined) return i
   }
 }
+// 数学方法
+function missingNumber(nums) {
+  return (
+    (((nums.length * (nums.length + 1)) / 2) >> 0) -
+    nums.reduce((res, cur) => res + cur, 0)
+  )
+}
