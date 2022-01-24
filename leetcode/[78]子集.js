@@ -9,8 +9,17 @@
  * @return {number[][]}
  */
 function subsets(nums) {
-  const len = nums.length
+  const [len, res] = [nums.length, []]
+  const loop = (path, index = 0) => {
+    res.push(path)
+    for (let i = 0; i < len; i++) {
+      if (!path.includes(nums[i]) && i >= index) loop(path.concat(nums[i]), i)
+    }
+  }
+  loop([])
+  return res
 }
 
+console.log(subsets([1, 2])) // [[],[1],[2],[1,2]]
 console.log(subsets([1, 2, 3])) // [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 console.log(subsets([0])) // [[],[0]]
