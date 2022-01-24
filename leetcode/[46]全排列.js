@@ -10,6 +10,18 @@
  */
 function permute(nums) {
   const len = nums.length
+  const res = []
+  const loop = path => {
+    if (path.length === len) {
+      res.push(path)
+      return
+    }
+    for (let i = 0; i < len; i++) {
+      if (!path.includes(nums[i])) loop(path.concat(nums[i]))
+    }
+  }
+  loop([])
+  return res
 }
 
 console.log(permute([1, 2, 3])) // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
