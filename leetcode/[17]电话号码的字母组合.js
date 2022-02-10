@@ -9,8 +9,51 @@
  * @param {string} digits
  * @return {string[]}
  */
-function letterCombinations(digits) {}
+function letterCombinations(digits) {
+  const [maps, len, res] = [
+    {
+      2: ['a', 'b', 'c'],
+      3: ['d', 'e', 'f'],
+      4: ['g', 'h', 'i'],
+      5: ['j', 'k', 'l'],
+      6: ['m', 'n', 'o'],
+      7: ['p', 'q', 'r', 's'],
+      8: ['t', 'u', 'v'],
+      9: ['w', 'x', 'y', 'z']
+    },
+    digits.length,
+    []
+  ]
+  const loop = (i, pre) => {
+    if (!digits[i]) return res
+    maps[digits[i]].forEach(v => {
+      if (pre.length === len - 1) {
+        res.push(pre + v)
+      } else {
+        loop(i + 1, pre + v)
+      }
+    })
+    return res
+  }
+  return loop(0, '')
+}
 
 console.log(letterCombinations('23')) // ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 console.log(letterCombinations('')) // []
 console.log(letterCombinations('2')) // ["a","b","c"]
+
+/* const obj = {}
+let j = 2
+for (let i = 2; i < 28; i++) {
+  if (obj[j]) {
+    if (j === 7 || j === 9) {
+      if (obj[j].length === 4) j++
+    } else if (obj[j].length === 3) {
+      j++
+    }
+  }
+  if (!obj[j]) obj[j] = []
+  obj[j].push(String.fromCharCode(i + 95))
+}
+console.log(obj)
+ */
