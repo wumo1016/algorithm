@@ -9,19 +9,18 @@
  * @return {number[][]}
  */
 function permute(nums) {
-  const len = nums.length
-  const res = []
+  const [len, res] = [nums.length, []]
   const loop = path => {
     if (path.length === len) {
       res.push(path)
-      return
+      return res
     }
-    for (let i = 0; i < len; i++) {
-      if (!path.includes(nums[i])) loop(path.concat(nums[i]))
-    }
+    nums.forEach(value => {
+      if (!path.includes(value)) loop(path.concat(value))
+    })
+    return res
   }
-  loop([])
-  return res
+  return loop([])
 }
 
 console.log(permute([1, 2, 3])) // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
