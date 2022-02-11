@@ -20,6 +20,19 @@ function subsets(nums) {
   return res
 }
 
+// 优化版
+function subsets(nums) {
+  const [len, res] = [nums.length, []]
+  const loop = (path, index = 0) => {
+    res.push(path)
+    for (let i = index; i < len; i++) {
+      loop(path.concat(nums[i]), i + 1)
+    }
+  }
+  loop([])
+  return res
+}
+
 console.log(subsets([1, 2])) // [[],[1],[2],[1,2]]
 console.log(subsets([1, 2, 3])) // [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 console.log(subsets([0])) // [[],[0]]
