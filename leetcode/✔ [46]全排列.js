@@ -9,15 +9,15 @@
  * @return {number[][]}
  */
 function permute(nums) {
-  const [len, res] = [nums.length, []]
+  const [len, res, used] = [nums.length, [], {}]
   const loop = path => {
     if (path.length === len) {
       res.push(path)
       return res
     }
-    nums.forEach(value => {
-      if (!path.includes(value)) loop(path.concat(value))
-    })
+    for (const num of nums) {
+      if (!path.includes(num)) loop(path.concat(num))
+    }
     return res
   }
   return loop([])
@@ -26,3 +26,22 @@ function permute(nums) {
 console.log(permute([1, 2, 3])) // [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 console.log(permute([0, 1])) // [[0,1],[1,0]]
 console.log(permute([1])) // [[1]]
+
+// 优化版
+function permute(nums) {
+  const [len, res, used] = [nums.length, [], {}]
+  const loop = path => {
+    if (path.length === len) {
+      res.push(path)
+      return res
+    }
+    for (const num of nums) {
+      if (used[num]) continue
+      used[num] = true
+      loop(path.concat(num))
+      used[num] = false
+    }
+    return res
+  }
+  return loop([])
+}
