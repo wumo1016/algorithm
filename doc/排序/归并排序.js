@@ -27,3 +27,22 @@ function sort(list) {
 
 const data = [3, 4, 4, 5, 3, 1, 5, 6, 4, 3, 2, 5]
 console.log(sort(data))
+
+function sort(nums) {
+  const len = nums.length
+  if (len < 2) return nums
+  const c = (len / 2) >> 0
+  const [left, right, res] = [
+    sortArray(nums.slice(0, c)),
+    sortArray(nums.slice(c)),
+    []
+  ]
+  while (left.length && right.length) {
+    if (left[0] <= right[0]) {
+      res.push(left.shift())
+    } else {
+      res.push(right.shift())
+    }
+  }
+  return res.concat(left, right)
+}

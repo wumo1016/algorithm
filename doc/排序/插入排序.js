@@ -26,7 +26,7 @@ function sort(list) {
 const data = [3, 4, 4, 5, 3, 1, 5, 6, 4, 3, 2, 5]
 console.log(sort(data))
 
-function sortArray(nums) {
+function sort(nums) {
   const len = nums.length
   for (let i = 1; i < len; i++) {
     const val = nums[i]
