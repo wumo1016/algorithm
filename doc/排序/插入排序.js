@@ -25,3 +25,17 @@ function sort(list) {
 
 const data = [3, 4, 4, 5, 3, 1, 5, 6, 4, 3, 2, 5]
 console.log(sort(data))
+
+function sortArray(nums) {
+  const len = nums.length
+  for (let i = 1; i < len; i++) {
+    const val = nums[i]
+    let j = i
+    while (j > 0 && nums[j - 1] > val) {
+      nums[j] = nums[j - 1]
+      j--
+    }
+    if (j !== i) nums[j] = val
+  }
+  return nums
+}
