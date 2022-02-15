@@ -15,3 +15,7 @@ function exchange(nums) {
 }
 
 console.log(exchange([1, 2, 3, 4])) // [1,3,2,4]
+
+function exchange(nums) {
+  return nums.sort((a, b) => (b % 2) - (a % 2))
+}
