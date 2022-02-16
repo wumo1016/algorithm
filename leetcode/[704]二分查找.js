@@ -10,7 +10,7 @@
  * @return {number}
  */
 function search(nums, target) {
-  let [left, right, res] = [0, nums.length - 1, -1]
+  let [left, right] = [0, nums.length - 1]
   while (left <= right) {
     const c = ((left + right) / 2) >> 0
     if (nums[c] > target) {
@@ -18,11 +18,10 @@ function search(nums, target) {
     } else if (nums[c] < target) {
       left = c + 1
     } else {
-      res = c
-      break
+      return c
     }
   }
-  return res
+  return -1
 }
 
 console.log(search([-1, 0, 3, 5, 9, 12], 9)) // 4
