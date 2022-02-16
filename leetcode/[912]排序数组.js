@@ -25,7 +25,19 @@ function sortArray(nums) {
 }
 
 // 插入排序
-// function sortArray(nums) {}
+function sortArray(nums) {
+  const len = nums.length
+  for (let i = 1; i < len; i++) {
+    let j = i
+    const val = nums[i]
+    while (j > 0 && nums[j - 1] > val) {
+      nums[j] = nums[j - 1]
+      j--
+    }
+    if (i !== j) nums[j] = val
+  }
+  return nums
+}
 
 // // 快速排序(内存溢出)
 // function sortArray(nums) {}
