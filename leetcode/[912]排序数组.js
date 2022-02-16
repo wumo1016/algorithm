@@ -39,7 +39,7 @@ function sortArray(nums) {
   return nums
 }
 
-// // 快速排序(内存溢出)
+// 快速排序(内存溢出)
 function sortArray(nums) {
   const len = nums.length
   if (len < 2) return nums
@@ -58,8 +58,21 @@ function sortArray(nums) {
   return sortArray(left).concat(cen, sortArray(right))
 }
 
-// // 归并排序
-// function sortArray(nums) {}
+// 归并排序
+function sortArray(nums) {
+  const len = nums.length
+  if (len < 2) return nums
+  const c = (len / 2) >> 0
+  const [left, right, res] = [
+    sortArray(nums.slice(0, c)),
+    sortArray(nums.slice(c)),
+    []
+  ]
+  while (left.length && right.length) {
+    res.push(left[0] < right[0] ? left.shift() : right.shift())
+  }
+  return res.concat(left, right)
+}
 
-// // 选择排序
+// 选择排序
 // function sortArray(nums) {}
