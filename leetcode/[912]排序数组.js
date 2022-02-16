@@ -12,6 +12,7 @@ function sortArray(nums) {
 
 console.log(sortArray([5, 2, 3, 1])) // [1,2,3,5]
 console.log(sortArray([5, 1, 1, 2, 0, 0])) // [0,0,1,1,2,5]
+console.log(sortArray([-1, 2, -8, -10])) // [-10,-8,-1,2]
 
 // 冒泡排序
 function sortArray(nums) {
@@ -75,4 +76,14 @@ function sortArray(nums) {
 }
 
 // 选择排序
-// function sortArray(nums) {}
+function sortArray(nums) {
+  const len = nums.length
+  for (let i = 0; i < len; i++) {
+    let min = i
+    for (let j = i + 1; j < len; j++) {
+      if (nums[j] < nums[min]) min = j
+    }
+    if (i !== min) [nums[i], nums[min]] = [nums[min], nums[i]]
+  }
+  return nums
+}
