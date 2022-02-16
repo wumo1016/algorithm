@@ -40,7 +40,23 @@ function sortArray(nums) {
 }
 
 // // 快速排序(内存溢出)
-// function sortArray(nums) {}
+function sortArray(nums) {
+  const len = nums.length
+  if (len < 2) return nums
+  const [left, cen, right] = [[], [nums[0]], []]
+  const tag = cen[0]
+  for (let i = 1; i < len; i++) {
+    const val = nums[i]
+    if (val > tag) {
+      right.push(val)
+    } else if (val < tag) {
+      left.push(val)
+    } else {
+      cen.push(val)
+    }
+  }
+  return sortArray(left).concat(cen, sortArray(right))
+}
 
 // // 归并排序
 // function sortArray(nums) {}
