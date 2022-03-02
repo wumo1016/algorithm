@@ -16,7 +16,6 @@ console.log(majorityElement([2, 2, 1, 1, 1, 2, 2])) // 2
 
 // 摩尔投票法
 function majorityElement(nums) {
-  // cur保存当前无法被抵消的元素
   const cur = []
   for (const val of nums) {
     if (cur.length === 0 || cur.includes(val)) {
