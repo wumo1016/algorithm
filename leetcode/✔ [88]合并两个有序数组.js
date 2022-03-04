@@ -53,7 +53,7 @@ function merge(nums1, m, nums2, n) {
 // console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3)) // [1,2,2,3,5,6]
 // console.log(merge([1], 1, [], 0)) // [1]
 // console.log(merge([0], 0, [1], 1)) // [1]
-// console.log(merge([1, 3, 4, 7, 0, 0, 0], 4, [2, 5, 6], 3)) // [1,2,2,3,5,6]
+console.log(merge([1, 3, 4, 7, 0, 0, 0], 4, [2, 5, 6], 3)) // [1,2,2,3,5,6]
 console.log(merge([-1, 0, 0, 3, 3, 3, 0, 0, 0], 6, [1, 2, 2], 3)) // [-1,0,0,1,2,2,3,3,3]
 
 // 优化版
@@ -105,6 +105,24 @@ function merge(nums1, m, nums2, n) {
   }
   for (let i = 0; i != m + n; ++i) {
     nums1[i] = sorted[i]
+  }
+  return nums1
+}
+
+// 逆向双指针
+function merge(nums1, m, nums2, n) {
+  let [p1, p2, i, cur] = [m - 1, n - 1, nums1.length - 1]
+  while (p1 >= 0 || p2 >= 0) {
+    if (p1 === -1) {
+      cur = nums2[p2--]
+    } else if (p2 === -1) {
+      cur = nums1[p1--]
+    } else if (nums1[p1] < nums2[p2]) {
+      cur = nums2[p2--]
+    } else {
+      cur = nums1[p1--]
+    }
+    nums1[i--] = cur
   }
   return nums1
 }
