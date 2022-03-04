@@ -9,12 +9,6 @@
  * @param {number[]} nums
  * @return {number}
  */
-function majorityElement(nums) {}
-
-console.log(majorityElement([3, 2, 3])) // 3
-console.log(majorityElement([2, 2, 1, 1, 1, 2, 2])) // 2
-
-// 摩尔投票法
 function majorityElement(nums) {
   const cur = []
   for (const val of nums) {
@@ -25,4 +19,17 @@ function majorityElement(nums) {
     }
   }
   return cur[0]
+}
+
+console.log(majorityElement([3, 2, 3])) // 3
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2])) // 2
+
+// 优化版
+function majorityElement(nums) {
+  let [sum, cur] = [0]
+  for (const val of nums) {
+    if (sum === 0) cur = val
+    cur === val ? sum++ : sum--
+  }
+  return cur
 }
