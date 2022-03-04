@@ -20,3 +20,14 @@ function findDisappearedNumbers(nums) {
 }
 console.log(findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1])) // [5, 6]
 console.log(findDisappearedNumbers([1, 1])) // [2]
+
+function findDisappearedNumbers(nums) {
+  const [len, res] = [nums.length, []]
+  for (const num of nums) {
+    nums[(num - 1) % len] += len // 由于有些num可能已经被改变 所以取模获取本来的数字
+  }
+  for (let i = 0; i < len; i++) {
+    if (nums[i] <= len) res.push(i + 1)
+  }
+  return res
+}
