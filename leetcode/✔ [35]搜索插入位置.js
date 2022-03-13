@@ -13,8 +13,7 @@ function searchInsert(nums, target) {
   const len = nums.length
   let [left, right, res] = [0, len - 1, len]
   while (left <= right) {
-    console.log(left, right);
-    const mid = Math.floor((right - left) / 2) + left // ((right - left) >> 1) + left
+    const mid = ((right + left) / 2) >> 0
     if (target <= nums[mid]) {
       res = mid
       right = mid - 1
@@ -26,9 +25,9 @@ function searchInsert(nums, target) {
 }
 
 console.log(searchInsert([1, 3, 5, 6], 2)) // 1
-// console.log(searchInsert([1, 3, 5, 7], 6)) // 3
-// console.log(searchInsert([1, 3, 5, 6], 7)) // 4
-// console.log(searchInsert([1, 3, 5, 6], 5)) // 2
-// console.log(searchInsert([1, 3, 5, 6], 0)) // 0
-// console.log(searchInsert([1], 0)) // 0
-// console.log(searchInsert([1, 3], 1)) // 0
+console.log(searchInsert([1, 3, 5, 7], 6)) // 3
+console.log(searchInsert([1, 3, 5, 6], 7)) // 4
+console.log(searchInsert([1, 3, 5, 6], 5)) // 2
+console.log(searchInsert([1, 3, 5, 6], 0)) // 0
+console.log(searchInsert([1], 0)) // 0
+console.log(searchInsert([1, 3], 1)) // 0
