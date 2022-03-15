@@ -22,6 +22,7 @@ function findRestaurant(list1, list2) {
     if (!map.has(list1[i])) map.set(list1[i], i)
   }
   for (let i = 0; i < len2; i++) {
+    if (i > min) break
     if (map.has(list2[i])) {
       const exist = map.get(list2[i])
       if (exist + i < min) {
