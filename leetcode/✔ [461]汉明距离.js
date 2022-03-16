@@ -8,6 +8,7 @@
  * @param {number} y
  * @return {number}
  */
+// 异或
 function hammingDistance(x, y) {
   const num1 = (x & y).toString(2).replaceAll('0', '').length // 都是1的数量
   const num2 = (x | y).toString(2).replaceAll('0', '').length // 都是1 + 不同位的数量
@@ -23,4 +24,29 @@ function hammingDistance(x, y) {
     (x | y).toString(2).replaceAll('0', '').length -
     (x & y).toString(2).replaceAll('0', '').length
   )
+}
+
+// 异或
+function hammingDistance(x, y) {
+  return (x ^ y).toString(2).replaceAll('0', '').length
+}
+
+// 异或 + 位移
+function hammingDistance(x, y) {
+  let [res, num] = [x ^ y, 0]
+  while (res > 0) {
+    num += res & 1
+    res >>= 1
+  }
+  return num
+}
+
+// Brian Kernighan 算法
+function hammingDistance(x, y) {
+  let [res, num] = [x ^ y, 0]
+  while (res > 0) {
+    res &= res - 1
+    num++
+  }
+  return num
 }
