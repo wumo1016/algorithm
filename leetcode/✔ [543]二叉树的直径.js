@@ -10,6 +10,8 @@ function TreeNode(val, left, right) {
   this.right = right === undefined ? null : right
 }
 
+// 获取每个节点的层级 最底层的为1 每个节点的直径就是每个节点的左右层级之和 最后取最大即可
+
 /**
  * @param {TreeNode} root
  * @return {number}
