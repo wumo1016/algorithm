@@ -10,27 +10,44 @@
 function generateParenthesis(n) {
   const [list, len] = [[], (n - 1) * 2]
   const loop = (pre, lNum, rNum) => {
-    if (pre.length >= len) {
-      list.push('(' + pre + ')')
-      return
-    }
+    if (pre.length >= len) return list.push('(' + pre + ')')
     if (lNum < n - 1) loop(pre + '(', lNum + 1, rNum)
     if (rNum < n - 1) loop(pre + ')', lNum, rNum + 1)
   }
   loop('', 0, 0)
   const isValid = str => {
-    const stack = []
+    let i = 0
     for (const s of str) {
-      if (s === '(') {
-        stack.push(s)
-      } else {
-        stack.pop()
-      }
+      i += s === '(' ? 1 : i > 0 ? -1 : 0
     }
-    return stack.length === 0
+    return i === 0
   }
   return list.filter(isValid)
 }
 
-console.log(generateParenthesis(3)) // ["((()))","(()())","(())()","()(())","()()()"]
-console.log(generateParenthesis(1)) // ["()"]
+// console.log(generateParenthesis(3)) // ["((()))","(()())","(())()","()(())","()()()"]
+// console.log(generateParenthesis(1)) // ["()"]
+console.log(generateParenthesis(4))
+
+function generateParenthesis(n) {
+  const [list, len] = [[], n * 2]
+  const loop = (pre, lNum, rNum, stack) => {
+    if (pre.length >= len && stack.length === 0) {
+      list.push(pre)
+      return
+    }
+    if (lNum < n) {
+      stack.push('(')
+      loop(pre + '(', lNum + 1, rNum, stack)
+    }
+    if (rNum < n) {
+      stack.pop()
+      loop(pre + ')', lNum, rNum + 1, stack)
+    }
+  }
+  loop('', 0, 0, [])
+  return list
+}
+// ()((()))
+// ["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()(()())","()(())()","()()(())","()()()()"]
+// ["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()()(())","()()()()"]
