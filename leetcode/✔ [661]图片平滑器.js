@@ -14,16 +14,16 @@ function imageSmoother(img) {
     .fill(0)
     .map(_ => Array(n).fill(0))
   const getValue = (i, j) => {
-    let [total, num] = [0, 0]
+    let [sum, num] = [0, 0]
     for (let x = i - 1; x <= i + 1; x++) {
+      if (x < 0 || x > m - 1) continue
       for (let y = j - 1; y <= j + 1; y++) {
-        if (img[x] && img[x][y] !== undefined) {
-          total += img[x][y]
-          num++
-        }
+        if (y < 0 || y > n - 1) continue
+        sum += img[x][y]
+        num++
       }
     }
-    return (total / num) >> 0
+    return (sum / num) >> 0
   }
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
