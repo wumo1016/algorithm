@@ -35,7 +35,7 @@ function sortArrayByParity(nums) {
 function sortArrayByParity(nums) {
   let [left, len] = [0, nums.length]
   while (left < len) {
-    if (nums[left] % 2 && left < len - 1) {
+    if (nums[left] % 2) {
       let right = left + 1
       while (right < len) {
         if (nums[right] % 2 === 0) {
@@ -56,7 +56,7 @@ function sortArrayByParity(nums) {
   while (left < right) {
     while (nums[right] & 1 && right > 0) right--
     while ((nums[left] & 1) === 0 && left < right) left++
-    ;[nums[left], nums[right]] = [nums[right], nums[left]]
+    if (left < right) [nums[left], nums[right]] = [nums[right], nums[left]]
   }
   return nums
 }
