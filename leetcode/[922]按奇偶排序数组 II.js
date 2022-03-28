@@ -1,4 +1,4 @@
-/* 按奇偶排序数组(https://leetcode-cn.com/problems/sort-array-by-parity/)
+/* 按奇偶排序数组(https://leetcode-cn.com/problems/sort-array-by-parity-ii/)
 - 给定一个非负整数数组 nums，  nums 中一半整数是 奇数 ，一半整数是 偶数
 - 对数组进行排序，以便当 nums[i] 为奇数时，i 也是 奇数 ；当 nums[i] 为偶数时， i 也是 偶数
 - nums 中一半是偶数
@@ -29,8 +29,8 @@ function sortArrayByParityII(nums) {
   return nums
 }
 
-// console.log(sortArrayByParityII([4, 2, 5, 7])) // [4,5,2,7]
-console.log(sortArrayByParityII([3, 1, 4, 2])) // [2,1,4,3]
+console.log(sortArrayByParityII([4, 2, 5, 7])) // [4,5,2,7]
+// console.log(sortArrayByParityII([3, 1, 4, 2])) // [2,1,4,3]
 // console.log(
 //   sortArrayByParityII([648, 831, 560, 986, 192, 424, 997, 829, 897, 843])
 // ) // [648,831,560,997,192,897,986,829,424,843]
@@ -69,7 +69,7 @@ function sortArrayByParityII(nums) {
   return nums
 }
 
-// 双指针
+// 双指针 前面两个数字储存奇偶指针
 function sortArrayByParityII(nums) {
   return nums.reduce((r, v) => ((r[(r[v & 1] += 2)] = v), r), [0, 1]).slice(2)
 }
