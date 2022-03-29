@@ -31,12 +31,6 @@ function hasAlternatingBits(n) {
   return true
 }
 
-// 位运算2
-function hasAlternatingBits(n) {
-  const a = n ^ (n >> 1)
-  return (a & (a + 1)) === 0
-}
-
 // 正则
 function hasAlternatingBits(n) {
   const str = n.toString(2)
@@ -48,4 +42,16 @@ function hasAlternatingBits(n) {
 // 正则优化
 function hasAlternatingBits(n) {
   return /^0?(10)*1?$/.test(n.toString(2))
+}
+
+// 检索
+function hasAlternatingBits(n) {
+  const str = n.toString(2)
+  return !(str.includes('11') || str.includes('00'))
+}
+
+// 位运算2 https://leetcode-cn.com/problems/binary-number-with-alternating-bits/solution/js-by-ignore_express-3/
+function hasAlternatingBits(n) {
+  const m = n ^ (n >> 1)
+  return !(m & (m + 1))
 }
