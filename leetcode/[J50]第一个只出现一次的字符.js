@@ -21,3 +21,31 @@ function firstUniqChar(s) {
 console.log(firstUniqChar('abaccdeff')) // 'b'
 console.log(firstUniqChar('')) // ' '
 console.log(firstUniqChar('cc')) // ' '
+
+// 利用数组
+function firstUniqChar(s) {
+  const res = Array(26).fill(0)
+  for (const val of s) {
+    res[val.charCodeAt() - 97]++
+  }
+  for (const val of s) {
+    if (res[val.charCodeAt() - 97] === 1) return val
+  }
+  return ' '
+}
+
+// 巧用api
+function firstUniqChar(s) {
+  for (const x of s) {
+    if (s.indexOf(x) === s.lastIndexOf(x)) return x
+  }
+  return ' '
+}
+
+// 使用正则
+function firstUniqChar(s) {
+  for (const x of new Set(s)) {
+    if (s.match(new RegExp(x, 'g')).length === 1) return x
+  }
+  return ' '
+}
