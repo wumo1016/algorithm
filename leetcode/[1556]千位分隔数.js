@@ -17,11 +17,13 @@ function thousandSeparator(n) {
   return res
 }
 
-// console.log(thousandSeparator(987)) // "987"
+console.log(thousandSeparator(987)) // "987"
 console.log(thousandSeparator(1234)) // "1.234"
-// console.log(thousandSeparator(123456789)) // "123.456.789"
-// console.log(thousandSeparator(0)) // "0"
+console.log(thousandSeparator(123456789)) // "123.456.789"
+console.log(thousandSeparator(0)) // "0"
 
+// 正则
 function thousandSeparator(n) {
-  return String(n).replace(/\d{1,3}(?=(\d{3})+$)/g, match => `${match}.`)
+  // return String(n).replace(/\d{1,3}(?=(\d{3})+$)/g, match => `${match}.`)
+  return String(n).replace(/(?!^)(?=(\d{3})+$)/g, '.')
 }
