@@ -17,3 +17,8 @@ function reverseBits(n) {
 
 console.log(reverseBits(43261596)) // 964176192
 console.log(reverseBits(4294967293)) // 3221225471
+
+function reverseBits(n) {
+  // return +`0b${n.toString(2).padStart(32, 0).split('').reverse().join('')}`
+  return parseInt(n.toString(2).padStart(32, 0).split('').reverse().join(''), 2)
+}
