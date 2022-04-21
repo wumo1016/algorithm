@@ -29,15 +29,13 @@ console.log(canConstruct('aa', 'aab')) // true
 console.log(canConstruct('fihjjjjei', 'hjibagacbhadfaefdjaeaebgi')) // false
 
 function canConstruct(ransomNote, magazine) {
-  const res = ransomNote
-    .split('')
-    .reduce((o, key) => (o[key] ? o[key]++ : (o[key] = 1), o), {})
-  let len = Object.keys(res).length
+  const res = Array(26).fill(0)
   for (const s of magazine) {
-    if (!res[s]) continue
-    res[s] && res[s]--
-    if (res[s] === 0) len--
-    if (len === 0) return true
+    res[s.charCodeAt() - 97]++
   }
-  return false
+  for (const s of ransomNote) {
+    res[s.charCodeAt() - 97]--
+    if (res[s.charCodeAt() - 97] < 0) return false
+  }
+  return true
 }
