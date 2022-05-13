@@ -24,34 +24,41 @@ console.log(findMedianSortedArrays([1, 2], [3, 4])) // 2.5
  * @return {number}
  */
 var findMedianSortedArrays = function (nums1, nums2) {
-  // 保证num1是比较短的数组
+  // 先保证nums1是比较小的数组
   if (nums1.length > nums2.length) {
     ;[nums1, nums2] = [nums2, nums1]
   }
-  const length1 = nums1.length
-  const length2 = nums2.length
-  let min = 0
-  let max = length1
-  let half = Math.floor((length1 + length2 + 1) / 2)
-  while (max >= min) {
-    const i = Math.floor((max + min) / 2)
-    const j = half - i
-    if (i > min && nums1[i - 1] > nums2[j]) {
-      max = i - 1
-    } else if (i < max && nums1[i] < nums2[j - 1]) {
-      min = i + 1
+
+  let m = nums1.length
+  let n = nums2.length
+  // 在0～m中查找
+  let left = 0
+  let right = m
+
+  // median1：前一部分的最大值
+  // median2：后一部分的最小值
+  let median1 = 0
+  let median2 = 0
+
+  while (left <= right) {
+    // 前一部分包含 nums1[0 .. i-1] 和 nums2[0 .. j-1]
+    // 后一部分包含 nums1[i .. m-1] 和 nums2[j .. n-1]
+    const i = left + Math.floor((right - left) / 2) // 取nums1的中位数
+    const j = Math.floor((m + n + 1) / 2) - i // 取nums2的中位数
+
+    const maxLeft1 = i === 0 ? -Infinity : nums1[i - 1]
+    const minRight1 = i === m ? Infinity : nums1[i]
+
+    const maxLeft2 = j === 0 ? -Infinity : nums2[j - 1]
+    const minRight2 = j === n ? Infinity : nums2[j]
+
+    if (maxLeft1 <= minRight2) {
+      median1 = Math.max(maxLeft1, maxLeft2)
+      median2 = Math.min(minRight1, minRight2)
+      left = i + 1
     } else {
-      let left, right
-      if (i === 0) left = nums2[j - 1]
-      else if (j === 0) left = nums1[i - 1]
-      else left = Math.max(nums1[i - 1], nums2[j - 1])
-
-      if (i === length1) right = nums2[j]
-      else if (j === length2) right = nums1[i]
-      else right = Math.min(nums1[i], nums2[j])
-
-      return (length1 + length2) % 2 ? left : (left + right) / 2
+      right = i - 1
     }
   }
-  return 0
+  return (m + n) % 2 == 0 ? (median1 + median2) / 2 : median1
 }
