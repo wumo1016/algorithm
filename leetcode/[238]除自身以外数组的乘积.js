@@ -13,18 +13,17 @@
 // res2每一位取后一位到最后的乘积
 function productExceptSelf(nums) {
   const len = nums.length
-  let res1 = [1],
-    res2 = Array(len).fill(1)
+  const [list1, list2] = [[1], Array(len).fill(1)]
   for (let i = 0; i < len - 1; i++) {
-    res1[i + 1] = res1[i] * nums[i]
+    list1[i + 1] = list1[i] * nums[i]
   }
   for (let i = len - 1; i > 0; i--) {
-    res2[i - 1] = res2[i] * nums[i]
+    list2[i - 1] = list2[i] * nums[i]
   }
   return nums.map((_, i) => {
-    if (i === 0) return res2[0]
-    if (i === len - 1) return res1[i]
-    return res1[i] * res2[i]
+    if (i === 0) return list2[0]
+    if (i === len - 1) return list1[i]
+    return list1[i] * list2[i]
   })
 }
 
