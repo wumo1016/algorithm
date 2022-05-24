@@ -20,12 +20,23 @@ function productExceptSelf(nums) {
   for (let i = len - 1; i > 0; i--) {
     list2[i - 1] = list2[i] * nums[i]
   }
-  return nums.map((_, i) => {
-    if (i === 0) return list2[0]
-    if (i === len - 1) return list1[i]
-    return list1[i] * list2[i]
-  })
+  return nums.map((_, i) => list1[i] * list2[i])
 }
 
 console.log(productExceptSelf([1, 2, 3, 4])) // [24,12,8,6]
 console.log(productExceptSelf([-1, 1, 0, -3, 3])) // [0,0,9,0,0]
+
+// 优化版
+// 只保存左边积 使用一个变量每次保存右边积
+function productExceptSelf(nums) {
+  const [len, res] = [nums.length, [1]]
+  for (let i = 0; i < len - 1; i++) {
+    res[i + 1] = res[i] * nums[i]
+  }
+  let right = 1
+  for (let i = len - 1; i >= 0; i--) {
+    res[i] = res[i] * right
+    right *= nums[i]
+  }
+  return res
+}
