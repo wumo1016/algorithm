@@ -49,10 +49,41 @@ function spiralOrder(matrix) {
 //   ])
 // ) // [1,2,3,6,9,8,7,4,5]
 
-console.log(
-  spiralOrder([
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12]
-  ])
-) // [1,2,3,4,8,12,11,10,9,5,6,7]
+// console.log(
+//   spiralOrder([
+//     [1, 2, 3, 4],
+//     [5, 6, 7, 8],
+//     [9, 10, 11, 12]
+//   ])
+// ) // [1,2,3,4,8,12,11,10,9,5,6,7]
+
+console.log(spiralOrder([[7], [9], [6]])) // [7,9,6]
+
+// 按层遍历
+function spiralOrder(matrix) {
+  let [res, left, right, top, bottom] = [
+    [],
+    0,
+    matrix[0].length - 1,
+    0,
+    matrix.length - 1
+  ]
+  while (left <= right && top <= bottom) {
+    for (let i = left; i <= right; i++) {
+      res.push(matrix[top][i])
+    }
+    for (let i = top + 1; i <= bottom; i++) {
+      res.push(matrix[i][right])
+    }
+    if (bottom > top && right > left) {
+      for (let i = right - 1; i >= left; i--) {
+        res.push(matrix[bottom][i])
+      }
+      for (let i = bottom - 1; i > top; i--) {
+        res.push(matrix[i][left])
+      }
+    }
+    ;[left, right, top, bottom] = [left + 1, right - 1, top + 1, bottom - 1]
+  }
+  return res
+}
