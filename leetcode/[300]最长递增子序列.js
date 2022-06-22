@@ -8,12 +8,13 @@
  * @return {number}
  */
 // 动态规划 => 返回最长递增长度
+// 每一位 寻找前面一位值比它小的 的最大递增的数 + 1 就是当前位置的最大递增数
 function lengthOfLIS(nums) {
   const [len, res] = [nums.length, [1]]
   for (let i = 1; i < len; i++) {
     res[i] = 1
     for (let j = 0; j < i; j++) {
-      if (nums[j] < nums[i]) res[i] = Math.max(res[i], res[j] + 1)
+      if (nums[j] < nums[i] && res[j] + 1 > res[i]) res[i] = res[j] + 1
     }
   }
   return Math.max(...res)
@@ -22,3 +23,12 @@ function lengthOfLIS(nums) {
 console.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18])) // 4
 console.log(lengthOfLIS([0, 1, 0, 3, 2, 3])) // 4
 console.log(lengthOfLIS([7, 7, 7, 7, 7, 7, 7])) // 1
+
+function lengthOfLIS(nums) {
+  const [len, res] = [nums.length, [1]]
+  for (let i = 1; i < len; i++) {
+    const max = Math.max(...res.filter((v, j) => nums[j] < nums[i]))
+    res[i] = (Number.isInteger(max) ? max : 0) + 1
+  }
+  return Math.max(...res)
+}
