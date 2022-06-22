@@ -8,6 +8,7 @@
  * @param {string} s
  * @return {string[][]}
  */
+// 从每一个位置往后找是回文串的子串
 function partition(s) {
   const [res, len] = [[], s.length]
   const isPalindrome = x => {
@@ -35,7 +36,9 @@ console.log(partition('a')) // [["a"]]
 // 优化 对判断过的子串进行缓存
 function partition(s) {
   const [res, len] = [[], s.length]
-  const matrix = Array(len).fill('').map(_ => Array(len).fill(0))
+  const matrix = Array(len)
+    .fill('')
+    .map(_ => Array(len).fill(0))
   const isPalindrome = (x, l, r) => {
     let [start, end] = [0, x.length - 1]
     while (end - start > 0) {
