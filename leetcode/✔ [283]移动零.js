@@ -7,9 +7,11 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
+// 遍历数组 将0与非下一个非0进行交换
 function moveZeroes(nums) {
+  debugger
   const len = nums.length
-  for (let i = 0; i < len; i++) {
+  for (let i = 0, num = 0; i < len - num; i++) {
     if (nums[i] === 0) {
       let j = i
       while (j < len) {
@@ -19,14 +21,15 @@ function moveZeroes(nums) {
         }
         j++
       }
+      num++
     }
   }
   return nums
 }
 
-// console.log(moveZeroes([0, 1, 0, 3, 12])) // [1,3,12,0,0]
+console.log(moveZeroes([0, 1, 0, 0, 3, 12])) // [1,3,12,0,0]
 // console.log(moveZeroes([0])) // [0]
-console.log(moveZeroes([0, 1])) // [0]
+// console.log(moveZeroes([0, 1])) // [0]
 
 // 利用sort
 function moveZeroes(nums) {
